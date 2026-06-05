@@ -1,0 +1,47 @@
+<div class="container">
+
+    <h1>
+        Jogo da Memória Educativo
+    </h1>
+
+    <p>
+        Escolha um jogo
+    </p>
+
+    <div class="tema">
+
+        <h2>
+            Citologia
+        </h2>
+
+        <div *ngFor="let jogo of jogosCitologia">
+
+            <button (click)="iniciarJogo(jogo.id)">
+
+                {{ jogo.nome }}
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="tema">
+
+        <h2>
+            Material Genético
+        </h2>
+
+        <div *ngFor="let jogo of jogosGenetica">
+
+            <button (click)="iniciarJogo(jogo.id)">
+
+                {{ jogo.nome }}
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

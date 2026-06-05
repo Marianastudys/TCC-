@@ -1,29 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ApiService } from './services/api.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
+export class App {
 
-  usuarios: any[] = [];
-
-  constructor(private api: ApiService) {}
-
-  ngOnInit(): void {
-
-    this.api.getUsuarios().subscribe((dados: any) => {
-
-      console.log(dados);
-
-      this.usuarios = dados;
-
-    });
-
-  }
 }

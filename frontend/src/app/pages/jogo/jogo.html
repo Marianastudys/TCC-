@@ -1,0 +1,50 @@
+<div class="container">
+
+    <h1 tabindex="0">
+
+        Jogo da Memória
+
+    </h1>
+
+    <div class="informacoes">
+
+        <p tabindex="0">
+
+            Acertos: {{ acertos }}
+
+        </p>
+
+        <p tabindex="0">
+
+            Erros: {{ erros }}
+
+        </p>
+
+    </div>
+
+    <div class="tabuleiro">
+
+        @for (carta of cartas; track $index; let i = $index) {
+
+            <button
+
+            class="carta"
+
+
+            (click)="virarCarta(carta)"
+
+            [attr.aria-label]="carta.virada ? carta.conteudo : 'Carta virada para baixo'">
+
+                {{ carta.virada ? carta.conteudo : '?' }}
+
+            </button>
+
+        }
+
+    </div>
+
+    <button (click)="sairJogo()">
+  Sair do jogo
+</button>
+
+</div>

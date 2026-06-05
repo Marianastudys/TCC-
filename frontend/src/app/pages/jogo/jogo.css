@@ -1,0 +1,89 @@
+body {
+
+    background-color: black;
+
+    color: white;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin: 0;
+
+}
+
+.container {
+
+    text-align: center;
+
+    padding: 20px;
+
+}
+
+h1 {
+
+    color: yellow;
+
+    margin-bottom: 20px;
+
+}
+
+.informacoes {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+
+    margin-bottom: 30px;
+
+    font-size: 20px;
+
+}
+
+.tabuleiro {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+
+}
+
+.carta {
+
+    width: 200px;
+
+    height: 120px;
+
+    background-color: black;
+
+    color: white;
+
+    border: 3px solid yellow;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    padding: 10px;
+
+    text-align: center;
+
+}
+
+.carta:hover {
+
+    background-color: #222;
+
+}
+
+.carta:focus {
+
+    outline: 4px solid white;
+
+}
