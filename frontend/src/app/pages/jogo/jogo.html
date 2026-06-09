@@ -1,6 +1,6 @@
 <div class="container">
 
-    <h1 tabindex="0">
+    <h1>
 
         Jogo da Memória
 
@@ -8,13 +8,13 @@
 
     <div class="informacoes">
 
-        <p tabindex="0">
+        <p>
 
             Acertos: {{ acertos }}
 
         </p>
 
-        <p tabindex="0">
+        <p>
 
             Erros: {{ erros }}
 
@@ -24,27 +24,54 @@
 
     <div class="tabuleiro">
 
-        @for (carta of cartas; track $index; let i = $index) {
+        @for (carta of cartas; track carta; let i = $index) {
 
-            <button
+        <button #cartaBotao [class]="
+'carta' +
 
-            class="carta"
+(carta.virada ? ' virada' : '') +
 
+(carta.acertada ? ' acertada' : '') +
 
-            (click)="virarCarta(carta)"
+(indicesErrados.includes(i) ? ' errada' : '')
+" (keydown)="moverFoco($event, i)" (mouseenter)="falarPosicao(i, carta)" (focus)="falarPosicao(i, carta)"
+            (click)="virarCarta(carta)" [attr.aria-label]="carta.virada ? carta.conteudo : 'Carta virada para baixo'">
 
-            [attr.aria-label]="carta.virada ? carta.conteudo : 'Carta virada para baixo'">
+            {{ carta.virada ? carta.conteudo : '?' }}
 
-                {{ carta.virada ? carta.conteudo : '?' }}
-
-            </button>
+        </button>
 
         }
 
     </div>
 
-    <button (click)="sairJogo()">
-  Sair do jogo
-</button>
+    @if (jogoFinalizado) {
+
+    <div class="fim-jogo">
+
+        <h2>
+
+            Você venceu!
+
+        </h2>
+
+        <div class="botoes-finais">
+
+            <button class="botao-reiniciar" (click)="reiniciarJogo()">
+
+                Jogar novamente
+
+            </button>
+
+            <button class="botao-sair" (click)="sairJogo()">
+
+                Sair
+
+            </button>
+
+        </div>
+
+    </div>
+    }
 
 </div>

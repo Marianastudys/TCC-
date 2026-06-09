@@ -1,55 +1,47 @@
-body {
-
-    background-color: black;
-
-    color: white;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-}
-
 .container {
-
     text-align: center;
-
     padding: 20px;
-
 }
 
 h1 {
-
     color: yellow;
-
 }
 
 .tema {
-
     border: 2px solid yellow;
-
     margin: 20px auto;
-
     padding: 20px;
-
-    width: 300px;
-
+    width: 90%;
+    max-width: 350px;
 }
 
 button {
-
     display: block;
-
-    width: 200px;
-
+    width: 100%;
     margin: 10px auto;
-
     padding: 10px;
-
     background-color: black;
-
     color: white;
-
     border: 2px solid yellow;
-
     cursor: pointer;
+}
 
+@media (max-width: 480px) {
+
+    .container {
+        padding: 10px;
+    }
+
+    .tema {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
 }

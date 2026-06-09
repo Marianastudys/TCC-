@@ -4,15 +4,22 @@ import {
 
   OnInit,
 
-  ChangeDetectorRef
+  ChangeDetectorRef,
+
+  ViewChildren,
+
+  QueryList,
+
+  ElementRef
 
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-jogo',
@@ -25,6 +32,7 @@ import { HttpClient } from '@angular/common/http';
 export class Jogo implements OnInit {
 
   cartas: any[] = [];
+  indicesErrados: number[] = [];
 
   primeiraCarta: any = null;
 
@@ -36,17 +44,27 @@ export class Jogo implements OnInit {
 
   bloquearJogo = false;
 
+  indiceAtual = 0;
+
+  jogoFinalizado = false;
+
+  somCarta = new Audio('sounds/flip.mp3');
+
+  @ViewChildren('cartaBotao')
+
+  cartasBotoes!: QueryList<ElementRef>;
+
   constructor(
 
     private route: ActivatedRoute,
 
-    private router: Router,
-
     private http: HttpClient,
 
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
 
-  ) {}
+    private router: Router
+
+  ) { }
 
   ngOnInit() {
 
@@ -65,6 +83,8 @@ export class Jogo implements OnInit {
       this.segundaCarta = null;
 
       this.bloquearJogo = false;
+
+      this.jogoFinalizado = false;
 
       this.cartas = [];
 
@@ -88,7 +108,9 @@ export class Jogo implements OnInit {
 
           conteudo: carta.conteudo,
 
-          virada: false
+          virada: false,
+
+          acertada: false
 
         }));
 
@@ -112,7 +134,9 @@ export class Jogo implements OnInit {
 
       carta.virada ||
 
-      this.bloquearJogo
+      this.bloquearJogo ||
+
+      this.jogoFinalizado
 
     ) {
 
@@ -122,9 +146,11 @@ export class Jogo implements OnInit {
 
     carta.virada = true;
 
-    this.falarTexto(carta.conteudo);
+    this.somCarta.currentTime = 0;
 
-    const tempoLeitura = carta.conteudo.length * 120;
+    this.somCarta.play();
+
+    this.falarTexto(carta.conteudo);
 
     if (!this.primeiraCarta) {
 
@@ -138,6 +164,10 @@ export class Jogo implements OnInit {
 
       this.bloquearJogo = true;
 
+      const tempoLeitura =
+
+        carta.conteudo.length * 90;
+
       setTimeout(() => {
 
         this.verificarPar();
@@ -150,15 +180,43 @@ export class Jogo implements OnInit {
 
   verificarPar() {
 
-    if (this.primeiraCarta.id === this.segundaCarta.id) {
+    if (
+
+      this.primeiraCarta.id ===
+
+      this.segundaCarta.id
+
+    ) {
 
       this.acertos++;
 
-      setTimeout(() => {
+      this.primeiraCarta.acertada = true;
 
-        this.falarTexto('Par correto');
+      this.segundaCarta.acertada = true;
 
-      }, 300);
+      this.falarTexto('Par correto');
+
+      if (
+
+        this.acertos ===
+
+        this.cartas.length / 2
+
+      ) {
+
+        setTimeout(() => {
+
+          this.jogoFinalizado = true;
+
+          this.falarTexto(
+
+            'Parabéns! Você concluiu o jogo.'
+
+          );
+
+        }, 2000);
+
+      }
 
       this.resetarJogada();
 
@@ -168,13 +226,15 @@ export class Jogo implements OnInit {
 
       this.erros++;
 
-      this.bloquearJogo = true;
+      this.indicesErrados = [
 
-      setTimeout(() => {
+        this.cartas.indexOf(this.primeiraCarta),
 
-        this.falarTexto('Par incorreto');
+        this.cartas.indexOf(this.segundaCarta)
 
-      }, 300);
+      ];
+
+      this.falarTexto('Par incorreto');
 
       setTimeout(() => {
 
@@ -182,9 +242,11 @@ export class Jogo implements OnInit {
 
         this.segundaCarta.virada = false;
 
+        this.indicesErrados = [];
+
         this.resetarJogada();
 
-      }, 1500);
+      }, 1000);
 
     }
 
@@ -197,6 +259,39 @@ export class Jogo implements OnInit {
     this.segundaCarta = null;
 
     this.bloquearJogo = false;
+
+  }
+
+
+
+  reiniciarJogo() {
+
+    this.jogoFinalizado = false;
+
+    this.acertos = 0;
+
+    this.erros = 0;
+
+    this.primeiraCarta = null;
+
+    this.segundaCarta = null;
+
+    this.bloquearJogo = false;
+
+    this.cartas.forEach(carta => {
+
+      carta.virada = false;
+
+    });
+
+    this.embaralharCartas();
+
+  }
+  sairJogo() {
+
+    speechSynthesis.cancel();
+
+    this.router.navigate(['/home']);
 
   }
 
@@ -215,13 +310,71 @@ export class Jogo implements OnInit {
     speechSynthesis.speak(audio);
 
   }
-sairJogo() {
-  const confirmar = confirm('Tem certeza que deseja sair do jogo?');
 
-  if (confirmar) {
-    this.router.navigate(['/home']);
+  falarPosicao(indice: number, carta: any) {
+
+    return;
+
   }
-}
 
-  
+  moverFoco(event: KeyboardEvent, indice: number) {
+
+    let novoIndice = indice;
+
+    const total = this.cartas.length;
+
+    if (event.key === 'ArrowRight') {
+
+      novoIndice++;
+
+    }
+
+    else if (event.key === 'ArrowLeft') {
+
+      novoIndice--;
+
+    }
+
+    else if (event.key === 'ArrowDown') {
+
+      novoIndice += 2;
+
+    }
+
+    else if (event.key === 'ArrowUp') {
+
+      novoIndice -= 2;
+
+    }
+
+    else {
+
+      return;
+
+    }
+
+    if (
+
+      novoIndice < 0 ||
+
+      novoIndice >= total
+
+    ) {
+
+      return;
+
+    }
+
+    const elemento =
+
+      this.cartasBotoes.toArray()[novoIndice];
+
+    if (elemento) {
+
+      elemento.nativeElement.focus();
+
+    }
+
+  }
+
 }
