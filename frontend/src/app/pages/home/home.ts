@@ -28,6 +28,8 @@ export class Home implements OnInit {
 
   jogosGenetica: any[] = [];
 
+  jogosEcologia: any[] = [];
+
   constructor(
 
     private router: Router,
@@ -70,7 +72,21 @@ export class Home implements OnInit {
 
       });
 
-  }
+
+  this.http.get<any[]>('http://localhost:3000/jogos/3')
+
+  .subscribe(resultado => {
+
+    this.jogosEcologia = resultado;
+
+    console.log('Ecologia:', resultado);
+
+    this.cdr.detectChanges();
+
+  });
+
+}
+
 
   iniciarJogo(idJogo: number) {
 

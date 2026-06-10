@@ -11,7 +11,7 @@
     <div class="tema">
 
         <h2>
-            Citologia
+            Biologia Celular
         </h2>
 
         <div *ngFor="let jogo of jogosCitologia">
@@ -29,7 +29,7 @@
     <div class="tema">
 
         <h2>
-            Material Genético
+            Genética
         </h2>
 
         <div *ngFor="let jogo of jogosGenetica">
@@ -44,4 +44,17 @@
 
     </div>
 
+    <div class="tema">
+
+        <h2>Ecologia</h2>
+    
+        <div *ngFor="let jogo of jogosEcologia">
+    
+            <button (click)="iniciarJogo(jogo.id)">
+                {{ jogo.nome }}
+            </button>
+    
+        </div>
+    
+    </div>
 </div>
