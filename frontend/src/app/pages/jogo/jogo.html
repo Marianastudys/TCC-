@@ -15,8 +15,8 @@
         </p>
 
         <p>
+            Tentativas: {{ erros + acertos }}
 
-            Erros: {{ erros }}
 
         </p>
 
@@ -34,7 +34,7 @@
 (carta.acertada ? ' acertada' : '') +
 
 (indicesErrados.includes(i) ? ' errada' : '')
-" (keydown)="moverFoco($event, i)" (mouseenter)="falarPosicao(i, carta)" (focus)="falarPosicao(i, carta)"
+" (keydown)="moverFoco($event, i)" 
             (click)="virarCarta(carta)" [attr.aria-label]="carta.virada ? carta.conteudo : 'Carta virada para baixo'">
 
             {{ carta.virada ? carta.conteudo : '?' }}

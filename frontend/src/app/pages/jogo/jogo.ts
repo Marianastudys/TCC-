@@ -49,6 +49,9 @@ export class Jogo implements OnInit {
   jogoFinalizado = false;
 
   somCarta = new Audio('sounds/flip.mp3');
+  somAcerto = new Audio('sounds/correct.mp3');
+
+  somErro = new Audio('sounds/error.mp3');
 
   @ViewChildren('cartaBotao')
 
@@ -189,12 +192,19 @@ export class Jogo implements OnInit {
     ) {
 
       this.acertos++;
+      this.somAcerto.currentTime = 0;
+
+      this.somAcerto.play();
 
       this.primeiraCarta.acertada = true;
 
       this.segundaCarta.acertada = true;
 
-      this.falarTexto('Par correto');
+      this.cdr.detectChanges();
+
+      this.somAcerto.onended = () => {
+  this.falarTexto('Par correto');
+};
 
       if (
 
@@ -203,18 +213,13 @@ export class Jogo implements OnInit {
         this.cartas.length / 2
 
       ) {
+        this.jogoFinalizado = true;
 
-        setTimeout(() => {
+        this.cdr.detectChanges();
 
-          this.jogoFinalizado = true;
-
-          this.falarTexto(
-
-            'Parabéns! Você concluiu o jogo.'
-
-          );
-
-        }, 2000);
+        this.falarTexto(
+  'Parabéns! Você concluiu o jogo.'
+);
 
       }
 
@@ -225,6 +230,9 @@ export class Jogo implements OnInit {
     else {
 
       this.erros++;
+      this.somErro.currentTime = 0;
+
+      this.somErro.play();
 
       this.indicesErrados = [
 
@@ -234,7 +242,11 @@ export class Jogo implements OnInit {
 
       ];
 
-      this.falarTexto('Par incorreto');
+      this.cdr.detectChanges();
+
+      this.somErro.onended = () => {
+  this.falarTexto('Par Incorreto');
+};
 
       setTimeout(() => {
 
@@ -311,70 +323,76 @@ export class Jogo implements OnInit {
 
   }
 
-  falarPosicao(indice: number, carta: any) {
+moverFoco(event: KeyboardEvent, indice: number) {
+
+  let novoIndice = indice;
+
+  const total = this.cartas.length;
+
+  const colunas = window.innerWidth <= 480
+
+    ? 1
+
+    : window.innerWidth <= 768
+
+    ? 2
+
+    : 4;
+
+  if (event.key === 'ArrowRight') {
+
+    novoIndice++;
+
+  }
+
+  else if (event.key === 'ArrowLeft') {
+
+    novoIndice--;
+
+  }
+
+  else if (event.key === 'ArrowDown') {
+
+    novoIndice += colunas;
+
+  }
+
+  else if (event.key === 'ArrowUp') {
+
+    novoIndice -= colunas;
+
+  }
+
+  else {
 
     return;
 
   }
 
-  moverFoco(event: KeyboardEvent, indice: number) {
+  event.preventDefault();
 
-    let novoIndice = indice;
+  if (
 
-    const total = this.cartas.length;
+    novoIndice < 0 ||
 
-    if (event.key === 'ArrowRight') {
+    novoIndice >= total
 
-      novoIndice++;
+  ) {
 
-    }
-
-    else if (event.key === 'ArrowLeft') {
-
-      novoIndice--;
-
-    }
-
-    else if (event.key === 'ArrowDown') {
-
-      novoIndice += 2;
-
-    }
-
-    else if (event.key === 'ArrowUp') {
-
-      novoIndice -= 2;
-
-    }
-
-    else {
-
-      return;
-
-    }
-
-    if (
-
-      novoIndice < 0 ||
-
-      novoIndice >= total
-
-    ) {
-
-      return;
-
-    }
-
-    const elemento =
-
-      this.cartasBotoes.toArray()[novoIndice];
-
-    if (elemento) {
-
-      elemento.nativeElement.focus();
-
-    }
+    return;
 
   }
+
+  const elemento =
+
+    this.cartasBotoes.toArray()[novoIndice];
+
+  if (elemento) {
+
+    elemento.nativeElement.focus();
+
+  }
+
+}
 
 }
