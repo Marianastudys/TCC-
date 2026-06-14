@@ -217,9 +217,15 @@ export class Jogo implements OnInit {
 
         this.cdr.detectChanges();
 
-        this.falarTexto(
-  'Parabéns! Você concluiu o jogo.'
-);
+        this.somAcerto.onended = () => {
+
+    this.falarTexto(
+
+      'Parabéns! Você concluiu o jogo.'
+
+    );
+
+  };
 
       }
 
