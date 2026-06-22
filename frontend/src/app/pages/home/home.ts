@@ -94,4 +94,14 @@ export class Home implements OnInit {
 
   }
 
+  alternarTema() {
+  const html = document.documentElement;
+  const temaAtual = html.getAttribute('data-bs-theme');
+
+  html.setAttribute(
+    'data-bs-theme',
+    temaAtual === 'dark' ? 'light' : 'dark'
+  );
+}
+
 }

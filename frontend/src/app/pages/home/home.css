@@ -7,6 +7,56 @@ h1 {
     color: yellow;
 }
 
+.titulo-celular{
+    color: rgb(255, 193, 7);
+}
+
+.btnTop-celular:hover {
+  background:  rgb(255, 193, 7);
+  border: 2px solid rgb(255, 193, 7);
+  transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.titulo-genetica {
+    color: rgb(7, 57, 131);
+}
+
+.btnTop-genetica:hover {
+  background:  rgb(7, 57, 131);
+  border: 2px solid rgb(7, 57, 131);
+  transition: background-color 0.3s, border-color 0.3s; 
+}
+
+:host-context([data-bs-theme="dark"]) .titulo-genetica {
+    color: rgb(61, 139, 253);
+    transition: color 0.2s;
+}
+
+:host-context([data-bs-theme="dark"]) .btnTop-genetica:hover {
+    background: rgb(61, 139, 253);
+    transition: background-color 0.2s;
+}
+
+.titulo-ecologia {
+    color: rgb(0, 128, 0);
+}
+
+.btnTop-ecologia:hover {
+  background:  rgb(0, 128, 0);
+  border: 2px solid rgb(0, 128, 0);
+  transition: background-color 0.3s, border-color 0.3s; 
+}
+
+:host-context([data-bs-theme="dark"]) .titulo-ecologia {
+    color: rgb(19, 223, 19);
+    transition: color 0.2s;
+}
+
+:host-context([data-bs-theme="dark"]) .btnTop-ecologia:hover {
+    background: rgb(19, 223, 19);
+    transition: background-color 0.2s;
+}
+
 .tema {
     border: 2px solid yellow;
     margin: 20px auto;
@@ -23,6 +73,7 @@ button {
     background-color: black;
     color: white;
     border: 2px solid yellow;
+    border-radius: 5px;
     cursor: pointer;
 }
 

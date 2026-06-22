@@ -64,7 +64,7 @@ h1 {
 
     color: white;
 
-    border: 3px solid yellow;
+    border: 3px solid rgb(255, 193, 7);
 
     border-radius: 10px;
 
@@ -187,7 +187,7 @@ h1 {
 
     color: white;
 
-    border: 3px solid yellow;
+    border: 3px solid rgb(255, 193, 7);
 
     padding: 12px 24px;
 
@@ -200,9 +200,9 @@ h1 {
 }
 
 .botao-reiniciar:hover {
-
-    background-color: #222;
-
+    background:  rgb(0, 128, 0);
+    border: 2px solid rgb(5, 204, 5);
+    transition: background-color 0.3s, border-color 0.3s; 
 }
 
 .botao-reiniciar:focus {
@@ -229,7 +229,7 @@ h1 {
 
     color: white;
 
-    border: 3px solid yellow;
+    border: 3px solid rgb(255, 193, 7);
 
     padding: 12px 24px;
 
@@ -242,9 +242,9 @@ h1 {
 }
 
 .botao-sair:hover {
-
-    background-color: #222;
-
+    background:  rgb(185, 9, 9);
+    border: 2px solid rgb(236, 16, 16);
+    transition: background-color 0.3s, border-color 0.3s; 
 }
 
 .botao-sair:focus {
