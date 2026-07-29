@@ -10,7 +10,11 @@ import {
 
   QueryList,
 
-  ElementRef
+  ElementRef,
+
+  ViewChild,
+
+  HostListener
 
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -119,6 +123,14 @@ export class Jogo implements OnInit {
 
         this.cdr.detectChanges();
 
+  setTimeout(() => {
+  const primeiraCarta = this.cartasBotoes.first;
+
+  if (primeiraCarta) {
+    primeiraCarta.nativeElement.focus();
+  }
+});
+
       });
 
   }
@@ -212,6 +224,10 @@ export class Jogo implements OnInit {
 
       ) {
         this.jogoFinalizado = true;
+  
+  setTimeout(() => {
+  this.botaoReiniciar?.nativeElement.focus();
+});
 
         this.cdr.detectChanges();
 
@@ -407,6 +423,55 @@ alternarTema() {
     'data-bs-theme',
     temaAtual === 'dark' ? 'light' : 'dark'
   );
+}
+
+@ViewChild('botaoReiniciar')
+botaoReiniciar!: ElementRef<HTMLButtonElement>;
+
+@ViewChild('botaoSair')
+botaoSair!: ElementRef<HTMLButtonElement>;
+
+@HostListener('document:keydown', ['$event'])
+navegarFim(event: KeyboardEvent) {
+
+  if (!this.jogoFinalizado) {
+    return;
+  }
+
+  const ativo = document.activeElement;
+
+  if (
+    event.key === 'ArrowRight' &&
+    ativo === this.botaoReiniciar.nativeElement
+  ) {
+
+    event.preventDefault();
+    this.botaoSair.nativeElement.focus();
+
+  }
+
+  else if (
+    event.key === 'ArrowLeft' &&
+    ativo === this.botaoSair.nativeElement
+  ) {
+
+    event.preventDefault();
+    this.botaoReiniciar.nativeElement.focus();
+
+  }
+
+  else if (
+    event.key === 'ArrowUp'
+  ) {
+
+    event.preventDefault();
+
+    const ultimaCarta =
+      this.cartasBotoes.last;
+
+    ultimaCarta.nativeElement.focus();
+  }
+
 }
 
 }
