@@ -1,10 +1,12 @@
 import {
 
   Component,
-
   OnInit,
-
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+  HostListener
 
 } from '@angular/core';
 
@@ -86,8 +88,9 @@ export class Home implements OnInit {
 
   });
 
-}
+  setTimeout(() => this.focarBotao(), 100);
 
+}
 
   iniciarJogo(idJogo: number) {
 
@@ -103,6 +106,52 @@ export class Home implements OnInit {
     'data-bs-theme',
     temaAtual === 'dark' ? 'light' : 'dark'
   );
+}
+
+@ViewChildren('botaoTema')
+botoes!: QueryList<ElementRef<HTMLButtonElement>>;
+
+indiceSelecionado = 0;
+
+focarBotao() {
+  const lista = this.botoes.toArray();
+
+  if (lista[this.indiceSelecionado]) {
+    lista[this.indiceSelecionado].nativeElement.focus();
+  }
+}
+
+@HostListener('document:keydown', ['$event'])
+navegacao(event: KeyboardEvent) {
+
+  const lista = this.botoes.toArray();
+
+  switch (event.key) {
+
+    case 'ArrowRight':
+      event.preventDefault();
+
+      this.indiceSelecionado =
+        (this.indiceSelecionado + 1) % lista.length;
+
+      this.focarBotao();
+      break;
+
+    case 'ArrowLeft':
+      event.preventDefault();
+
+      this.indiceSelecionado =
+        (this.indiceSelecionado - 1 + lista.length) % lista.length;
+
+      this.focarBotao();
+      break;
+
+    case 'Enter':
+      event.preventDefault();
+
+      lista[this.indiceSelecionado].nativeElement.click();
+      break;
+  }
 }
 
 }

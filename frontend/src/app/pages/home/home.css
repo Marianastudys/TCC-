@@ -11,9 +11,10 @@ h1 {
     color: rgb(255, 193, 7);
 }
 
-.btnTop-celular:hover {
+.btnTop-celular:hover, .btnTop-celular:focus-visible {
   background:  rgb(255, 193, 7);
   border: 2px solid rgb(255, 193, 7);
+  outline: none;
   transition: background-color 0.3s, border-color 0.3s; 
 }
 
@@ -21,9 +22,10 @@ h1 {
     color: rgb(7, 57, 131);
 }
 
-.btnTop-genetica:hover {
+.btnTop-genetica:hover, .btnTop-genetica:focus-visible {
   background:  rgb(7, 57, 131);
   border: 2px solid rgb(7, 57, 131);
+  outline: none;
   transition: background-color 0.3s, border-color 0.3s; 
 }
 
@@ -32,7 +34,8 @@ h1 {
     transition: color 0.2s;
 }
 
-:host-context([data-bs-theme="dark"]) .btnTop-genetica:hover {
+:host-context([data-bs-theme="dark"]) .btnTop-genetica:hover,
+:host-context([data-bs-theme="dark"]) .btnTop-genetica:focus-visible {
     background: rgb(61, 139, 253);
     transition: background-color 0.2s;
 }
@@ -41,9 +44,10 @@ h1 {
     color: rgb(0, 128, 0);
 }
 
-.btnTop-ecologia:hover {
+.btnTop-ecologia:hover, .btnTop-ecologia:focus-visible {
   background:  rgb(0, 128, 0);
   border: 2px solid rgb(0, 128, 0);
+  outline: none;
   transition: background-color 0.3s, border-color 0.3s; 
 }
 
@@ -52,7 +56,8 @@ h1 {
     transition: color 0.2s;
 }
 
-:host-context([data-bs-theme="dark"]) .btnTop-ecologia:hover {
+:host-context([data-bs-theme="dark"]) .btnTop-ecologia:hover,
+:host-context([data-bs-theme="dark"]) .btnTop-ecologia:focus-visible {
     background: rgb(19, 223, 19);
     transition: background-color 0.2s;
 }
@@ -95,4 +100,5 @@ button {
     h2 {
         font-size: 1.2rem;
     }
+
 }
