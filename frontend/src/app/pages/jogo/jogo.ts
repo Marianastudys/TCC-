@@ -13,18 +13,16 @@ import {
   ElementRef
 
 } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
 import { ActivatedRoute } from '@angular/router';
-
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-jogo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './jogo.html',
   styleUrls: ['./jogo.css']
 })

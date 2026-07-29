@@ -1,0 +1,17 @@
+.acessibilidade {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.acessibilidade span {
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bold;
+    user-select: none;
+    transition: 0.2s;
+}
+
+.acessibilidade span:hover {
+    transform: scale(1.15);
+}

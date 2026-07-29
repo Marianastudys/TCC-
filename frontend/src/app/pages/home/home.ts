@@ -13,11 +13,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
