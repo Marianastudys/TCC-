@@ -44,7 +44,7 @@ export class Login {
 
       error: () => {
 
-        this.mensagem = 'Nome ou senha inválidos.';
+        this.mensagem = 'Nome ou senha inválidos';
 
       }
 

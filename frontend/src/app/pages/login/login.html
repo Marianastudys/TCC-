@@ -66,9 +66,17 @@
 
         </form>
 
-        <p class="mensagem-erro" *ngIf="mensagem">
-            {{ mensagem }}
-        </p>
+       @if (mensagem) {
+
+<div
+    class="alert alert-danger mt-3"
+    role="alert">
+
+    <strong>{{ mensagem }}</strong>
+
+</div>
+
+}
 
         <div class="cadastro">
 
