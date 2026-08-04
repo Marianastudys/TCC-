@@ -46,7 +46,7 @@
 
 }
 
-.botao-entrar {
+.botao-entrar, .botao-sair{
 
     background-color: #ffd700;
 
@@ -145,5 +145,36 @@
         flex-wrap: wrap;
 
     }
+
+}
+    .usuario-logado{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-right:20px;
+
+    padding:8px 14px;
+
+    border:2px solid #FFD54F;
+
+    border-radius:25px;
+
+    background:#2d2d2d;
+
+    color:white;
+
+    font-weight:bold;
+
+}
+
+.usuario-logado i{
+
+    font-size:1.4rem;
+
+    color:#FFD54F;
 
 }

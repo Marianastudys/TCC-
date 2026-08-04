@@ -13,18 +13,35 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   tamanhoFonte = 100;
+  usuarioLogado = false;
+  nomeUsuario = '';
 
   constructor(private router: Router) {}
 
   ngOnInit() {
     const fonteSalva = localStorage.getItem('tamanhoFonte');
 
+    this.usuarioLogado =
+    localStorage.getItem('usuarioLogado') !== null;
+
+   const usuarioSalvo = localStorage.getItem('usuarioLogado');
+
+  if (usuarioSalvo) {
+
+    const usuario = JSON.parse(usuarioSalvo);
+
+    console.log(usuario);
+
+    this.nomeUsuario = usuario.nome;
+
+  }
     if (fonteSalva) {
       this.tamanhoFonte = Number(fonteSalva);
     }
 
     this.atualizarFonte();
   }
+  
 
   atualizarFonte() {
     document.documentElement.style.fontSize = this.tamanhoFonte + '%';
@@ -61,6 +78,16 @@ export class NavbarComponent implements OnInit {
   irLogin() {
     this.router.navigate(['/login']);
   }
+
+  logout() {
+
+  localStorage.removeItem('usuarioLogado');
+
+  this.router.navigate(['/login']);
+
+}
+
+
 
 @HostListener('document:keydown', ['$event'])
 atalhos(event: KeyboardEvent) {

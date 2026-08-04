@@ -44,13 +44,41 @@
 
   <div class="d-flex align-items-center gap-3">
 
-    <button
-      class="botao-entrar"
-      (click)="irLogin()">
+    @if (!usuarioLogado) {
 
-      Entrar
+<button
+    class="botao-entrar"
+    (click)="irLogin()">
 
-    </button>
+    Entrar
+
+</button>
+
+}
+
+@if(nomeUsuario){
+
+<div class="usuario-logado">
+
+    <i class="bi bi-person-circle"></i>
+
+    <span>Olá, {{ nomeUsuario }}</span>
+
+</div>
+
+}
+
+    @if (usuarioLogado) {
+
+<button
+    class="botao-sair"
+    (click)="logout()">
+
+    Sair
+
+</button>
+
+}
 
     <div class="acessibilidade">
 

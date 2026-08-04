@@ -36,11 +36,16 @@ export class Login {
 
     }).subscribe({
 
-      next: (usuario) => {
+ next: (usuario) => {
 
-        this.router.navigate(['/home']);
+  localStorage.setItem(
+    'usuarioLogado',
+    JSON.stringify(usuario)
+  );
 
-      },
+  this.router.navigate(['/home']);
+
+},
 
       error: () => {
 
