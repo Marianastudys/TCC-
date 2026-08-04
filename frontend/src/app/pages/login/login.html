@@ -1,0 +1,87 @@
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h1>Jogo da Memória</h1>
+
+        <p class="subtitulo">
+            Faça login para continuar
+        </p>
+
+        <form (ngSubmit)="login()">
+
+            <div class="campo">
+
+                <label for="usuario">
+                    Usuário
+                </label>
+
+                <input
+                    id="usuario"
+                    type="text"
+                    name="nome"
+                    [(ngModel)]="nome"
+                    placeholder="Digite seu usuário"
+                    required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+<input
+    id="senha"
+    [type]="mostrarSenha ? 'text' : 'password'"
+    name="senha"
+    [(ngModel)]="senha"
+    placeholder="Digite sua senha"
+    required>
+
+            </div>
+
+            <div class="mostrar-senha">
+
+                <input
+    id="mostrarSenha"
+    type="checkbox"
+    [(ngModel)]="mostrarSenha"
+    name="mostrarSenha">
+
+                <label for="mostrarSenha">
+                    Mostrar senha
+                </label>
+
+            </div>
+
+            <button
+                type="submit"
+                class="botao-login">
+
+                Entrar
+
+            </button>
+
+        </form>
+
+        <p class="mensagem-erro" *ngIf="mensagem">
+            {{ mensagem }}
+        </p>
+
+        <div class="cadastro">
+
+            <p>
+                Ainda não possui uma conta?
+            </p>
+
+            <a href="#">
+                Criar conta
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,17 +1,149 @@
+.navbar-custom {
+
+    background-color: #000;
+
+    border-bottom: 3px solid #ffd700;
+
+    padding: 0.8rem 1rem;
+
+}
+
+.navbar-brand {
+
+    color: #ffd700 !important;
+
+    font-size: 1.4rem;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+}
+
+.navbar-brand:hover,
+
+.navbar-brand:focus {
+
+    color: #fff176 !important;
+
+}
+
+.nav-link {
+
+    color: #ffffff !important;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+}
+
+.nav-link:hover,
+
+.nav-link:focus {
+
+    color: #ffd700 !important;
+
+}
+
+.botao-entrar {
+
+    background-color: #ffd700;
+
+    color: #000;
+
+    border: 2px solid #ffd700;
+
+    border-radius: 8px;
+
+    padding: 0.45rem 1rem;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+
+}
+
+.botao-entrar:hover,
+
+.botao-entrar:focus {
+
+    background-color: #ffe44d;
+
+    border-color: #ffe44d;
+
+    transform: scale(1.05);
+
+}
+
 .acessibilidade {
+
     display: flex;
+
     align-items: center;
-    gap: 18px;
+
+    gap: 16px;
+
+    color: white;
+
 }
 
 .acessibilidade span {
+
     cursor: pointer;
-    font-size: 1.3rem;
+
+    font-size: 1.1rem;
+
     font-weight: bold;
+
     user-select: none;
+
+    padding: 4px 6px;
+
+    border-radius: 6px;
+
     transition: 0.2s;
+
 }
 
-.acessibilidade span:hover {
-    transform: scale(1.15);
+.acessibilidade span:hover,
+
+.acessibilidade span:focus {
+
+    background-color: #222;
+
+    outline: 2px solid #ffd700;
+
+}
+
+.navbar-toggler {
+
+    border-color: #ffd700;
+
+}
+
+.navbar-toggler:focus {
+
+    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.4);
+
+}
+
+.navbar-toggler-icon {
+
+    filter: invert(1);
+
+}
+
+@media (max-width: 991px) {
+
+    .d-flex {
+
+        margin-top: 1rem;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+    }
+
 }

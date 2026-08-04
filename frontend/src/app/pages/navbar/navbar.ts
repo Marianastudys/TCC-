@@ -54,6 +54,13 @@ export class NavbarComponent implements OnInit {
       temaAtual === 'dark' ? 'light' : 'dark'
     );
   }
+    irHome() {
+    this.router.navigate(['/home']);
+  }
+
+  irLogin() {
+    this.router.navigate(['/login']);
+  }
 
 @HostListener('document:keydown', ['$event'])
 atalhos(event: KeyboardEvent) {

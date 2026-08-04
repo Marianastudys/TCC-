@@ -4,6 +4,8 @@ import { Home } from './pages/home/home';
 
 import { Jogo } from './pages/jogo/jogo';
 
+import { Login } from './pages/login/login';
+
 export const routes: Routes = [
 
   {
@@ -15,6 +17,11 @@ export const routes: Routes = [
   {
     path: 'home',
     component: Home
+  },
+
+  {
+    path: 'login',
+    component: Login
   },
 
   {
