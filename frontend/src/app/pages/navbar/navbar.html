@@ -47,6 +47,7 @@
     @if (!usuarioLogado) {
 
 <button
+    *ngIf="mostrarBotaoEntrar"
     class="botao-entrar"
     (click)="irLogin()">
 

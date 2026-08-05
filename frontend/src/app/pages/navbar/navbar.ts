@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.css']
 })
 export class NavbarComponent implements OnInit {
+  @Input() mostrarBotaoEntrar: boolean = true;
 
   tamanhoFonte = 100;
   usuarioLogado = false;

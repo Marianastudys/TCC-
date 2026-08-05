@@ -6,13 +6,7 @@
     display: block;
     min-height: 100vh;
     background: #000;
-}
-
-body {
-    margin: 0;
-    background: #000;
     color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ============================
@@ -64,9 +58,7 @@ body {
 
     text-align: center;
 
-    color: #f2c94c;
-
-    font-size: 2.2rem;
+    font-size: 2.8rem;
 
     margin-bottom: 10px;
 
@@ -204,7 +196,7 @@ body {
 
     transform: translateY(-2px);
 
-    background: #ffd54f;
+    background: rgb(255, 193, 7);
 
 }
 
@@ -237,8 +229,6 @@ body {
 }
 
 .cadastro a {
-
-    color: #f2c94c;
 
     text-decoration: none;
 
@@ -294,4 +284,48 @@ body {
 
     }
 
+}
+
+/* ============================
+   TEMA CLARO
+============================ */
+
+:host-context([data-bs-theme="light"]) {
+    background: #f8f9fa;
+}
+
+:host-context([data-bs-theme="light"]) .login-card {
+    background: #ffffff;
+    border: 2px solid #f2c94c;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .12);
+}
+
+:host-context([data-bs-theme="light"]) .login-card h1 {
+    color: #212529;
+}
+
+:host-context([data-bs-theme="light"]) .subtitulo {
+    color: #181a1b;
+}
+
+:host-context([data-bs-theme="light"]) .campo label {
+    color: #212529;
+}
+
+:host-context([data-bs-theme="light"]) .campo input {
+    background: #ffffff;
+    color: #212529;
+    border: 2px solid #ced4da;
+}
+
+:host-context([data-bs-theme="light"]) .campo input::placeholder {
+    color: #54595c;
+}
+
+:host-context([data-bs-theme="light"]) .mostrar-senha {
+    color: #212529;
+}
+
+:host-context([data-bs-theme="light"]) .cadastro p {
+    color: #181a1b;
 }
