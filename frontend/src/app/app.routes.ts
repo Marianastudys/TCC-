@@ -6,6 +6,8 @@ import { Jogo } from './pages/jogo/jogo';
 
 import { Login } from './pages/login/login';
 
+import { Cadastro } from './pages/cadastro/cadastro';
+
 export const routes: Routes = [
 
   {
@@ -22,6 +24,11 @@ export const routes: Routes = [
   {
     path: 'login',
     component: Login
+  },
+
+  {
+    path: 'cadastro',
+    component: Cadastro
   },
 
   {

@@ -1,0 +1,135 @@
+<app-navbar [mostrarBotaoEntrar]="false"></app-navbar>
+
+<div class="cadastro-container">
+
+    <div class="cadastro-card">
+
+        <h1 class="fw-bold text-warning">
+            Jogo da Memória
+        </h1>
+
+        <p class="subtitulo">
+            Crie sua conta para começar a jogar
+        </p>
+
+        <form (ngSubmit)="cadastrar()">
+
+            <div class="campo">
+
+                <label for="nome">
+                    Usuário
+                </label>
+
+                <input
+                    id="nome"
+                    type="text"
+                    name="nome"
+                    [(ngModel)]="nome"
+                    placeholder="Digite seu usuário"
+                    required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    [(ngModel)]="email"
+                    placeholder="Digite seu e-mail"
+                    required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <input
+                    id="senha"
+                    [type]="mostrarSenha ? 'text' : 'password'"
+                    name="senha"
+                    [(ngModel)]="senha"
+                    placeholder="Digite sua senha"
+                    required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="confirmarSenha">
+                    Confirmar senha
+                </label>
+
+                <input
+                    id="confirmarSenha"
+                    [type]="mostrarSenha ? 'text' : 'password'"
+                    name="confirmarSenha"
+                    [(ngModel)]="confirmarSenha"
+                    placeholder="Digite sua senha novamente"
+                    required>
+
+            </div>
+
+            <div class="mostrar-senha">
+
+                <input
+                    id="mostrarSenha"
+                    type="checkbox"
+                    [(ngModel)]="mostrarSenha"
+                    name="mostrarSenha">
+
+                <label for="mostrarSenha">
+                    Mostrar senha
+                </label>
+
+            </div>
+
+            <button
+                type="submit"
+                class="botao-cadastro">
+
+                Criar conta
+
+            </button>
+
+        </form>
+
+        @if (mensagem) {
+
+            <div
+                class="alert alert-danger mt-3"
+                role="alert">
+
+                <strong>{{ mensagem }}</strong>
+
+            </div>
+
+        }
+
+        <div class="login">
+
+            <p>
+                Já possui uma conta?
+            </p>
+
+            <a
+                routerLink="/login"
+                class="text-warning">
+
+                Entrar
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
@@ -11,7 +11,8 @@ import { NavbarComponent } from '../navbar/navbar';
   imports: [
     CommonModule,
     FormsModule, 
-    NavbarComponent
+    NavbarComponent,
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'

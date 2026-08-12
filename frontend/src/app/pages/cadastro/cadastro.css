@@ -1,0 +1,395 @@
+/* ============================
+PÁGINA
+============================ */
+
+:host {
+    display: block;
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+}
+
+
+/* ============================
+CONTAINER
+============================ */
+
+.cadastro-container {
+
+    min-height: calc(100vh - 80px);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px 20px;
+
+}
+
+
+/* ============================
+CARD
+============================ */
+
+.cadastro-card {
+
+    width: 100%;
+
+    max-width: 480px;
+
+    background: #111;
+
+    border: 2px solid #f2c94c;
+
+    border-radius: 18px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 0 20px rgba(242, 201, 76, .15);
+
+}
+
+
+/* ============================
+TÍTULO
+============================ */
+
+.cadastro-card h1 {
+
+    text-align: center;
+
+    font-size: 2.8rem;
+
+    margin-bottom: 10px;
+
+}
+
+
+.subtitulo {
+
+    text-align: center;
+
+    color: #ddd;
+
+    font-size: 1rem;
+
+    margin-bottom: 35px;
+
+}
+
+
+/* ============================
+CAMPOS
+============================ */
+
+.campo {
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: 22px;
+
+}
+
+
+.campo label {
+
+    color: white;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+    font-size: 1rem;
+
+}
+
+
+.campo input {
+
+    background: #1a1a1a;
+
+    color: white;
+
+    border: 2px solid #666;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    font-size: 1rem;
+
+    transition: .25s;
+
+    box-sizing: border-box;
+
+}
+
+
+.campo input::placeholder {
+
+    color: #999;
+
+}
+
+
+.campo input:focus {
+
+    outline: none;
+
+    border-color: #f2c94c;
+
+    box-shadow: 0 0 8px rgba(242,201,76,.35);
+
+}
+
+
+/* ============================
+CHECKBOX
+============================ */
+
+.mostrar-senha {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+
+    color: white;
+
+}
+
+
+.mostrar-senha input {
+
+    width: 18px;
+
+    height: 18px;
+
+    cursor: pointer;
+
+}
+
+
+/* ============================
+BOTÃO
+============================ */
+
+.botao-cadastro {
+
+    width: 100%;
+
+    padding: 15px;
+
+    background: #f2c94c;
+
+    color: black;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-size: 1.1rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+
+.botao-cadastro:hover {
+
+    transform: translateY(-2px);
+
+    background: rgb(255, 193, 7);
+
+}
+
+
+.botao-cadastro:focus {
+
+    outline: 3px solid white;
+
+    outline-offset: 4px;
+
+}
+
+
+/* ============================
+LOGIN
+============================ */
+
+.login {
+
+    text-align: center;
+
+    margin-top: 30px;
+
+}
+
+
+.login p {
+
+    color: #ddd;
+
+    margin-bottom: 8px;
+
+}
+
+
+.login a {
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: .2s;
+
+}
+
+
+.login a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* ============================
+MENSAGEM DE ERRO
+============================ */
+
+.alert {
+
+    border-radius: 10px;
+
+}
+
+
+/* ============================
+RESPONSIVO
+============================ */
+
+@media (max-width: 768px) {
+
+    .cadastro-card {
+
+        padding: 30px;
+
+    }
+
+    .cadastro-card h1 {
+
+        font-size: 2rem;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .cadastro-container {
+
+        padding: 20px;
+
+    }
+
+    .cadastro-card {
+
+        padding: 25px;
+
+    }
+
+    .cadastro-card h1 {
+
+        font-size: 1.7rem;
+
+    }
+
+}
+
+
+/* ============================
+TEMA CLARO
+============================ */
+
+:host-context([data-bs-theme="light"]) {
+
+    background: #f8f9fa;
+
+}
+
+
+:host-context([data-bs-theme="light"]) .cadastro-card {
+
+    background: #ffffff;
+
+    border: 2px solid #f2c94c;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, .12);
+
+}
+
+
+:host-context([data-bs-theme="light"]) .cadastro-card h1 {
+
+    color: #212529;
+
+}
+
+
+:host-context([data-bs-theme="light"]) .subtitulo {
+
+    color: #181a1b;
+
+}
+
+
+:host-context([data-bs-theme="light"]) .campo label {
+
+    color: #212529;
+
+}
+
+
+:host-context([data-bs-theme="light"]) .campo input {
+
+    background: #ffffff;
+
+    color: #212529;
+
+    border: 2px solid #ced4da;
+
+}
+
+
+:host-context([data-bs-theme="light"]) .campo input::placeholder {
+
+    color: #54595c;
+
+}
+
+
+:host-context([data-bs-theme="light"]) .mostrar-senha {
+
+    color: #212529;
+
+}
+
+
+:host-context([data-bs-theme="light"]) .login p {
+
+    color: #181a1b;
+
+}
