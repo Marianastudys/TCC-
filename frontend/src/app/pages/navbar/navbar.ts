@@ -88,10 +88,19 @@ export class NavbarComponent implements OnInit {
 
 }
 
-
-
 @HostListener('document:keydown', ['$event'])
 atalhos(event: KeyboardEvent) {
+
+  const elemento = event.target as HTMLElement;
+
+  if (
+    elemento.tagName === 'INPUT' ||
+    elemento.tagName === 'TEXTAREA' ||
+    elemento.tagName === 'SELECT' ||
+    elemento.isContentEditable
+  ) {
+    return;
+  }
 
   switch (event.key.toLowerCase()) {
 
