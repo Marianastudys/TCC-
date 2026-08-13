@@ -41,8 +41,8 @@ export class Jogo implements OnInit {
   segundaCarta: any = null;
 
   acertos = 0;
-
   erros = 0;
+  score = 0;
 
   bloquearJogo = false;
 
@@ -82,6 +82,8 @@ export class Jogo implements OnInit {
       this.acertos = 0;
 
       this.erros = 0;
+
+      this.score = 0;
 
       this.primeiraCarta = null;
 
@@ -202,6 +204,8 @@ export class Jogo implements OnInit {
     ) {
 
       this.acertos++;
+      this.score += 100;
+
       this.somAcerto.currentTime = 0;
 
       this.somAcerto.play();
@@ -213,7 +217,8 @@ export class Jogo implements OnInit {
       this.cdr.detectChanges();
 
       this.somAcerto.onended = () => {
-  this.falarTexto('Par correto');
+        this.falarTexto(`Par correto. Você ganhou 100 pontos e 
+          agora tem ${this.score} pontos.`);
 };
 
       if (
@@ -250,6 +255,8 @@ export class Jogo implements OnInit {
     else {
 
       this.erros++;
+      this.score = Math.max(0, this.score - 20);
+
       this.somErro.currentTime = 0;
 
       this.somErro.play();
@@ -265,7 +272,8 @@ export class Jogo implements OnInit {
       this.cdr.detectChanges();
 
       this.somErro.onended = () => {
-  this.falarTexto('Par Incorreto');
+        this.falarTexto(`Par incorreto. Você perdeu 20 pontos e 
+          agora tem ${this.score} pontos.`);
 };
 
       setTimeout(() => {
@@ -303,6 +311,8 @@ export class Jogo implements OnInit {
     this.acertos = 0;
 
     this.erros = 0;
+
+    this.score = 0;
 
     this.primeiraCarta = null;
 
