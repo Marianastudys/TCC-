@@ -20,7 +20,6 @@ import { NavbarComponent } from '../navbar/navbar';
 export class Cadastro {
 
   nome = '';
-  email = '';
   senha = '';
   confirmarSenha = '';
 
@@ -38,7 +37,6 @@ export class Cadastro {
 
     if (
       !this.nome ||
-      !this.email ||
       !this.senha ||
       !this.confirmarSenha
     ) {
@@ -59,7 +57,6 @@ export class Cadastro {
       'http://localhost:3000/usuario/cadastro',
       {
         nome: this.nome,
-        email: this.email,
         senha: this.senha
       }
     ).subscribe({
