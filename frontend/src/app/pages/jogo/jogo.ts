@@ -240,7 +240,7 @@ export class Jogo implements OnInit {
 
     this.falarTexto(
 
-      'Parabéns! Você concluiu o jogo.'
+      `Parabéns! Você concluiu o jogo com um total de ${this.score} pontos.`
 
     );
 
@@ -306,29 +306,29 @@ export class Jogo implements OnInit {
 
   reiniciarJogo() {
 
-    this.jogoFinalizado = false;
+  this.jogoFinalizado = false;
 
-    this.acertos = 0;
+  this.acertos = 0;
+  this.erros = 0;
+  this.score = 0;
 
-    this.erros = 0;
+  this.primeiraCarta = null;
+  this.segundaCarta = null;
 
-    this.score = 0;
+  this.bloquearJogo = false;
 
-    this.primeiraCarta = null;
+  this.indicesErrados = [];
 
-    this.segundaCarta = null;
+  this.cartas.forEach(carta => {
 
-    this.bloquearJogo = false;
+    carta.virada = false;
+    carta.acertada = false;
 
-    this.cartas.forEach(carta => {
+  });
 
-      carta.virada = false;
+  this.embaralharCartas();
 
-    });
-
-    this.embaralharCartas();
-
-  }
+}
   sairJogo() {
 
     speechSynthesis.cancel();
