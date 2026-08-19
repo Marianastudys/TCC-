@@ -33,6 +33,8 @@ import { NavbarComponent } from '../navbar/navbar';
 
 export class Jogo implements OnInit {
 
+  idJogo: number = 0;
+
   cartas: any[] = [];
   indicesErrados: number[] = [];
 
@@ -75,9 +77,12 @@ export class Jogo implements OnInit {
 
     this.route.paramMap.subscribe(params => {
 
-      const idJogo = Number(params.get('id'));
+      this.idJogo = Number(params.get('id'));
 
-      console.log('ID DO JOGO:', idJogo);
+      console.log(
+       'ID DO JOGO:',
+        this.idJogo
+);
 
       this.acertos = 0;
 
@@ -95,7 +100,7 @@ export class Jogo implements OnInit {
 
       this.cartas = [];
 
-      this.buscarCartas(idJogo);
+      this.buscarCartas(this.idJogo);
 
     });
 
@@ -222,31 +227,30 @@ export class Jogo implements OnInit {
 };
 
       if (
+      this.acertos ===
+      this.cartas.length / 2
+) {
 
-        this.acertos ===
+      this.jogoFinalizado = true;
 
-        this.cartas.length / 2
+  // Salva a partida no banco
+      this.salvarPartida(this.idJogo);
 
-      ) {
-        this.jogoFinalizado = true;
-  
   setTimeout(() => {
-  this.botaoReiniciar?.nativeElement.focus();
-});
+      this.botaoReiniciar?.nativeElement.focus();
+  });
 
-        this.cdr.detectChanges();
+      this.cdr.detectChanges();
 
-        this.somAcerto.onended = () => {
+      this.somAcerto.onended = () => {
 
-    this.falarTexto(
-
-      `Parabéns! Você concluiu o jogo com um total de ${this.score} pontos.`
-
+      this.falarTexto(
+        `Parabéns! Você concluiu o jogo com um total de ${this.score} pontos.`
     );
 
   };
 
-      }
+}
 
       this.resetarJogada();
 
@@ -302,7 +306,76 @@ export class Jogo implements OnInit {
 
   }
 
+salvarPartida(idJogo: number) {
 
+  const usuarioSalvo =
+    localStorage.getItem('usuarioLogado');
+
+
+  if (!usuarioSalvo) {
+
+    console.error(
+      'Nenhum usuário está logado.'
+    );
+
+    return;
+
+  }
+
+
+  const usuario =
+    JSON.parse(usuarioSalvo);
+
+
+  const dadosPartida = {
+
+    id_usuario: usuario.id,
+
+    id_jogo: idJogo,
+
+    acertos: this.acertos,
+
+    erros: this.erros,
+
+    score: this.score
+
+  };
+
+
+  console.log(
+    'SALVANDO PARTIDA:',
+    dadosPartida
+  );
+
+
+  this.http.post(
+    'http://localhost:3000/usuario/partidas',
+    dadosPartida
+  )
+
+  .subscribe({
+
+    next: (resposta) => {
+
+      console.log(
+        'Partida salva:',
+        resposta
+      );
+
+    },
+
+    error: (erro) => {
+
+      console.error(
+        'Erro ao salvar partida:',
+        erro
+      );
+
+    }
+
+  });
+
+}
 
   reiniciarJogo() {
 

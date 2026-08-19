@@ -1,0 +1,249 @@
+<app-navbar></app-navbar>
+
+<main class="pagina-usuario">
+
+    <h1 class="fw-bold">Meu Perfil <i class="bi bi-person-circle"></i></h1>
+
+    <p class="boas-vindas fw-bold">
+        Olá, {{ nomeUsuario }}!
+    </p>
+
+
+    <!-- ========================= -->
+    <!-- DESEMPENHO -->
+    <!-- ========================= -->
+
+    <section class="desempenho">
+
+        <h2>Meu desempenho</h2>
+
+        <div class="cards-estatisticas">
+
+            <div class="card-estatistica">
+
+                <span aria-hidden="true">⭐</span>
+
+                <strong>
+                    {{ scoreAcumulado }}
+                </strong>
+
+                <span>
+                    Score acumulado
+                </span>
+
+            </div>
+
+
+            <div class="card-estatistica">
+
+                <span aria-hidden="true">🏆</span>
+
+                <strong>
+                    {{ mediaScore }}
+                </strong>
+
+                <span>
+                    Maior score
+                </span>
+
+            </div>
+
+
+            <div class="card-estatistica">
+
+                <span aria-hidden="true">🎮</span>
+
+                <strong>
+                    {{ partidasJogadas }}
+                </strong>
+
+                <span>
+                    Partidas jogadas
+                </span>
+
+            </div>
+
+
+            <div class="card-estatistica">
+
+                <span aria-hidden="true">🎯</span>
+
+                <strong>
+                    {{ percentualAcertos }}%
+                </strong>
+
+                <span>
+                    Aproveitamento
+                </span>
+
+            </div>
+
+
+            <div class="card-estatistica">
+
+                <span aria-hidden="true">📊</span>
+
+                <strong>
+                    {{ mediaScore }}
+                </strong>
+
+                <span>
+                    Média de pontos
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- CONTA -->
+    <!-- ========================= -->
+
+    <section class="conta">
+
+        <h2>Minha conta</h2>
+
+
+        <div class="campo">
+
+            <label for="nomeUsuario">
+                Nome de usuário
+            </label>
+
+            <input
+                id="nomeUsuario"
+                type="text"
+                [(ngModel)]="nomeUsuario"
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label for="novaSenha">
+                Nova senha
+            </label>
+
+            <input
+                id="novaSenha"
+                type="password"
+                [(ngModel)]="novaSenha"
+                placeholder="Deixe vazio para não alterar"
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label for="confirmarSenha">
+                Confirmar nova senha
+            </label>
+
+            <input
+                id="confirmarSenha"
+                type="password"
+                [(ngModel)]="confirmarSenha"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            (click)="salvarAlteracoes()"
+        >
+            Salvar alterações
+        </button>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- HISTÓRICO -->
+    <!-- ========================= -->
+
+    <section class="historico">
+
+        <h2>Histórico de partidas</h2>
+
+
+        <div
+            class="sem-partidas"
+            *ngIf="partidas.length === 0"
+        >
+
+            <p>
+                Você ainda não possui partidas registradas.
+            </p>
+
+        </div>
+
+
+        <div
+            class="tabela-container"
+            *ngIf="partidas.length > 0"
+        >
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Data</th>
+
+                        <th>Tema</th>
+
+                        <th>Score</th>
+
+                        <th>Acertos</th>
+
+                        <th>Erros</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr
+                        *ngFor="let partida of partidas"
+                    >
+
+                        <td>
+                            {{ partida.data_partida | date:'dd/MM/yyyy, HH:mm' }}
+                        </td>
+
+                        <td>
+                            {{ partida.tema }}
+                        </td>
+
+                        <td>
+                            {{ partida.score }}
+                        </td>
+
+                        <td>
+                            {{ partida.acertos }}
+                        </td>
+
+                        <td>
+                            {{ partida.erros }}
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>

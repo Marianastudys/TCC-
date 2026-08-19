@@ -1,0 +1,482 @@
+/* =========================================
+   PÁGINA
+========================================= */
+
+:host {
+    display: block;
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.pagina-usuario {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+
+/* =========================================
+   TÍTULO
+========================================= */
+
+.pagina-usuario h1 {
+    text-align: center;
+    color: #ffff00;
+    font-size: 2.5rem;
+    margin: 20px 0 10px;
+}
+
+.boas-vindas {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+}
+
+
+/* =========================================
+   TÍTULOS DAS SEÇÕES
+========================================= */
+
+.desempenho,
+.conta,
+.historico {
+    margin-bottom: 45px;
+}
+
+.desempenho h2,
+.conta h2,
+.historico h2 {
+    color: #ffff00;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ffff00;
+    padding-bottom: 10px;
+}
+
+
+/* =========================================
+   CARDS DE ESTATÍSTICAS
+========================================= */
+
+.cards-estatisticas {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.card-estatistica {
+    background: #111;
+    border: 2px solid #333;
+    border-radius: 12px;
+
+    padding: 25px 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    min-height: 150px;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Ícone */
+
+.card-estatistica span:first-child {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+
+/* Número */
+
+.card-estatistica strong {
+    color: #ffff00;
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+
+/* Descrição */
+
+.card-estatistica span:last-child {
+    font-size: 1rem;
+    color: #fff;
+}
+
+
+/* Hover */
+
+.card-estatistica:hover {
+    transform: translateY(-4px);
+    border-color: #ffff00;
+
+    box-shadow:
+        0 0 12px rgba(255, 255, 0, 0.25);
+}
+
+
+/* =========================================
+   CONTA
+========================================= */
+
+.conta {
+    background: #111;
+
+    border: 2px solid #333;
+    border-radius: 12px;
+
+    padding: 30px;
+}
+
+
+/* =========================================
+   CAMPOS
+========================================= */
+
+.campo {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 22px;
+}
+
+
+.campo label {
+    font-size: 1.1rem;
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+.campo input {
+    width: 100%;
+    box-sizing: border-box;
+
+    background: #000;
+    color: #fff;
+
+    border: 2px solid #555;
+    border-radius: 8px;
+
+    padding: 13px 15px;
+
+    font-size: 1rem;
+}
+
+
+/* =========================================
+   FOCO DOS INPUTS
+========================================= */
+
+.campo input:focus {
+    outline: 3px solid #ffff00;
+    outline-offset: 2px;
+
+    border-color: #ffff00;
+}
+
+
+/* =========================================
+   BOTÃO SALVAR
+========================================= */
+
+.conta button {
+    background: #ffff00;
+    color: #000;
+
+    border: 2px solid #ffff00;
+    border-radius: 8px;
+
+    padding: 13px 25px;
+
+    font-size: 1.05rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.conta button:hover {
+    background: #000;
+    color: #ffff00;
+
+    transform: translateY(-2px);
+}
+
+
+.conta button:focus {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   HISTÓRICO
+========================================= */
+
+.historico {
+    background: #111;
+
+    border: 2px solid #333;
+    border-radius: 12px;
+
+    padding: 30px;
+}
+
+
+/* =========================================
+   SEM PARTIDAS
+========================================= */
+
+.sem-partidas {
+    background: #000;
+
+    border: 2px dashed #555;
+    border-radius: 8px;
+
+    padding: 25px;
+
+    text-align: center;
+}
+
+
+.sem-partidas p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+
+/* =========================================
+   TABELA
+========================================= */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #000;
+
+    min-width: 650px;
+}
+
+
+/* Cabeçalho */
+
+thead {
+    background: #ffff00;
+    color: #000;
+}
+
+
+th {
+    padding: 15px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+
+/* Corpo */
+
+td {
+    padding: 14px;
+
+    border-bottom: 1px solid #444;
+
+    text-align: center;
+
+    font-size: 1rem;
+}
+
+
+/* Linhas */
+
+tbody tr {
+    transition: background 0.2s ease;
+}
+
+
+tbody tr:hover {
+    background: #1f1f1f;
+}
+
+
+/* =========================================
+   ACESSIBILIDADE - FOCO NA TABELA
+========================================= */
+
+tbody tr:focus-within {
+    outline: 3px solid #ffff00;
+}
+
+
+/* =========================================
+   TEMA CLARO
+========================================= */
+
+:host-context([data-bs-theme="light"]) {
+    background: #fff;
+    color: #000;
+}
+
+
+:host-context([data-bs-theme="light"]) .pagina-usuario {
+    color: #000;
+}
+
+
+:host-context([data-bs-theme="light"]) .pagina-usuario h1,
+:host-context([data-bs-theme="light"]) .desempenho h2,
+:host-context([data-bs-theme="light"]) .conta h2,
+:host-context([data-bs-theme="light"]) .historico h2 {
+    color: #000;
+}
+
+
+:host-context([data-bs-theme="light"]) .card-estatistica,
+:host-context([data-bs-theme="light"]) .conta,
+:host-context([data-bs-theme="light"]) .historico {
+    background: #f2f2f2;
+    border-color: #aaa;
+}
+
+
+:host-context([data-bs-theme="light"]) .card-estatistica strong {
+    color: #8a8a00;
+}
+
+
+:host-context([data-bs-theme="light"]) .campo input {
+    background: #fff;
+    color: #000;
+    border-color: #555;
+}
+
+
+:host-context([data-bs-theme="light"]) .sem-partidas {
+    background: #fff;
+    border-color: #777;
+}
+
+
+:host-context([data-bs-theme="light"]) table {
+    background: #fff;
+    color: #000;
+}
+
+
+:host-context([data-bs-theme="light"]) tbody tr:hover {
+    background: #eee;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .pagina-usuario {
+        width: 95%;
+        padding: 30px 10px 50px;
+    }
+
+
+    .pagina-usuario h1 {
+        font-size: 2rem;
+    }
+
+
+    .boas-vindas {
+        font-size: 1.1rem;
+    }
+
+
+    .cards-estatisticas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .conta,
+    .historico {
+        padding: 20px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .pagina-usuario {
+        width: 92%;
+        padding: 25px 5px 40px;
+    }
+
+
+    .pagina-usuario h1 {
+        font-size: 1.8rem;
+    }
+
+
+    .desempenho h2,
+    .conta h2,
+    .historico h2 {
+        font-size: 1.5rem;
+    }
+
+
+    .cards-estatisticas {
+        grid-template-columns: 1fr;
+    }
+
+
+    .card-estatistica {
+        min-height: 130px;
+    }
+
+
+    .conta,
+    .historico {
+        padding: 15px;
+    }
+
+
+    .conta button {
+        width: 100%;
+    }
+
+}

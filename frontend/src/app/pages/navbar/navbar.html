@@ -59,13 +59,20 @@
 
 @if(nomeUsuario){
 
-<div class="usuario-logado">
+<button
+    class="usuario-logado"
+    (click)="irUsuario()"
+    type="button"
+    aria-label="Abrir perfil do usuário">
 
-    <i class="bi bi-person-circle"></i>
+    <i
+        class="bi bi-person-circle"
+        aria-hidden="true">
+    </i>
 
     <span>Olá, {{ nomeUsuario }}</span>
 
-</div>
+</button>
 
 }
 

@@ -19,6 +19,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router) {}
 
+  irUsuario() {
+    this.router.navigate(['/usuario']);
+  }
+  
   ngOnInit() {
     const fonteSalva = localStorage.getItem('tamanhoFonte');
 
