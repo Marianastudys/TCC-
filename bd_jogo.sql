@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/06/2026 às 01:13
+-- Tempo de geração: 19/08/2026 às 05:15
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -136,8 +136,17 @@ CREATE TABLE `partidas` (
   `id_tema` int(11) DEFAULT NULL,
   `acertos` int(11) DEFAULT NULL,
   `erros` int(11) DEFAULT NULL,
-  `data_partida` datetime DEFAULT NULL
+  `data_partida` datetime DEFAULT NULL,
+  `score` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `partidas`
+--
+
+INSERT INTO `partidas` (`id`, `id_usuario`, `id_tema`, `acertos`, `erros`, `data_partida`, `score`) VALUES
+(1, 1, 3, 4, 7, '2026-08-18 22:56:49', 340),
+(2, 1, 1, 4, 2, '2026-08-18 23:48:49', 400);
 
 -- --------------------------------------------------------
 
@@ -170,6 +179,14 @@ CREATE TABLE `usuarios` (
   `nome` varchar(100) DEFAULT NULL,
   `senha` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nome`, `senha`) VALUES
+(1, 'teste', '12345'),
+(6, 'teste', '12345');
 
 --
 -- Índices para tabelas despejadas
@@ -243,7 +260,7 @@ ALTER TABLE `pares`
 -- AUTO_INCREMENT de tabela `partidas`
 --
 ALTER TABLE `partidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `temas`
@@ -255,7 +272,7 @@ ALTER TABLE `temas`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para tabelas despejadas
