@@ -8,11 +8,6 @@
         Olá, {{ nomeUsuario }}!
     </p>
 
-
-    <!-- ========================= -->
-    <!-- DESEMPENHO -->
-    <!-- ========================= -->
-
     <section class="desempenho">
 
         <h2>Meu desempenho</h2>
@@ -97,15 +92,9 @@
 
     </section>
 
-
-    <!-- ========================= -->
-    <!-- CONTA -->
-    <!-- ========================= -->
-
     <section class="conta">
 
         <h2>Minha conta</h2>
-
 
         <div class="campo">
 
@@ -120,7 +109,6 @@
             >
 
         </div>
-
 
         <div class="campo">
 
@@ -137,7 +125,6 @@
 
         </div>
 
-
         <div class="campo">
 
             <label for="confirmarSenha">
@@ -152,7 +139,6 @@
 
         </div>
 
-
         <button
             type="button"
             (click)="salvarAlteracoes()"
@@ -162,15 +148,9 @@
 
     </section>
 
-
-    <!-- ========================= -->
-    <!-- HISTÓRICO -->
-    <!-- ========================= -->
-
     <section class="historico">
 
         <h2>Histórico de partidas</h2>
-
 
         <div
             class="sem-partidas"
@@ -183,32 +163,21 @@
 
         </div>
 
-
         <div
             class="tabela-container"
             *ngIf="partidas.length > 0"
         >
 
             <table>
-
                 <thead>
-
                     <tr>
-
                         <th>Data</th>
-
                         <th>Tema</th>
-
                         <th>Score</th>
-
                         <th>Acertos</th>
-
                         <th>Erros</th>
-
                     </tr>
-
                 </thead>
-
 
                 <tbody>
 
@@ -245,5 +214,5 @@
         </div>
 
     </section>
-
+    
 </main>

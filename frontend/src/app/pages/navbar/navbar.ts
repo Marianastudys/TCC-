@@ -34,7 +34,6 @@ export class NavbarComponent implements OnInit {
   if (usuarioSalvo) {
 
     const usuario = JSON.parse(usuarioSalvo);
-
     console.log(usuario);
 
     this.nomeUsuario = usuario.nome;
@@ -47,7 +46,6 @@ export class NavbarComponent implements OnInit {
     this.atualizarFonte();
   }
   
-
   atualizarFonte() {
     document.documentElement.style.fontSize = this.tamanhoFonte + '%';
     localStorage.setItem('tamanhoFonte', this.tamanhoFonte.toString());

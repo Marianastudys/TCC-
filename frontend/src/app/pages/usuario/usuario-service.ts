@@ -35,11 +35,7 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
-
-  // ============================
   // BUSCAR DADOS DO USUÁRIO
-  // ============================
-
   obterUsuario(id: number): Observable<Usuario> {
 
     return this.http.get<Usuario>(
@@ -48,11 +44,7 @@ export class UsuarioService {
 
   }
 
-
-  // ============================
   // ALTERAR DADOS DO USUÁRIO
-  // ============================
-
   atualizarUsuario(
     id: number,
     nome: string,

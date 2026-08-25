@@ -4,11 +4,7 @@ const router = express.Router();
 
 const conexao = require('../utils/db');
 
-
-/* ============================
-   LOGIN
-============================ */
-
+/* LOGIN*/
 router.post('/login', (req, res) => {
 
     const { nome, senha } = req.body;
@@ -53,10 +49,7 @@ router.post('/login', (req, res) => {
 });
 
 
-/* ============================
-   CADASTRO
-============================ */
-
+/* CADASTRO*/
 router.post('/cadastro', (req, res) => {
 
     const { nome, senha } = req.body;
@@ -79,7 +72,6 @@ router.post('/cadastro', (req, res) => {
         VALUES (?, ?)
     `;
 
-
     conexao.query(
 
         sql,
@@ -100,7 +92,6 @@ router.post('/cadastro', (req, res) => {
 
             }
 
-
             res.status(201).json({
 
                 mensagem: 'Usuário cadastrado com sucesso!',
@@ -116,14 +107,9 @@ router.post('/cadastro', (req, res) => {
 });
 
 
-/* ============================
-   BUSCAR PERFIL DO USUÁRIO
-============================ */
+/* BUSCAR PERFIL DO USUÁRIO*/
 
-/* ============================
-   DADOS DO USUÁRIO
-============================ */
-
+/* DADOS DO USUÁRIO*/
 router.get('/:id', (req, res) => {
 
     console.log('========== NOVA ROTA USUARIO ==========');
@@ -139,7 +125,6 @@ router.get('/:id', (req, res) => {
         FROM usuarios
         WHERE id = ?
     `;
-
 
     conexao.query(
         sqlUsuario,
@@ -160,7 +145,6 @@ router.get('/:id', (req, res) => {
 
             }
 
-
             if (resultadoUsuario.length === 0) {
 
                 return res.status(404).json({
@@ -169,13 +153,7 @@ router.get('/:id', (req, res) => {
 
             }
 
-
             const usuario = resultadoUsuario[0];
-
-
-            /*
-             * Buscar estatísticas
-             */
 
             const sqlEstatisticas = `
 
@@ -236,15 +214,10 @@ router.get('/:id', (req, res) => {
                         SELECT
 
                             p.id,
-
                             t.tema,
-
                             p.score,
-
                             p.acertos,
-
                             p.erros,
-
                             p.data_partida
 
                         FROM partidas p
@@ -363,11 +336,7 @@ router.get('/:id', (req, res) => {
     );
 });
 
-
-/* ============================
-   ALTERAR DADOS DO USUÁRIO
-============================ */
-
+/* ALTERAR DADOS DO USUÁRIO*/
 router.put('/:id', (req, res) => {
 
     const idUsuario = req.params.id;
@@ -385,11 +354,8 @@ router.put('/:id', (req, res) => {
 
     }
 
-
     let sql;
-
     let valores;
-
 
     /*
      * Se o usuário informou uma nova senha,
@@ -434,7 +400,6 @@ router.put('/:id', (req, res) => {
 
     }
 
-
     conexao.query(
 
         sql,
@@ -459,7 +424,6 @@ router.put('/:id', (req, res) => {
 
             }
 
-
             res.json({
 
                 mensagem:
@@ -473,9 +437,7 @@ router.put('/:id', (req, res) => {
 
 });
 
-/* ============================
-   SALVAR PARTIDA
-============================ */
+/*SALVAR PARTIDA*/
 router.post('/partidas', (req, res) => {
 
     const {

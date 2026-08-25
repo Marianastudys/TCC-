@@ -9,11 +9,8 @@ import {
   HostListener
 
 } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
 import { Router } from '@angular/router';
-
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar';
 
@@ -36,9 +33,7 @@ export class Home implements OnInit {
   constructor(
 
     private router: Router,
-
     private http: HttpClient,
-
     private cdr: ChangeDetectorRef
 
   ) {}

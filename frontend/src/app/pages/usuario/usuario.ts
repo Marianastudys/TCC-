@@ -24,65 +24,34 @@ import { Router } from '@angular/router';
 export class UsuarioComponent implements OnInit {
 
 
-  // ============================
   // DADOS DO USUÁRIO
-  // ============================
-
   idUsuario: number = 0;
-
   nomeUsuario: string = 'Usuário';
-
   novaSenha: string = '';
-
   confirmarSenha: string = '';
 
-
-  // ============================
   // ESTATÍSTICAS
-  // ============================
-
   scoreAcumulado: number = 0;
-
   maiorScore: number = 0;
-
   partidasJogadas: number = 0;
-
   totalAcertos: number = 0;
-
   totalErros: number = 0;
-
   percentualAcertosAPI: number = 0;
-
   mediaScoreAPI: number = 0;
 
-
-  // ============================
   // HISTÓRICO
-  // ============================
-
   partidas: Partida[] = [];
-
-
-  // ============================
-  // CONSTRUTOR
-  // ============================
 
   constructor(
   private usuarioService: UsuarioService,
   private router: Router,
   private cdr: ChangeDetectorRef
 ) {}
-  // ============================
-  // INICIALIZAÇÃO
-  // ============================
 
  ngOnInit(): void {
 
    this.carregarUsuario();
  }
-  // ============================
-  // CARREGAR USUÁRIO
-  // ============================
 
   carregarUsuario(): void {
 
@@ -155,10 +124,6 @@ export class UsuarioComponent implements OnInit {
     });
 }
 
-  // ============================
-  // PERCENTUAL DE ACERTOS
-  // ============================
-
   get percentualAcertos(): number {
 
     const totalTentativas =
@@ -172,7 +137,6 @@ export class UsuarioComponent implements OnInit {
 
     }
 
-
     return Math.round(
 
       (
@@ -184,11 +148,7 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-
-  // ============================
   // MÉDIA DE SCORE
-  // ============================
-
   get mediaScore(): number {
 
     if (this.partidasJogadas === 0) {
@@ -196,7 +156,6 @@ export class UsuarioComponent implements OnInit {
       return 0;
 
     }
-
 
     return Math.round(
 
@@ -207,13 +166,8 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-
-  // ============================
   // SALVAR ALTERAÇÕES
-  // ============================
-
   salvarAlteracoes(): void {
-
 
     if (
       this.novaSenha !== '' &&
@@ -226,7 +180,6 @@ export class UsuarioComponent implements OnInit {
 
     }
 
-
     this.usuarioService
       .atualizarUsuario(
         this.idUsuario,
@@ -236,11 +189,6 @@ export class UsuarioComponent implements OnInit {
       .subscribe({
 
         next: () => {
-
-          /*
-           * Atualiza o usuário salvo
-           * no localStorage.
-           */
 
           const usuarioSalvo =
             localStorage.getItem('usuarioLogado');
@@ -263,11 +211,9 @@ export class UsuarioComponent implements OnInit {
 
           }
 
-
           this.novaSenha = '';
 
           this.confirmarSenha = '';
-
 
           alert(
             'Alterações salvas com sucesso!'
@@ -293,11 +239,7 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-
-  // ============================
   // LIMPAR CAMPOS DE SENHA
-  // ============================
-
   limparSenha(): void {
 
     this.novaSenha = '';
