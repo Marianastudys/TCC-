@@ -1,0 +1,20 @@
+<div class="card-saiba-mais"
+     role="dialog"
+     aria-modal="false"
+     aria-labelledby="tituloSaibaMais">
+
+  <h2 id="tituloSaibaMais">
+    Saiba mais: {{ titulo }}
+  </h2>
+
+  <p>
+    {{ texto }}
+  </p>
+
+  <button
+    type="button"
+    (click)="fechar()">
+    Continuar
+  </button>
+
+</div>

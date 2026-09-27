@@ -1,0 +1,75 @@
+.card-saiba-mais {
+  position: absolute;
+
+  top: calc(100% + 10px);
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 280px;
+  max-width: 90vw;
+
+  background-color: black;
+  color: white;
+
+  border: 3px solid yellow;
+  border-radius: 10px;
+
+  padding: 20px;
+
+  z-index: 100;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+
+  animation: aparecerSaibaMais 0.3s ease-out;
+}
+
+.card-saiba-mais h2 {
+  color: yellow;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.card-saiba-mais p {
+  font-size: 17px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.card-saiba-mais button {
+  background-color: black;
+  color: white;
+
+  border: 3px solid yellow;
+  border-radius: 8px;
+
+  padding: 10px 20px;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.card-saiba-mais button:hover {
+  background-color: #222;
+}
+
+.card-saiba-mais button:focus {
+  outline: 4px solid white;
+  outline-offset: 3px;
+}
+
+@keyframes aparecerSaibaMais {
+
+  from {
+    opacity: 0;
+    transform: translate(-50%, -15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+}

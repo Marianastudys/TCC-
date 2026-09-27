@@ -2,10 +2,6 @@
 
 <div class="container">
 
-    <h1 class="display-4 fw-bold text-warning bi bi-grid-fill">
-        Jogo da Memória <i class="bi bi-grid-fill"></i>
-    </h1>
-
     <div class="informacoes">
 
         <p class="lead fw-bold">
@@ -26,20 +22,38 @@
 
         @for (carta of cartas; track carta; let i = $index) {
 
-        <button #cartaBotao [class]="
-'carta' +
+            <div class="carta-container">
 
-(carta.virada ? ' virada' : '') +
+                <button
+                    #cartaBotao
+                    [class]="
+                        'carta' +
+                        (carta.virada ? ' virada' : '') +
+                        (carta.acertada ? ' acertada' : '') +
+                        (indicesErrados.includes(i) ? ' errada' : '')
+                    "
+                    (keydown)="moverFoco($event, i)"
+                    (click)="virarCarta(carta)"
+                    [attr.aria-label]="
+                        carta.virada
+                        ? carta.conteudo
+                        : 'Carta virada para baixo'
+                    "
+                >
+                    {{ carta.virada ? carta.conteudo : '?' }}
+                </button>
 
-(carta.acertada ? ' acertada' : '') +
+                @if (mostrarSaibaMais && carta === cartaSaibaMais) {
 
-(indicesErrados.includes(i) ? ' errada' : '')
-" (keydown)="moverFoco($event, i)" 
-            (click)="virarCarta(carta)" [attr.aria-label]="carta.virada ? carta.conteudo : 'Carta virada para baixo'">
+                    <app-saiba-mais
+                        [titulo]="tituloSaibaMais"
+                        [texto]="textoSaibaMais"
+                        (continuar)="fecharSaibaMais()">
+                    </app-saiba-mais>
 
-            {{ carta.virada ? carta.conteudo : '?' }}
+                }
 
-        </button>
+            </div>
 
         }
 
@@ -47,27 +61,34 @@
 
     @if (jogoFinalizado) {
 
-    <div class="fim-jogo">
+        <div class="fim-jogo">
 
-        <h2 class="display-6 fw-bold text-warning bi bi-award-fill">
+            <h2 class="display-6 fw-bold text-warning bi bi-award-fill">
+                Você venceu!
+            </h2>
 
-            Você venceu! 
+            <div class="botoes-finais">
 
-        </h2>
+                <button
+                    #botaoReiniciar
+                    class="botao-reiniciar fw-bold"
+                    (click)="reiniciarJogo()"
+                >
+                    Jogar novamente
+                </button>
 
-        <div class="botoes-finais">
+                <button
+                    #botaoSair
+                    class="botao-sair fw-bold"
+                    (click)="sairJogo()"
+                >
+                    Sair
+                </button>
 
-            <button #botaoReiniciar class="botao-reiniciar fw-bold" (click)="reiniciarJogo()">
-                Jogar novamente
-            </button>
-
-            <button #botaoSair class="botao-sair fw-bold" (click)="sairJogo()">
-                Sair
-            </button>
+            </div>
 
         </div>
 
-    </div>
     }
 
 </div>

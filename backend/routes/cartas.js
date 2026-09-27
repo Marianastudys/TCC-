@@ -9,16 +9,17 @@ router.get('/jogo/:id', function(req, res) {
     const idJogo = req.params.id;
 
     const sql = `
-SELECT cartas.*
+SELECT cartas.*, pares_lim.saiba_mais
 FROM cartas
 INNER JOIN (
-    SELECT id
+    SELECT id, saiba_mais
     FROM pares
     WHERE id_jogo = ?
     ORDER BY RAND()
     LIMIT 4
 ) pares_lim
-ON cartas.par_id = pares_lim.id;`;
+ON cartas.par_id = pares_lim.id;
+`;
 
     db.query(sql, [idJogo], function(erro, resultado) {
 

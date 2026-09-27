@@ -22,11 +22,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar';
-
+import { SaibaMais } from '../../Saibamais/saiba-mais/saiba-mais';
 @Component({
   selector: 'app-jogo',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, SaibaMais],
   templateUrl: './jogo.html',
   styleUrls: ['./jogo.css']
 })
@@ -42,6 +42,8 @@ export class Jogo implements OnInit {
 
   segundaCarta: any = null;
 
+  
+
   acertos = 0;
   erros = 0;
   score = 0;
@@ -51,6 +53,12 @@ export class Jogo implements OnInit {
   indiceAtual = 0;
 
   jogoFinalizado = false;
+
+  mostrarSaibaMais = false;
+  tituloSaibaMais = '';
+  textoSaibaMais = '';
+  cartaSaibaMais: any = null;
+  
 
   somCarta = new Audio('sounds/flip.mp3');
   somAcerto = new Audio('sounds/correct.mp3');
@@ -119,6 +127,8 @@ export class Jogo implements OnInit {
           id: carta.par_id,
 
           conteudo: carta.conteudo,
+
+          saibaMais: carta.saiba_mais,
 
           virada: false,
 
@@ -209,6 +219,10 @@ export class Jogo implements OnInit {
     ) {
 
       this.acertos++;
+      this.cartaSaibaMais = this.primeiraCarta;
+      this.tituloSaibaMais = this.primeiraCarta.conteudo;
+      this.textoSaibaMais = this.primeiraCarta.saibaMais;
+      this.mostrarSaibaMais = true;
       this.score += 100;
 
       this.somAcerto.currentTime = 0;
@@ -555,6 +569,10 @@ navegarFim(event: KeyboardEvent) {
     ultimaCarta.nativeElement.focus();
   }
 
+}
+fecharSaibaMais() {
+  this.mostrarSaibaMais = false;
+  this.cartaSaibaMais = null;
 }
 
 }
