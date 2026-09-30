@@ -83,22 +83,21 @@ selecionarTema(idJogo: number) {
     this.temaSelecionado = null;
 
     return;
-
   }
 
   this.temaSelecionado = idJogo;
 
+  this.cdr.detectChanges();
+
   setTimeout(() => {
 
-    const primeiroBotao =
-      this.botoesDificuldade.first;
+    const primeiroBotao = this.botoesDificuldade.first;
 
     if (primeiroBotao) {
       primeiroBotao.nativeElement.focus();
     }
 
-  });
-
+  }, 0);
 }
 
 iniciarJogo(idJogo: number, dificuldade: string) {

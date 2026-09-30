@@ -44,7 +44,7 @@
 
     <!-- Painel de dificuldade -->
     <div
-        *ngIf="temaSelecionado === jogosCitologia[0]?.id"
+        *ngIf="temaSelecionado !== null && temaSelecionado === jogosCitologia[0]?.id"
         class="painel-dificuldade">
 
         <h3>
@@ -116,7 +116,7 @@
 
     <!-- Painel de dificuldade -->
     <div
-        *ngIf="temaSelecionado === jogosGenetica[0]?.id"
+        *ngIf="temaSelecionado !== null && temaSelecionado === jogosGenetica[0]?.id"
         class="painel-dificuldade">
 
         <h3>
@@ -188,7 +188,7 @@
 
     <!-- Painel de dificuldade -->
     <div
-        *ngIf="temaSelecionado === jogosEcologia[0]?.id"
+        *ngIf="temaSelecionado !== null && temaSelecionado === jogosEcologia[0]?.id"
         class="painel-dificuldade">
 
         <h3>
