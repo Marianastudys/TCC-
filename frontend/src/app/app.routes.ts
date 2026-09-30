@@ -29,7 +29,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'jogo/:id/:dificuldade',
+    path: 'jogo/:id',
     component: Jogo
   },
 

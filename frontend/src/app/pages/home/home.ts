@@ -42,29 +42,39 @@ export class Home implements OnInit {
 
   buscarJogos() {
 
-    this.http.get<any[]>('http://localhost:3000/jogos/1')
-      .subscribe(resultado => {
-        this.jogosCitologia = resultado;
-        console.log('Citologia:', resultado);
-        this.cdr.detectChanges();
-      });
+  this.http.get<any[]>('http://localhost:3000/jogos/1')
+    .subscribe(resultado => {
 
-    this.http.get<any[]>('http://localhost:3000/jogos/2')
-      .subscribe(resultado => {
-        this.jogosGenetica = resultado;
-        console.log('Genética:', resultado);
-        this.cdr.detectChanges();
-      });
+      this.jogosCitologia = resultado;
 
-    this.http.get<any[]>('http://localhost:3000/jogos/3')
-      .subscribe(resultado => {
-        this.jogosEcologia = resultado;
-        console.log('Ecologia:', resultado);
-        this.cdr.detectChanges();
-      });
+      console.log('Citologia:', resultado);
 
-    setTimeout(() => this.focarBotao(), 100);
-  }
+      this.cdr.detectChanges();
+
+      setTimeout(() => this.focarBotao(), 0);
+    });
+
+  this.http.get<any[]>('http://localhost:3000/jogos/2')
+    .subscribe(resultado => {
+
+      this.jogosGenetica = resultado;
+
+      console.log('Genética:', resultado);
+
+      this.cdr.detectChanges();
+    });
+
+  this.http.get<any[]>('http://localhost:3000/jogos/3')
+    .subscribe(resultado => {
+
+      this.jogosEcologia = resultado;
+
+      console.log('Ecologia:', resultado);
+
+      this.cdr.detectChanges();
+    });
+
+}
 
 selecionarTema(idJogo: number) {
 
