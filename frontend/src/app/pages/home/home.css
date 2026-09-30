@@ -98,3 +98,148 @@ button {
     }
 
 }
+
+/* Coluna do tema */
+.tema-coluna {
+    position: relative;
+}
+
+
+/* Painel flutuante */
+
+.painel-dificuldade {
+    position: absolute;
+
+    top: calc(100% - 20px);
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 230px;
+
+    padding: 16px;
+
+    background-color: #000;
+    color: white;
+
+    border: 3px solid rgb(255, 193, 7);
+    border-radius: 12px;
+
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+
+    z-index: 100;
+}
+
+.painel-dificuldade h3 {
+    margin: 0 0 14px;
+
+    text-align: center;
+
+    color: rgb(255, 193, 7);
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+/* Botões */
+
+.botao-dificuldade {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 7px 0;
+    padding: 8px 10px;
+
+    background-color: #000;
+    color: white;
+
+    border: 2px solid;
+    border-radius: 7px;
+
+    font-weight: bold;
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s,
+        color 0.2s,
+        transform 0.2s;
+}
+
+
+.botao-dificuldade span {
+    font-size: 0.9rem;
+}
+
+.botao-dificuldade small {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+
+/* Fácil */
+
+.dificuldade-facil {
+    border-color: #00ff00;
+    color: #00ff00;
+}
+
+.dificuldade-facil:hover,
+.dificuldade-facil:focus-visible {
+    background-color: #00ff00;
+    color: #000;
+}
+
+
+/* Médio */
+
+.dificuldade-medio {
+    border-color: rgb(255, 193, 7);
+    color: rgb(255, 193, 7);
+}
+
+.dificuldade-medio:hover,
+.dificuldade-medio:focus-visible {
+    background-color: rgb(255, 193, 7);
+    color: #000;
+}
+
+
+/* Difícil */
+
+.dificuldade-dificil {
+    border-color: #ff3333;
+    color: #ff3333;
+}
+
+.dificuldade-dificil:hover,
+.dificuldade-dificil:focus-visible {
+    background-color: #ff3333;
+    color: #000;
+}
+
+
+/* Foco */
+
+.botao-dificuldade:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
+
+/* Movimento sutil */
+
+.botao-dificuldade:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+
+    .painel-dificuldade {
+        width: 220px;
+    }
+
+}

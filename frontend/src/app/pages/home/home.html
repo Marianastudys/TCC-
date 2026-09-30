@@ -4,94 +4,231 @@
 
     <div class="text-center mb-5">
         <h1 class="display-4 fw-bold text-warning">
-            Jogo da Memória 
+            Jogo da Memória
         </h1>
 
         <p class="lead fw-bold">
-            Escolha um tema para começar 
+            Escolha um tema para começar
         </p>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4 align-items-start">
 
-        <!-- Biologia Celular -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow">
-                <div class="card-body text-center">
+<!-- Biologia Celular -->
+<div class="col-md-4 tema-coluna">
 
-                    <h2 class="card-title fw-bold titulo-celular">
-                        Biologia Celular
-                    </h2>
+    <div class="card shadow">
 
-                    <div *ngFor="let jogo of jogosCitologia"
-                         class="d-grid gap-2 mb-2">
+        <div class="card-body text-center">
 
-                        <button #botaoTema
-                            (click)="iniciarJogo(jogo.id)"
-                            class="btnTop-celular fs-5 fw-bold">
+            <h2 class="card-title fw-bold titulo-celular">
+                Biologia Celular
+            </h2>
 
-                            {{ jogo.nome }}
+            <div *ngFor="let jogo of jogosCitologia">
 
-                        </button>
+                <button
+                    #botaoTema
+                    (click)="selecionarTema(jogo.id)"
+                    class="btnTop-celular fs-5 fw-bold">
 
-                    </div>
+                    {{ jogo.nome }}
 
-                </div>
+                </button>
+
             </div>
-        </div>
 
-        <!-- Genética -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow">
-                <div class="card-body text-center">
-
-                    <h2 class="card-title fw-bold titulo-genetica">
-                        Genética
-                    </h2>
-
-                    <div *ngFor="let jogo of jogosGenetica"
-                         class="d-grid gap-2 mb-2">
-
-                        <button #botaoTema
-                            (click)="iniciarJogo(jogo.id)"
-                            class="btnTop-genetica fs-5 fw-bold">
-
-                            {{ jogo.nome }}
-
-                        </button>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Ecologia -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow">
-                <div class="card-body text-center">
-
-                    <h2 class="card-title fw-bold titulo-ecologia">
-                        Ecologia
-                    </h2>
-
-                    <div *ngFor="let jogo of jogosEcologia"
-                         class="d-grid gap-2 mb-2">
-
-                        <button #botaoTema
-                            (click)="iniciarJogo(jogo.id)"
-                            class="btnTop-ecologia fs-5 fw-bold">
-
-                            {{ jogo.nome }}
-
-                        </button>
-
-                    </div>
-
-                </div>
-            </div>
         </div>
 
     </div>
+
+    <!-- Painel de dificuldade -->
+    <div
+        *ngIf="temaSelecionado === jogosCitologia[0]?.id"
+        class="painel-dificuldade">
+
+        <h3>
+            Escolha a dificuldade
+        </h3>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-facil"
+            (click)="iniciarJogo(jogosCitologia[0].id, 'facil')">
+
+            <span>Fácil</span>
+            <small>8 cartas</small>
+
+        </button>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-medio"
+            (click)="iniciarJogo(jogosCitologia[0].id, 'medio')">
+
+            <span>Médio</span>
+            <small>12 cartas</small>
+
+        </button>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-dificil"
+            (click)="iniciarJogo(jogosCitologia[0].id, 'dificil')">
+
+            <span>Difícil</span>
+            <small>16 cartas</small>
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Genética -->
+<div class="col-md-4 tema-coluna">
+
+    <div class="card shadow">
+
+        <div class="card-body text-center">
+
+            <h2 class="card-title fw-bold titulo-genetica">
+                Genética
+            </h2>
+
+            <div *ngFor="let jogo of jogosGenetica">
+
+                <button
+                    #botaoTema
+                    (click)="selecionarTema(jogo.id)"
+                    class="btnTop-genetica fs-5 fw-bold">
+
+                    {{ jogo.nome }}
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Painel de dificuldade -->
+    <div
+        *ngIf="temaSelecionado === jogosGenetica[0]?.id"
+        class="painel-dificuldade">
+
+        <h3>
+            Escolha a dificuldade
+        </h3>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-facil"
+            (click)="iniciarJogo(jogosGenetica[0].id, 'facil')">
+
+            <span>Fácil</span>
+            <small>8 cartas</small>
+
+        </button>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-medio"
+            (click)="iniciarJogo(jogosGenetica[0].id, 'medio')">
+
+            <span>Médio</span>
+            <small>12 cartas</small>
+
+        </button>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-dificil"
+            (click)="iniciarJogo(jogosGenetica[0].id, 'dificil')">
+
+            <span>Difícil</span>
+            <small>16 cartas</small>
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Ecologia -->
+<div class="col-md-4 tema-coluna">
+
+    <div class="card shadow">
+
+        <div class="card-body text-center">
+
+            <h2 class="card-title fw-bold titulo-ecologia">
+                Ecologia
+            </h2>
+
+            <div *ngFor="let jogo of jogosEcologia">
+
+                <button
+                    #botaoTema
+                    (click)="selecionarTema(jogo.id)"
+                    class="btnTop-ecologia fs-5 fw-bold">
+
+                    {{ jogo.nome }}
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Painel de dificuldade -->
+    <div
+        *ngIf="temaSelecionado === jogosEcologia[0]?.id"
+        class="painel-dificuldade">
+
+        <h3>
+            Escolha a dificuldade
+        </h3>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-facil"
+            (click)="iniciarJogo(jogosEcologia[0].id, 'facil')">
+
+            <span>Fácil</span>
+            <small>8 cartas</small>
+
+        </button>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-medio"
+            (click)="iniciarJogo(jogosEcologia[0].id, 'medio')">
+
+            <span>Médio</span>
+            <small>12 cartas</small>
+
+        </button>
+
+        <button
+            #botaoDificuldade
+            class="botao-dificuldade dificuldade-dificil"
+            (click)="iniciarJogo(jogosEcologia[0].id, 'dificil')">
+
+            <span>Difícil</span>
+            <small>16 cartas</small>
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
 
 </div>
