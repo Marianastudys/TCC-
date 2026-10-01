@@ -34,6 +34,7 @@ import { SaibaMais } from '../../Saibamais/saiba-mais/saiba-mais';
 export class Jogo implements OnInit {
 
   idJogo: number = 0;
+  dificuldade: string = 'facil';
 
   cartas: any[] = [];
   indicesErrados: number[] = [];
@@ -83,74 +84,83 @@ export class Jogo implements OnInit {
 
   ngOnInit() {
 
-    this.route.paramMap.subscribe(params => {
+  this.route.paramMap.subscribe(params => {
 
-      this.idJogo = Number(params.get('id'));
+    this.idJogo = Number(params.get('id'));
 
-      console.log(
-       'ID DO JOGO:',
-        this.idJogo
-);
+    this.route.queryParamMap.subscribe(queryParams => {
+
+      this.dificuldade =
+        queryParams.get('dificuldade') || 'facil';
+
+      console.log('ID DO JOGO:', this.idJogo);
+      console.log('DIFICULDADE:', this.dificuldade);
 
       this.acertos = 0;
-
       this.erros = 0;
-
       this.score = 0;
 
       this.primeiraCarta = null;
-
       this.segundaCarta = null;
 
       this.bloquearJogo = false;
-
       this.jogoFinalizado = false;
 
       this.cartas = [];
 
-      this.buscarCartas(this.idJogo);
+      this.buscarCartas(
+        this.idJogo,
+        this.dificuldade
+      );
 
     });
 
-  }
+  });
 
-  buscarCartas(idJogo: number) {
+}
 
-    this.http.get<any[]>(`http://localhost:3000/cartas/jogo/${idJogo}`)
+  buscarCartas(idJogo: number, dificuldade: string) {
 
-      .subscribe((resultado) => {
+  this.http.get<any[]>(
+    `http://localhost:3000/cartas/jogo/${idJogo}?dificuldade=${dificuldade}`
+  )
 
-        console.log('CARTAS:', resultado);
+    .subscribe((resultado) => {
 
-        this.cartas = resultado.map(carta => ({
+      console.log('CARTAS:', resultado);
 
-          id: carta.par_id,
+      this.cartas = resultado.map(carta => ({
 
-          conteudo: carta.conteudo,
+        id: carta.par_id,
 
-          saibaMais: carta.saiba_mais,
+        conteudo: carta.conteudo,
 
-          virada: false,
+        saibaMais: carta.saiba_mais,
 
-          acertada: false
+        virada: false,
 
-        }));
+        acertada: false
 
-        this.embaralharCartas();
+      }));
 
-        this.cdr.detectChanges();
+      this.embaralharCartas();
 
-  setTimeout(() => {
-  const primeiraCarta = this.cartasBotoes.first;
+      this.cdr.detectChanges();
 
-  if (primeiraCarta) {
-    primeiraCarta.nativeElement.focus();
-  }
-});
+      setTimeout(() => {
+
+        const primeiraCarta =
+          this.cartasBotoes.first;
+
+        if (primeiraCarta) {
+          primeiraCarta.nativeElement.focus();
+        }
 
       });
 
-  }
+    });
+
+}
 
   embaralharCartas() {
 
@@ -561,7 +571,7 @@ navegarFim(event: KeyboardEvent) {
     event.key === 'ArrowUp'
   ) {
 
-    event.preventDefault();
+    event.preventDefault(); 
 
     const ultimaCarta =
       this.cartasBotoes.last;
