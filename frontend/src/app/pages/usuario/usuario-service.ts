@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface Partida {
   id: number;
   tema: string;
+  dificuldade: string;
   score: number;
   acertos: number;
   erros: number;

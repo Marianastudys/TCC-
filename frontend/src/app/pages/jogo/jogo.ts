@@ -351,19 +351,21 @@ salvarPartida(idJogo: number) {
     JSON.parse(usuarioSalvo);
 
 
-  const dadosPartida = {
+const dadosPartida = {
 
-    id_usuario: usuario.id,
+  id_usuario: usuario.id,
 
-    id_jogo: idJogo,
+  id_jogo: idJogo,
 
-    acertos: this.acertos,
+  dificuldade: this.dificuldade,
 
-    erros: this.erros,
+  acertos: this.acertos,
 
-    score: this.score
+  erros: this.erros,
 
-  };
+  score: this.score
+
+};
 
 
   console.log(

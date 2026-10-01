@@ -215,6 +215,7 @@ router.get('/:id', (req, res) => {
 
                             p.id,
                             t.tema,
+                            p.dificuldade,
                             p.score,
                             p.acertos,
                             p.erros,
@@ -443,6 +444,7 @@ router.post('/partidas', (req, res) => {
     const {
         id_usuario,
         id_jogo,
+        dificuldade,
         acertos,
         erros,
         score
@@ -492,61 +494,63 @@ router.post('/partidas', (req, res) => {
 
             const idTema = resultado[0].id_tema;
 
-            const sqlPartida = `
-                INSERT INTO partidas
-                (
-                    id_usuario,
-                    id_tema,
-                    acertos,
-                    erros,
-                    data_partida,
-                    score
-                )
-                VALUES (?, ?, ?, ?, NOW(), ?)
-            `;
+const sqlPartida = `
+    INSERT INTO partidas
+    (
+        id_usuario,
+        id_tema,
+        dificuldade,
+        acertos,
+        erros,
+        data_partida,
+        score
+    )
+    VALUES (?, ?, ?, ?, ?, NOW(), ?)
+`;
 
-            conexao.query(
-                sqlPartida,
-                [
-                    id_usuario,
-                    idTema,
-                    acertos,
-                    erros,
-                    score
-                ],
-                (erro, resultado) => {
+conexao.query(
+    sqlPartida,
+    [
+        id_usuario,
+        idTema,
+        dificuldade,
+        acertos,
+        erros,
+        score
+    ],
+    (erro, resultado) => {
 
-                    if (erro) {
+        if (erro) {
 
-                        console.log(
-                            'ERRO AO INSERIR PARTIDA:',
-                            erro
-                        );
-
-                        return res.status(500).json({
-                            mensagem: 'Erro ao salvar partida.',
-                            erro: erro.message
-                        });
-
-                    }
-
-                    console.log(
-                        'PARTIDA SALVA. ID:',
-                        resultado.insertId
-                    );
-
-                    res.status(201).json({
-
-                        mensagem:
-                            'Partida salva com sucesso!',
-
-                        id:
-                            resultado.insertId
-
-                    });
-
-                }
+            console.log(
+                'ERRO AO INSERIR PARTIDA:',
+                erro
             );
+
+            return res.status(500).json({
+                mensagem: 'Erro ao salvar partida.',
+                erro: erro.message
+            });
+
+        }
+
+        console.log(
+            'PARTIDA SALVA. ID:',
+            resultado.insertId
+        );
+
+        res.status(201).json({
+
+            mensagem:
+                'Partida salva com sucesso!',
+
+            id:
+                resultado.insertId
+
+        });
+
+    }
+);
 
         }
     );

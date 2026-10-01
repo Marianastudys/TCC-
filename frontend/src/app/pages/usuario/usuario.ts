@@ -248,4 +248,21 @@ export class UsuarioComponent implements OnInit {
 
   }
 
+  nomeDificuldade(dificuldade: string): string {
+
+  if (dificuldade === 'facil') {
+    return 'Fácil';
+  }
+
+  if (dificuldade === 'medio') {
+    return 'Médio';
+  }
+
+  if (dificuldade === 'dificil') {
+    return 'Difícil';
+  }
+
+  return dificuldade;
+}
+
 }

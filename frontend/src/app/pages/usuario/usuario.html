@@ -173,6 +173,7 @@
                     <tr>
                         <th>Data</th>
                         <th>Tema</th>
+                        <th>Dificuldade</th>
                         <th>Score</th>
                         <th>Acertos</th>
                         <th>Erros</th>
@@ -191,6 +192,12 @@
 
                         <td>
                             {{ partida.tema }}
+                        </td>
+
+                        
+
+                        <td>
+                            {{ nomeDificuldade(partida.dificuldade) }}
                         </td>
 
                         <td>
