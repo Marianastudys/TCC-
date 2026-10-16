@@ -1,0 +1,148 @@
+.fundo-instrucoes {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.85);
+
+    padding: 30px;
+
+    z-index: 1000;
+
+    box-sizing: border-box;
+}
+
+.card-instrucoes {
+    width: 100%;
+    max-width: 800px;
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    background-color: #111;
+    color: white;
+
+    border: 3px solid yellow;
+    border-radius: 18px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 0 15px rgba(255, 255, 0, 0.3),
+        0 15px 40px rgba(0, 0, 0, 0.9);
+
+    transform: translateY(0);
+
+    animation: aparecerInstrucoes 0.4s ease-out;
+}
+
+.card-instrucoes h1 {
+    color: yellow;
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.card-instrucoes h2 {
+    color: yellow;
+
+    font-size: 22px;
+
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.card-instrucoes p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.introducao {
+    text-align: center;
+}
+
+.card-instrucoes ul {
+    padding-left: 25px;
+}
+
+.card-instrucoes li {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.botao-comecar {
+    display: block;
+
+    margin: 30px auto 0;
+
+    padding: 14px 30px;
+
+    background-color: black;
+    color: white;
+
+    border: 3px solid yellow;
+    border-radius: 10px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.botao-comecar:hover {
+    background-color: #222;
+}
+
+.botao-comecar:focus {
+    outline: 4px solid white;
+    outline-offset: 4px;
+}
+
+@keyframes aparecerInstrucoes {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .fundo-instrucoes {
+        padding: 15px;
+    }
+
+    .card-instrucoes {
+        padding: 25px;
+        max-height: 90vh;
+    }
+
+    .card-instrucoes h1 {
+        font-size: 28px;
+    }
+
+    .card-instrucoes h2 {
+        font-size: 20px;
+    }
+
+    .card-instrucoes p,
+    .card-instrucoes li {
+        font-size: 16px;
+    }
+
+}

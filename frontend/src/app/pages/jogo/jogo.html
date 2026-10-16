@@ -1,6 +1,14 @@
 <app-navbar></app-navbar>
 
-<div class="container">
+@if (mostrarInstrucoes) {
+
+  <app-instrucoes-jogo
+    (iniciar)="iniciarJogo()">
+  </app-instrucoes-jogo>
+
+} @else {
+
+  <div class="container">
 
     <div class="informacoes">
 
@@ -92,3 +100,6 @@
     }
 
 </div>
+
+}
+

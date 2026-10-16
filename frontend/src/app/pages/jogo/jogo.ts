@@ -23,16 +23,18 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar';
 import { SaibaMais } from '../../Saibamais/saiba-mais/saiba-mais';
+import { InstrucoesJogo } from '../../instrucoes-jogo/instrucoes-jogo';
 @Component({
   selector: 'app-jogo',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, SaibaMais],
+  imports: [CommonModule, NavbarComponent, SaibaMais, InstrucoesJogo],
   templateUrl: './jogo.html',
   styleUrls: ['./jogo.css']
 })
 
 export class Jogo implements OnInit {
 
+  mostrarInstrucoes = true;
   idJogo: number = 0;
   dificuldade: string = 'facil';
 
@@ -108,15 +110,20 @@ export class Jogo implements OnInit {
 
       this.cartas = [];
 
-      this.buscarCartas(
-        this.idJogo,
-        this.dificuldade
-      );
 
     });
 
   });
 
+}
+
+iniciarJogo(): void {
+  this.mostrarInstrucoes = false;
+
+  this.buscarCartas(
+    this.idJogo,
+    this.dificuldade
+  );
 }
 
   buscarCartas(idJogo: number, dificuldade: string) {
@@ -161,6 +168,7 @@ export class Jogo implements OnInit {
     });
 
 }
+
 
   embaralharCartas() {
 
@@ -586,5 +594,6 @@ fecharSaibaMais() {
   this.mostrarSaibaMais = false;
   this.cartaSaibaMais = null;
 }
+
 
 }
