@@ -62,6 +62,7 @@ export class Jogo implements OnInit {
   textoSaibaMais = '';
   cartaSaibaMais: any = null;
   
+  indiceCartaSaibaMais = 0;
 
   somCarta = new Audio('sounds/flip.mp3');
   somAcerto = new Audio('sounds/correct.mp3');
@@ -176,21 +177,18 @@ iniciarJogo(): void {
 
   }
 
-  virarCarta(carta: any) {
+virarCarta(carta: any) {
+  if (
+    carta.virada ||
 
-    if (
+    this.bloquearJogo ||
 
-      carta.virada ||
+    this.jogoFinalizado ||
 
-      this.bloquearJogo ||
-
-      this.jogoFinalizado
-
-    ) {
-
-      return;
-
-    }
+    this.mostrarSaibaMais
+  ) {
+    return;
+  }
 
     carta.virada = true;
 
@@ -237,10 +235,17 @@ iniciarJogo(): void {
     ) {
 
       this.acertos++;
+
       this.cartaSaibaMais = this.primeiraCarta;
+
+      this.indiceCartaSaibaMais =
+      this.cartas.indexOf(this.primeiraCarta);
+
       this.tituloSaibaMais = this.primeiraCarta.conteudo;
       this.textoSaibaMais = this.primeiraCarta.saibaMais;
+
       this.mostrarSaibaMais = true;
+
       this.score += 100;
 
       this.somAcerto.currentTime = 0;
@@ -267,10 +272,6 @@ iniciarJogo(): void {
 
   // Salva a partida no banco
       this.salvarPartida(this.idJogo);
-
-  setTimeout(() => {
-      this.botaoReiniciar?.nativeElement.focus();
-  });
 
       this.cdr.detectChanges();
 
@@ -462,6 +463,12 @@ const dadosPartida = {
 
 moverFoco(event: KeyboardEvent, indice: number) {
 
+if (this.mostrarSaibaMais) {
+  event.preventDefault();
+  event.stopPropagation();
+  return;
+}
+
   let novoIndice = indice;
 
   const total = this.cartas.length;
@@ -551,6 +558,16 @@ botaoSair!: ElementRef<HTMLButtonElement>;
 @HostListener('document:keydown', ['$event'])
 navegarFim(event: KeyboardEvent) {
 
+  if (this.mostrarSaibaMais) {
+  if (event.key === 'Enter' || event.code === 'NumpadEnter') {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    this.fecharSaibaMais();
+  }
+
+  return;
+}
+
   if (!this.jogoFinalizado) {
     return;
   }
@@ -559,40 +576,47 @@ navegarFim(event: KeyboardEvent) {
 
   if (
     event.key === 'ArrowRight' &&
-    ativo === this.botaoReiniciar.nativeElement
+    ativo === this.botaoReiniciar?.nativeElement
   ) {
-
     event.preventDefault();
-    this.botaoSair.nativeElement.focus();
-
+    this.botaoSair?.nativeElement.focus();
   }
 
   else if (
     event.key === 'ArrowLeft' &&
-    ativo === this.botaoSair.nativeElement
+    ativo === this.botaoSair?.nativeElement
   ) {
-
     event.preventDefault();
-    this.botaoReiniciar.nativeElement.focus();
-
+    this.botaoReiniciar?.nativeElement.focus();
   }
 
-  else if (
-    event.key === 'ArrowUp'
-  ) {
-
-    event.preventDefault(); 
-
-    const ultimaCarta =
-      this.cartasBotoes.last;
-
-    ultimaCarta.nativeElement.focus();
+  else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    this.cartasBotoes.last?.nativeElement.focus();
   }
-
 }
-fecharSaibaMais() {
+
+fecharSaibaMais(): void {
   this.mostrarSaibaMais = false;
   this.cartaSaibaMais = null;
+
+  this.cdr.detectChanges();
+
+  requestAnimationFrame(() => {
+    if (this.jogoFinalizado) {
+      this.botaoReiniciar?.nativeElement.focus();
+      return;
+    }
+
+    const botao = this.cartasBotoes.toArray()[
+      this.indiceCartaSaibaMais
+    ];
+
+    if (botao) {
+      botao.nativeElement.focus();
+      this.indiceAtual = this.indiceCartaSaibaMais;
+    }
+  });
 }
 
 
