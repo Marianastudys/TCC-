@@ -1,9 +1,11 @@
 <div class="fundo-instrucoes">
 
   <div
-    class="card-instrucoes"
-    role="dialog"
-    aria-labelledby="tituloInstrucoes">
+     #cardInstrucoes
+     class="card-instrucoes"
+     tabindex="0"
+     role="dialog"
+     aria-labelledby="tituloInstrucoes">
 
     <h1 id="tituloInstrucoes">
       Como jogar?
@@ -86,6 +88,7 @@
     </section>
 
     <button
+      #botaoComecar
       type="button"
       class="botao-comecar"
       (click)="comecarJogo()">
