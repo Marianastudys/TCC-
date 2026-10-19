@@ -1,3 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
+/* Contraste escuro: cartas brancas e letras pretas */
+html[data-bs-theme="dark"] {
+  --fundo-carta: #ffffff;
+  --texto-carta: #000000;
+  --fundo-carta-interacao: #eeeeee;
+}
+
+/* Contraste claro: cartas pretas e letras brancas */
+html[data-bs-theme="light"] {
+  --fundo-carta: #000000;
+  --texto-carta: #ffffff;
+  --fundo-carta-interacao: #222222;
+}

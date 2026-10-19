@@ -1,112 +1,160 @@
+
+/* Página inicial */
 .container {
     text-align: center;
     padding: 20px;
 }
 
-.titulo-celular{
+/* Aparência geral dos cards */
+.card-biologia,
+.card-genetica,
+.card-ecologia {
+    position: relative;
+    overflow: hidden;
+
+    background-color: #212529;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border: 1px solid #555;
+    border-radius: 10px;
+
+    min-height: 168px;
+
+    transition: transform 0.3s ease;
+}
+
+/* Estampa de Biologia Celular */
+.card-biologia {
+    background-image:
+        linear-gradient(
+            rgba(33, 37, 41, 0.82),
+            rgba(33, 37, 41, 0.82)
+        ),
+        url('/imagens/celular.jpg');
+}
+
+/* Estampa de Genética */
+.card-genetica {
+    background-image:
+        linear-gradient(
+            rgba(33, 37, 41, 0.82),
+            rgba(33, 37, 41, 0.82)
+        ),
+        url('/imagens/genetica.jpg');
+}
+
+/* Estampa de Ecologia */
+.card-ecologia {
+    background-image:
+        linear-gradient(
+            rgba(33, 37, 41, 0.82),
+            rgba(33, 37, 41, 0.82)
+        ),
+        url('/imagens/ecologia.jpg');
+}
+
+/* Mantém o conteúdo acima da imagem */
+.card-biologia .card-body,
+.card-genetica .card-body,
+.card-ecologia .card-body {
+    position: relative;
+    z-index: 1;
+
+    padding: 20px;
+}
+
+/* Efeito discreto ao passar o mouse */
+.card-biologia:hover,
+.card-genetica:hover,
+.card-ecologia:hover {
+    transform: translateY(-3px);
+}
+
+/* Títulos dos temas */
+.titulo-celular {
     color: rgb(255, 193, 7);
 }
 
-.btnTop-celular:hover, .btnTop-celular:focus-visible {
-  background:  rgb(255, 193, 7);
-  border: 2px solid rgb(255, 193, 7);
-  outline: none;
-  transition: background-color 0.3s, border-color 0.3s; 
-}
-
 .titulo-genetica {
-    color: rgb(7, 57, 131);
-}
-
-.btnTop-genetica:hover, .btnTop-genetica:focus-visible {
-  background:  rgb(7, 57, 131);
-  border: 2px solid rgb(7, 57, 131);
-  outline: none;
-  transition: background-color 0.3s, border-color 0.3s; 
-}
-
-:host-context([data-bs-theme="dark"]) .titulo-genetica {
     color: rgb(61, 139, 253);
-    transition: color 0.2s;
-}
-
-:host-context([data-bs-theme="dark"]) .btnTop-genetica:hover,
-:host-context([data-bs-theme="dark"]) .btnTop-genetica:focus-visible {
-    background: rgb(61, 139, 253);
-    transition: background-color 0.2s;
 }
 
 .titulo-ecologia {
-    color: rgb(0, 128, 0);
+    color: rgb(19, 223, 19);
 }
 
-.btnTop-ecologia:hover, .btnTop-ecologia:focus-visible {
-  background:  rgb(0, 128, 0);
-  border: 2px solid rgb(0, 128, 0);
-  outline: none;
-  transition: background-color 0.3s, border-color 0.3s; 
+/* Botões dos temas */
+.btnTop-celular,
+.btnTop-genetica,
+.btnTop-ecologia {
+    display: block;
+    width: 100%;
+
+    margin: 10px auto;
+    padding: 10px;
+
+    background-color: black;
+    color: white;
+
+    border: 2px solid yellow;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s,
+        border-color 0.3s;
+}
+
+/* Biologia Celular */
+.btnTop-celular:hover,
+.btnTop-celular:focus-visible {
+    background-color: rgb(255, 193, 7);
+    border-color: rgb(255, 193, 7);
+    color: black;
+}
+
+/* Genética */
+.btnTop-genetica:hover,
+.btnTop-genetica:focus-visible {
+    background-color: rgb(61, 139, 253);
+    border-color: rgb(61, 139, 253);
+    color: black;
+}
+
+/* Ecologia */
+.btnTop-ecologia:hover,
+.btnTop-ecologia:focus-visible {
+    background-color: rgb(19, 223, 19);
+    border-color: rgb(19, 223, 19);
+    color: black;
+}
+
+/* Foco visível para navegação por teclado */
+.btnTop-celular:focus-visible,
+.btnTop-genetica:focus-visible,
+.btnTop-ecologia:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 3px;
+}
+
+/* Mantém as cores dos títulos no tema escuro */
+:host-context([data-bs-theme="dark"]) .titulo-genetica {
+    color: rgb(61, 139, 253);
 }
 
 :host-context([data-bs-theme="dark"]) .titulo-ecologia {
     color: rgb(19, 223, 19);
-    transition: color 0.2s;
 }
 
-:host-context([data-bs-theme="dark"]) .btnTop-ecologia:hover,
-:host-context([data-bs-theme="dark"]) .btnTop-ecologia:focus-visible {
-    background: rgb(19, 223, 19);
-    transition: background-color 0.2s;
-}
-
-.tema {
-    border: 2px solid yellow;
-    margin: 20px auto;
-    padding: 20px;
-    width: 90%;
-    max-width: 350px;
-}
-
-button {
-    display: block;
-    width: 100%;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    border: 2px solid yellow;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-@media (max-width: 480px) {
-
-    .container {
-        padding: 10px;
-    }
-
-    .tema {
-        width: 95%;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    h2 {
-        font-size: 1.2rem;
-    }
-
-}
-
-/* Coluna do tema */
+/* Coluna de cada tema */
 .tema-coluna {
     position: relative;
 }
 
-
-/* Painel flutuante */
-
+/* Painel flutuante de dificuldade */
 .painel-dificuldade {
     position: absolute;
 
@@ -116,6 +164,7 @@ button {
     transform: translateX(-50%);
 
     width: 230px;
+    max-width: calc(100% - 10px);
 
     padding: 16px;
 
@@ -141,9 +190,7 @@ button {
     font-weight: bold;
 }
 
-
-/* Botões */
-
+/* Botões de dificuldade */
 .botao-dificuldade {
     width: 100%;
 
@@ -169,7 +216,6 @@ button {
         transform 0.2s;
 }
 
-
 .botao-dificuldade span {
     font-size: 0.9rem;
 }
@@ -179,9 +225,7 @@ button {
     font-weight: bold;
 }
 
-
 /* Fácil */
-
 .dificuldade-facil {
     border-color: #00ff00;
     color: #00ff00;
@@ -193,9 +237,7 @@ button {
     color: #000;
 }
 
-
 /* Médio */
-
 .dificuldade-medio {
     border-color: rgb(255, 193, 7);
     color: rgb(255, 193, 7);
@@ -207,9 +249,7 @@ button {
     color: #000;
 }
 
-
 /* Difícil */
-
 .dificuldade-dificil {
     border-color: #ff3333;
     color: #ff3333;
@@ -221,25 +261,57 @@ button {
     color: #000;
 }
 
-
-/* Foco */
-
+/* Foco nos botões de dificuldade */
 .botao-dificuldade:focus-visible {
     outline: 3px solid white;
     outline-offset: 2px;
 }
 
-
 /* Movimento sutil */
-
 .botao-dificuldade:hover {
     transform: translateY(-1px);
 }
 
+/* Telas menores */
 @media (max-width: 768px) {
-
     .painel-dificuldade {
         width: 220px;
     }
+}
 
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .card-biologia .card-body,
+    .card-genetica .card-body,
+    .card-ecologia .card-body {
+        padding: 15px;
+    }
+
+    .painel-dificuldade {
+        width: 210px;
+    }
+}
+
+/* Respeita a preferência por movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+    .card-biologia,
+    .card-genetica,
+    .card-ecologia,
+    .botao-dificuldade,
+    .btnTop-celular,
+    .btnTop-genetica,
+    .btnTop-ecologia {
+        transition: none;
+    }
 }

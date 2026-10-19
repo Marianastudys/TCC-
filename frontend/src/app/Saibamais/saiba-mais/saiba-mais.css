@@ -59,7 +59,22 @@
   outline: 4px solid white;
   outline-offset: 3px;
 }
+.titulo-saiba-mais {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 
+    color: yellow;
+    font-weight: bold;
+}
+
+.icone-lampada {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
 @keyframes aparecerSaibaMais {
 
   from {
