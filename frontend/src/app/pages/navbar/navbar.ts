@@ -48,6 +48,12 @@ export class NavbarComponent implements OnInit {
   
   atualizarFonte() {
     document.documentElement.style.fontSize = this.tamanhoFonte + '%';
+  
+    document.documentElement.style.setProperty(
+      '--escala-cartas',
+      (this.tamanhoFonte / 100).toString()
+    );
+  
     localStorage.setItem('tamanhoFonte', this.tamanhoFonte.toString());
   }
 
