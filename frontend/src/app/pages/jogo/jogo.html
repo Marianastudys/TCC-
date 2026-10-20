@@ -33,23 +33,25 @@
             <div class="carta-container">
 
                 <button
-                    #cartaBotao
-                    [class]="
-                        'carta' +
-                        (carta.virada ? ' virada' : '') +
-                        (carta.acertada ? ' acertada' : '') +
-                        (indicesErrados.includes(i) ? ' errada' : '')
-                    "
-                    (keydown)="moverFoco($event, i)"
-                    (click)="virarCarta(carta)"
-                    [attr.aria-label]="
-                        carta.virada
-                        ? carta.conteudo
-                        : 'Carta virada para baixo'
-                    "
-                >
+                #cartaBotao
+                [class]="
+                    'carta' +
+                    (carta.virada ? ' virada' : '') +
+                    (carta.acertada ? ' acertada' : '') +
+                    (indicesErrados.includes(i) ? ' errada' : '')
+                "
+                (keydown)="moverFoco($event, i)"
+                (click)="virarCarta(carta)"
+                [attr.aria-label]="
+                    carta.virada
+                    ? carta.conteudo
+                    : 'Carta virada para baixo'
+                "
+            >
+                <span class="conteudo-carta">
                     {{ carta.virada ? carta.conteudo : '?' }}
-                </button>
+                </span>
+            </button>
 
                 @if (mostrarSaibaMais && carta === cartaSaibaMais) {
 

@@ -45,7 +45,6 @@ h1 {
     color: var(--texto-carta, white);
     border: 3px solid rgb(255, 193, 7);
     border-radius: 10px;
-    font-size: calc(18px * var(--escala-cartas, 1));
     padding: calc(10px * var(--escala-cartas, 1));
     cursor: pointer;
     text-align: center;
@@ -216,6 +215,10 @@ h1 {
     .carta {
         font-size: 16px;
     }
+}
+
+.conteudo-carta {
+    font-size: calc(18px * var(--escala-cartas, 1));
 }
 
 /* Ajustes para celulares */
