@@ -1,103 +1,98 @@
-<nav class="navbar navbar-expand-lg navbar-custom">
+ <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid">
 
+    <a
+      class="navbar-brand"
+      (click)="irHome()"
+      (keydown.enter)="irHome()"
+      (keydown.space)="$event.preventDefault(); irHome()"
+      role="button"
+      tabindex="0"
+      aria-label="Jogo da Memória - página inicial">
 
-<a
-  class="navbar-brand fw-bold"
-  (click)="irHome()"
-  role="button"
-  tabindex="0">
+      <span class="marca-icone" aria-hidden="true">✦</span>
+      <span>Jogo da <strong>Memória!</strong></span>
+    </a>
 
-   Jogo da Memória
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Abrir ou fechar menu">
 
-</a>
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<button class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Abrir menu">
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent">
 
-  <span class="navbar-toggler-icon"></span>
+      <div class="navbar-acoes">
 
-</button>
+        @if (!usuarioLogado && mostrarBotaoEntrar) {
+          <button
+            class="botao-entrar"
+            type="button"
+            (click)="irLogin()">
+            Entrar
+            <span aria-hidden="true">➜</span>
+          </button>
+        }
 
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
+        @if (nomeUsuario) {
+          <button
+            class="usuario-logado"
+            type="button"
+            (click)="irUsuario()"
+            aria-label="Abrir perfil do usuário">
 
-  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <span class="icone-usuario" aria-hidden="true">👤</span>
+            <span>Olá, {{ nomeUsuario }}!</span>
+          </button>
+        }
 
- 
+        @if (usuarioLogado) {
+          <button
+            class="botao-sair"
+            type="button"
+            (click)="logout()">
+            Sair
+          </button>
+        }
 
-  </ul>
+        <div class="acessibilidade" aria-label="Opções de acessibilidade">
 
-  <div class="d-flex align-items-center gap-3">
+          <button
+            type="button"
+            class="botao-acessibilidade"
+            (click)="diminuirFonte()"
+            aria-label="Diminuir tamanho da fonte">
+            Diminuir Fonte −
+          </button>
 
-    @if (!usuarioLogado) {
+          <button
+            type="button"
+            class="botao-acessibilidade"
+            (click)="aumentarFonte()"
+            aria-label="Aumentar tamanho da fonte">
+            Aumentar Fonte +
+          </button>
 
-<button
-    *ngIf="mostrarBotaoEntrar"
-    class="botao-entrar"
-    (click)="irLogin()">
+          <button
+            type="button"
+            class="botao-contraste"
+            (click)="alternarTema()"
+            aria-label="Alternar contraste">
+            <span aria-hidden="true">☾</span>
+            Contraste
+          </button>
 
-    Entrar
+        </div>
 
-</button>
-
-}
-
-@if(nomeUsuario){
-
-<button
-    class="usuario-logado"
-    (click)="irUsuario()"
-    type="button"
-    aria-label="Abrir perfil do usuário">
-
-    <i
-        class="bi bi-person-circle"
-        aria-hidden="true">
-    </i>
-
-    <span>Olá, {{ nomeUsuario }}</span>
-
-</button>
-
-}
-
-    @if (usuarioLogado) {
-
-<button
-    class="botao-sair"
-    (click)="logout()">
-
-    Sair
-
-</button>
-
-}
-
-    <div class="acessibilidade">
-
-      <span (click)="diminuirFonte()" tabindex="0" role="button">
-        Diminuir fonte -
-      </span>
-
-      <span (click)="aumentarFonte()" tabindex="0" role="button">
-        Aumentar fonte +
-      </span>
-
-      <span (click)="alternarTema()" tabindex="0" role="button">
-        Mudar o contraste <i class="bi bi-moon-stars-fill"></i>
-      </span>
-
+      </div>
     </div>
-
-  </div>
-
-</div>
-
-
   </div>
 </nav>

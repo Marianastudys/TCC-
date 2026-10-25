@@ -1,42 +1,318 @@
-
 <app-navbar></app-navbar>
 
-<div class="container py-5">
+<main class="pagina-home" [class.modo-teclado]="navegacaoPorTeclado">
 
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-warning">
-            Jogo da Memória
+    <!-- APRESENTAÇÃO -->
+    <section class="apresentacao">
+
+        <span class="brilho brilho-um">✦</span>
+        <span class="brilho brilho-dois">✧</span>
+        <span class="brilho brilho-tres">✦</span>
+
+        <span class="etiqueta">APRENDA JOGANDO</span>
+
+        <h1>
+            Jogo da <span>Memória!</span>
         </h1>
-
-        <p class="lead fw-bold">
-            Escolha um tema para começar
+        <p>
+            Prepare-se para uma aventura cheia de descobertas,
+            desafios e conhecimento!
         </p>
-    </div>
 
-    <div class="row g-4 align-items-start">
+        <div class="card-apresentacao">
+            <p>
+                Este jogo é voltado para o ensino de conteúdos de Biologia
+                do Ensino Fundamental.
+                Seu objetivo é estimular a memória, a concentração e o
+                raciocínio por meio da associação de cartas relacionadas
+                a temas da disciplina.
 
-        <!-- Biologia Celular -->
-        <div class="col-md-4 tema-coluna">
+                Além disso, o jogo foi desenvolvido com recursos de
+                acessibilidade para pessoas com baixa visão, como opções
+                de contraste, ampliação do texto e leitura por voz,
+                buscando proporcionar uma experiência de aprendizagem
+                mais inclusiva.
+            </p>
+        </div>
 
-            <div class="card shadow card-biologia">
+        <button type="button" class="botao-aventura" (click)="escolherJogo()">
+            Vamos começar! <span>➜</span>
+        </button>
 
-                <div class="card-body text-center">
+        <div class="mascote-principal" aria-label="Lumi, a raposinha">
+            <img src="/imagens/personagem.png" alt="Raposa mascote" class="mascote-imagem">
+            <span class="estrela-mascote" aria-hidden="true">⭐</span>
+        </div>
 
-                    <h2 class="card-title fw-bold titulo-celular">
-                        Biologia Celular
-                    </h2>
+        <p class="dica-rolagem">
+            Role a página para conhecer seus novos amigos!
+        </p>
 
-                    <div *ngFor="let jogo of jogosCitologia">
+    </section>
 
-                        <button
-                            #botaoTema
-                            type="button"
-                            (click)="selecionarTema(jogo.id)"
-                            class="btnTop-celular fs-5 fw-bold">
+    <!-- HISTÓRIA DOS PERSONAGENS -->
+    <section class="historia">
 
-                            {{ jogo.nome }}
+        <div class="titulo-secao">
+            <span class="etiqueta">CONHEÇA SEUS GUIAS</span>
+            <h2>Uma aventura de descobertas</h2>
+            <p>
+                Lumi e Tico vão te mostrar como jogar.
+                Continue rolando a página para acompanhar a conversa!
+            </p>
+        </div>
 
+        <!-- DIÁLOGO 1 -->
+        <article #etapaHistoria class="etapa-historia" [class.apareceu]="etapasVisiveis[0]">
+
+            <div class="personagem personagem-raposa">
+                <img src="/imagens/lumi.png" alt="Lumi, a raposinha">
+            </div>
+
+            <div class="dialogo dialogo-coral">
+                <strong class="nome-personagem">Lumi</strong>
+                <p>
+                    Oi, aventureiro(a)! Seja bem-vindo(a)! Vamos aprender Biologia enquanto nos divertimos com um jogo da memória?
+                </p>
+            </div>
+
+        </article>
+
+        <!-- DIÁLOGO 2 -->
+        <article #etapaHistoria class="etapa-historia etapa-invertida" [class.apareceu]="etapasVisiveis[1]">
+
+            <div class="personagem personagem-robo">
+                <img src="/imagens/tico.png" alt="Tico, o robô">
+            </div>
+
+            <div class="dialogo dialogo-tico">
+                <strong class="nome-personagem">Tico</strong>
+                <p>
+                    Escolha um tema e uma dificuldade. Depois, vire duas cartas por vez e tente encontrar os pares que possuem conceitos correspondentes!
+                </p>
+            </div>
+
+        </article>
+
+                <!-- DIÁLOGO 3 -->
+        <article #etapaHistoria class="etapa-historia" [class.apareceu]="etapasVisiveis[2]">
+
+            <div class="personagem personagem-raposa">
+                <img src="/imagens/lumi.png" alt="Lumi, a raposinha">
+            </div>
+
+            <div class="dialogo dialogo-coral">
+                <strong class="nome-personagem">Lumi</strong>
+                <p>
+Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, você perde 20 pontos. Tente acertar o máximo possível!
+                </p>
+            </div>
+
+        </article>
+                <!-- DIÁLOGO 4 -->
+        <article #etapaHistoria class="etapa-historia etapa-invertida" [class.apareceu]="etapasVisiveis[3]">
+
+            <div class="personagem personagem-robo">
+                <img src="/imagens/tico.png" alt="Tico, o robô">
+            </div>
+
+            <div class="dialogo dialogo-tico">
+                <strong class="nome-personagem">Tico</strong>
+                <p>
+                    Você também pode jogar pelo teclado! Use a tecla Tab para navegar entre os elementos e Enter ou Espaço para ativar botões e selecionar cartas. Use as setas para navegar pelas cartas, quando disponível.
+                </p>
+            </div>
+
+        </article>
+
+        <!-- DIÁLOGO 5 -->
+        <article #etapaHistoria class="etapa-historia" [class.apareceu]="etapasVisiveis[4]">
+
+            <div class="personagem personagem-raposa" aria-hidden="true">
+                <img src="/imagens/lumi.png" alt="Lumi, a raposinha">
+            </div>
+
+            <div class="dialogo dialogo-coral">
+                <strong class="nome-personagem">Lumi</strong>
+                <p>
+                    Está difícil enxergar as palavras? Procure o controle de tamanho do texto e aumente a fonte para deixar as informações mais fáceis de ler!
+                </p>
+            </div>
+
+        </article>
+
+        <!-- DIÁLOGO 6 -->
+        <article #etapaHistoria class="etapa-historia etapa-invertida" [class.apareceu]="etapasVisiveis[5]">
+
+            <div class="personagem personagem-robo" aria-hidden="true">
+                <img src="/imagens/tico.png" alt="Tico, o robô">
+            </div>
+
+            <div class="dialogo dialogo-tico">
+                <strong class="nome-personagem">Tico</strong>
+                <p>
+                   Quer enxergar melhor? Experimente o botão de contraste para alternar entre os temas disponíveis e escolher o que ficar mais confortável para você.
+                </p>
+            </div>
+
+        </article>
+
+                <!-- DIÁLOGO 7 -->
+        <article #etapaHistoria class="etapa-historia" [class.apareceu]="etapasVisiveis[6]">
+
+            <div class="personagem personagem-raposa" aria-hidden="true">
+                <img src="/imagens/lumi.png" alt="Lumi, a raposinha">
+            </div>
+
+            <div class="dialogo dialogo-coral">
+                <strong class="nome-personagem">Lumi</strong>
+                <p>
+                    Você também pode usar o recurso de leitura por voz para ouvir textos e informações da tela. Assim, fica mais fácil acompanhar a aventura!
+                </p>
+            </div>
+
+        </article>
+
+        <!-- DIÁLOGO 8 -->
+        <article #etapaHistoria class="etapa-historia etapa-invertida" [class.apareceu]="etapasVisiveis[7]">
+
+            <div class="personagem personagem-robo" aria-hidden="true">
+                <img src="/imagens/tico.png" alt="Tico, o robô">
+            </div>
+
+            <div class="dialogo dialogo-tico">
+                <strong class="nome-personagem">Tico</strong>
+                <p>
+                   Encontrou um par? Muito bem! Depois de acertar, confira o cartão “Saiba mais” para descobrir curiosidades e aprender um pouquinho além do jogo.
+                </p>
+            </div>
+
+        </article>
+
+        <!-- FINAL DA HISTÓRIA -->
+        <div class="final-historia">
+
+            <div class="estrela-destaque">
+                <span class="estrela">🌟</span>
+            </div>
+
+            <h2>Sua aventura começa agora!</h2>
+
+            <p>
+                Escolha seu tema favorito e descubra
+                quantos pares você consegue encontrar!
+            </p>
+
+            <button type="button" class="botao-escolher" (click)="escolherJogo()">
+                Escolher jogo
+                <span aria-hidden="true">➜</span>
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ESCOLHA DOS JOGOS -->
+    <section id="secao-jogos" class="secao-jogos">
+
+        <div class="titulo-secao">
+            <span class="etiqueta">ESCOLHA SUA AVENTURA</span>
+            <h2>Qual será o seu desafio?</h2>
+            <p>
+                Escolha um tema e depois selecione a dificuldade.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- BIOLOGIA CELULAR -->
+            <div class="col-12 col-md-6 col-xl-4 tema-coluna">
+
+                <article class="card-biologia">
+
+                    <div class="card-body">
+
+                        <div>
+                            <img class="icone-tema" src="assets/imagens/biologia-celular.png" alt="" aria-hidden="true">
+
+                            <h3 class="titulo-celular">
+                                Biologia Celular
+                            </h3>
+
+                            <p class="descricao-tema">
+                                Explore as células e suas organelas!
+                            </p>
+                        </div>
+
+                        <button #botaoTema type="button" class="btnTop-celular"
+                            (click)="selecionarTema(jogosCitologia[0]?.id)"
+                            [attr.aria-expanded]="temaPertenceALista(jogosCitologia)"
+                            aria-label="Escolher jogo de Biologia Celular">
+                            Jogo Biologia Celular
                         </button>
+
+                    </div>
+
+                </article>
+
+                <div class="painel-dificuldade" *ngIf="temaPertenceALista(jogosCitologia)">
+
+                    <h3>Escolha a dificuldade</h3>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
+                            (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil">
+                            <span>Fácil</span>
+                            <small>8 cartas</small>
+                        </button>
+
+                        <div id="dica-facil" class="balao-dificuldade balao-facil" role="tooltip">
+                            <strong>🌱 Fácil</strong>
+                            <p>
+                                Ideal para começar! Você precisa
+                                conhecer apenas os conceitos básicos
+                                do tema.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
+                            (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio">
+                            <span>Médio</span>
+                            <small>12 cartas</small>
+                        </button>
+
+                        <div id="dica-medio" class="balao-dificuldade balao-medio" role="tooltip">
+                            <strong>🌿 Médio</strong>
+                            <p>
+                                Para quem já conhece os principais
+                                conceitos e consegue relacionar
+                                informações do conteúdo.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
+                            (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil">
+                            <span>Difícil</span>
+                            <small>16 cartas</small>
+                        </button>
+
+                        <div id="dica-dificil" class="balao-dificuldade balao-dificil" role="tooltip">
+                            <strong>🌳 Difícil</strong>
+                            <p>
+                                Um desafio maior! É importante
+                                conhecer bem o conteúdo e relacionar
+                                conceitos com mais detalhes.
+                            </p>
+                        </div>
 
                     </div>
 
@@ -44,72 +320,92 @@
 
             </div>
 
-            <!-- Painel de dificuldade -->
-            <div
-                *ngIf="temaSelecionado !== null && temaSelecionado === jogosCitologia[0]?.id"
-                class="painel-dificuldade">
+            <!-- GENÉTICA -->
+            <div class="col-12 col-md-6 col-xl-4 tema-coluna">
 
-                <h3>Escolha a dificuldade</h3>
+                <article class="card-genetica">
 
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-facil"
-                    (click)="iniciarJogo(jogosCitologia[0].id, 'facil')">
+                    <div class="card-body">
 
-                    <span>Fácil</span>
-                    <small>8 cartas</small>
+                        <div>
+                            <img class="icone-tema" src="assets/imagens/biologia-celular.png" alt="" aria-hidden="true">
 
-                </button>
+                            <h3 class="titulo-genetica">
+                                Genética
+                            </h3>
 
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-medio"
-                    (click)="iniciarJogo(jogosCitologia[0].id, 'medio')">
+                            <p class="descricao-tema">
+                                Descubra os segredos do material genético!
+                            </p>
+                        </div>
 
-                    <span>Médio</span>
-                    <small>12 cartas</small>
-
-                </button>
-
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-dificil"
-                    (click)="iniciarJogo(jogosCitologia[0].id, 'dificil')">
-
-                    <span>Difícil</span>
-                    <small>16 cartas</small>
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- Genética -->
-        <div class="col-md-4 tema-coluna">
-
-            <div class="card shadow card-genetica">
-
-                <div class="card-body text-center">
-
-                    <h2 class="card-title fw-bold titulo-genetica">
-                        Genética
-                    </h2>
-
-                    <div *ngFor="let jogo of jogosGenetica">
-
-                        <button
-                            #botaoTema
-                            type="button"
-                            (click)="selecionarTema(jogo.id)"
-                            class="btnTop-genetica fs-5 fw-bold">
-
-                            {{ jogo.nome }}
-
+                        <button #botaoTema type="button" class="btnTop-genetica"
+                            (click)="selecionarTema(jogosGenetica[0]?.id)"
+                            [attr.aria-expanded]="temaPertenceALista(jogosGenetica)"
+                            aria-label="Escolher jogo de Genética">
+                            Jogo Genética
                         </button>
+
+                    </div>
+
+                </article>
+
+                <div class="painel-dificuldade" *ngIf="temaPertenceALista(jogosGenetica)">
+
+                    <h3>Escolha a dificuldade</h3>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
+                            (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil-genetica">
+                            <span>Fácil</span>
+                            <small>8 cartas</small>
+                        </button>
+
+                        <div id="dica-facil-genetica" class="balao-dificuldade balao-facil" role="tooltip">
+                            <strong>🌱 Fácil</strong>
+                            <p>
+                                Comece conhecendo os conceitos básicos
+                                de DNA, genes e hereditariedade.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
+                            (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio-genetica">
+                            <span>Médio</span>
+                            <small>12 cartas</small>
+                        </button>
+
+                        <div id="dica-medio-genetica" class="balao-dificuldade balao-medio" role="tooltip">
+                            <strong>🌿 Médio</strong>
+                            <p>
+                                Para quem já entende a função do DNA
+                                e conhece alguns conceitos de genética.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
+                            (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil-genetica">
+                            <span>Difícil</span>
+                            <small>16 cartas</small>
+                        </button>
+
+                        <div id="dica-dificil-genetica" class="balao-dificuldade balao-dificil" role="tooltip">
+                            <strong>🌳 Difícil</strong>
+                            <p>
+                                Desafio para quem conhece melhor
+                                os mecanismos genéticos e as relações
+                                entre os conceitos.
+                            </p>
+                        </div>
 
                     </div>
 
@@ -117,72 +413,95 @@
 
             </div>
 
-            <!-- Painel de dificuldade -->
-            <div
-                *ngIf="temaSelecionado !== null && temaSelecionado === jogosGenetica[0]?.id"
-                class="painel-dificuldade">
+            <!-- ECOLOGIA -->
+            <div class="col-12 col-md-6 col-xl-4 tema-coluna">
 
-                <h3>Escolha a dificuldade</h3>
+                <article class="card-ecologia">
 
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-facil"
-                    (click)="iniciarJogo(jogosGenetica[0].id, 'facil')">
+                    <div class="card-body">
 
-                    <span>Fácil</span>
-                    <small>8 cartas</small>
+                        <div>
+                            <img class="icone-tema" src="assets/imagens/biologia-celular.png" alt="" aria-hidden="true">
 
-                </button>
+                            <h3 class="titulo-ecologia">
+                                Ecologia
+                            </h3>
 
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-medio"
-                    (click)="iniciarJogo(jogosGenetica[0].id, 'medio')">
+                            <p class="descricao-tema">
+                                Conheça a natureza e as relações entre
+                                os seres vivos!
+                            </p>
+                        </div>
 
-                    <span>Médio</span>
-                    <small>12 cartas</small>
-
-                </button>
-
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-dificil"
-                    (click)="iniciarJogo(jogosGenetica[0].id, 'dificil')">
-
-                    <span>Difícil</span>
-                    <small>16 cartas</small>
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- Ecologia -->
-        <div class="col-md-4 tema-coluna">
-
-            <div class="card shadow card-ecologia">
-
-                <div class="card-body text-center">
-
-                    <h2 class="card-title fw-bold titulo-ecologia">
-                        Ecologia
-                    </h2>
-
-                    <div *ngFor="let jogo of jogosEcologia">
-
-                        <button
-                            #botaoTema
-                            type="button"
-                            (click)="selecionarTema(jogo.id)"
-                            class="btnTop-ecologia fs-5 fw-bold">
-
-                            {{ jogo.nome }}
-
+                        <button #botaoTema type="button" class="btnTop-ecologia"
+                            (click)="selecionarTema(jogosEcologia[0]?.id)"
+                            [attr.aria-expanded]="temaPertenceALista(jogosEcologia)"
+                            aria-label="Escolher jogo de Ecologia">
+                            Jogo Ecologia
                         </button>
+
+                    </div>
+
+                </article>
+
+                <div class="painel-dificuldade" *ngIf="temaPertenceALista(jogosEcologia)">
+
+                    <h3>Escolha a dificuldade</h3>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
+                            (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil-ecologia">
+                            <span>Fácil</span>
+                            <small>8 cartas</small>
+                        </button>
+
+                        <div id="dica-facil-ecologia" class="balao-dificuldade balao-facil" role="tooltip">
+                            <strong>🌱 Fácil</strong>
+                            <p>
+                                Comece conhecendo os seres vivos,
+                                o ambiente e as relações mais simples
+                                entre eles.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
+                            (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio-ecologia">
+                            <span>Médio</span>
+                            <small>12 cartas</small>
+                        </button>
+
+                        <div id="dica-medio-ecologia" class="balao-dificuldade balao-medio" role="tooltip">
+                            <strong>🌿 Médio</strong>
+                            <p>
+                                Para quem já conhece as relações
+                                ecológicas e os conceitos básicos
+                                dos ecossistemas.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="item-dificuldade">
+
+                        <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
+                            (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil-ecologia">
+                            <span>Difícil</span>
+                            <small>16 cartas</small>
+                        </button>
+
+                        <div id="dica-dificil-ecologia" class="balao-dificuldade balao-dificil" role="tooltip">
+                            <strong>🌳 Difícil</strong>
+                            <p>
+                                Desafio para quem consegue relacionar
+                                diferentes relações ecológicas e
+                                compreender seus efeitos no ambiente.
+                            </p>
+                        </div>
 
                     </div>
 
@@ -190,50 +509,10 @@
 
             </div>
 
-            <!-- Painel de dificuldade -->
-            <div
-                *ngIf="temaSelecionado !== null && temaSelecionado === jogosEcologia[0]?.id"
-                class="painel-dificuldade">
-
-                <h3>Escolha a dificuldade</h3>
-
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-facil"
-                    (click)="iniciarJogo(jogosEcologia[0].id, 'facil')">
-
-                    <span>Fácil</span>
-                    <small>8 cartas</small>
-
-                </button>
-
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-medio"
-                    (click)="iniciarJogo(jogosEcologia[0].id, 'medio')">
-
-                    <span>Médio</span>
-                    <small>12 cartas</small>
-
-                </button>
-
-                <button
-                    #botaoDificuldade
-                    type="button"
-                    class="botao-dificuldade dificuldade-dificil"
-                    (click)="iniciarJogo(jogosEcologia[0].id, 'dificil')">
-
-                    <span>Difícil</span>
-                    <small>16 cartas</small>
-
-                </button>
-
-            </div>
-
         </div>
 
-    </div>
+    </section>
 
-</div>
+
+
+</main>

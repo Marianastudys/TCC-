@@ -1,317 +1,1241 @@
+/* =========================
+   CORES E PÁGINA
+========================= */
 
-/* Página inicial */
-.container {
-    text-align: center;
-    padding: 20px;
+:host {
+    --fundo: #15152b;
+    --texto: #ffffff;
+    --amarelo: #ffdf4d;
+    --turquesa: #75e6da;
+    --coral: #ff9f9f;
+    --lilas: #c5adff;
+    --verde: #a8f07a;
+
+    display: block;
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Aparência geral dos cards */
+.pagina-home {
+    overflow: visible;
+    background-color: var(--fundo);
+    color: var(--texto);
+}
+
+.pagina-home * {
+    box-sizing: border-box;
+}
+
+.pagina-home button {
+    font-family: inherit;
+}
+
+/* =========================
+   APRESENTAÇÃO
+========================= */
+
+.apresentacao {
+    position: relative;
+    isolation: isolate;
+    min-height: 590px;
+    padding: 85px 20px 35px;
+    text-align: center;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 15% 20%, #30305b 0, transparent 30%),
+        radial-gradient(circle at 85% 70%, #253d57 0, transparent 32%),
+        var(--fundo);
+}
+
+.etiqueta {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 2px solid var(--turquesa);
+    border-radius: 30px;
+    color: var(--turquesa);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.apresentacao h1 {
+    margin: 25px 0 15px;
+    color: #ffffff;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 900;
+}
+
+.apresentacao h1 span {
+    color: var(--amarelo);
+}
+
+.apresentacao>p:not(.dica-rolagem) {
+    max-width: 620px;
+    margin: 0 auto 25px;
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
+
+.botao-aventura,
+.botao-escolher {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 14px 25px;
+
+    border: 3px solid var(--amarelo);
+    border-radius: 15px;
+    background-color: var(--amarelo);
+    color: #151515;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.botao-aventura:hover,
+.botao-escolher:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 0 #a57a00;
+}
+
+.botao-aventura:focus-visible,
+.botao-escolher:focus-visible {
+    outline: 4px solid #ffffff;
+    outline-offset: 5px;
+}
+
+.mascote-principal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 130px;
+    height: 130px;
+    margin: 35px auto 15px;
+
+    background-color: #ff9f9f;
+    border: 4px solid #ffffff;
+    border-radius: 40% 45% 40% 45%;
+    box-shadow: 0 8px 0 #a64d70;
+
+    animation: flutuar 3s ease-in-out infinite;
+}
+
+.mascote-emoji {
+    font-size: 5rem;
+}
+
+.estrela-mascote {
+    position: absolute;
+    top: -20px;
+    right: -15px;
+    font-size: 2rem;
+}
+
+.dica-rolagem {
+    margin-top: 25px;
+    color: #e4e4ff;
+    font-size: 0.95rem;
+}
+
+.brilho {
+    position: absolute;
+    z-index: 0;
+    color: var(--amarelo);
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* Estrela superior esquerda */
+.brilho-um {
+    top: 100px;
+    left: clamp(16px, 10vw, 140px);
+}
+
+/* Estrela à direita */
+.brilho-dois {
+    top: 40%;
+    right: clamp(16px, 10vw, 140px);
+}
+
+/* Estrela inferior esquerda */
+.brilho-tres {
+    bottom: 100px;
+    left: clamp(25px, 20vw, 280px);
+}
+/* =========================
+   TÍTULOS DAS SEÇÕES
+========================= */
+
+.historia,
+.secao-jogos {
+    padding: 70px 24px;
+}
+
+.titulo-secao {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.titulo-secao h2,
+.final-historia h2 {
+    margin: 20px 0 12px;
+    color: var(--amarelo);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+}
+
+.titulo-secao p,
+.final-historia p {
+    color: #eeeeff;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* =========================
+   DIÁLOGOS DA HISTÓRIA
+========================= */
+
+.etapa-historia {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        visibility 0.7s ease;
+}
+
+.etapa-historia.apareceu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.etapa-invertida {
+    flex-direction: row-reverse;
+}
+
+.personagem {
+    flex: 0 0 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 115px;
+    height: 115px;
+
+    border: 4px solid #ffffff;
+    border-radius: 35%;
+    font-size: 4.3rem;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.personagem-raposa {
+    background-color: var(--coral);
+}
+
+.personagem-robo {
+    background-color: var(--turquesa);
+}
+
+.dialogo {
+    position: relative;
+    flex: 1;
+    padding: 23px 25px;
+
+    border: 3px solid #ffffff;
+    border-radius: 22px;
+    color: #15152b;
+
+    box-shadow: 0 7px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dialogo-coral {
+    background-color: var(--coral);
+}
+
+.dialogo-azul {
+    background-color: var(--turquesa);
+}
+
+.dialogo-lilas {
+    background-color: var(--lilas);
+}
+
+.dialogo-verde {
+    background-color: var(--verde);
+}
+
+.dialogo-coral::before,
+.dialogo-lilas::before {
+    content: "";
+    position: absolute;
+    top: 35px;
+    left: -14px;
+
+    width: 23px;
+    height: 23px;
+
+    background: inherit;
+    border-left: 3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
+
+    transform: rotate(45deg);
+}
+
+.dialogo-azul::before,
+.dialogo-verde::before {
+    content: "";
+    position: absolute;
+    top: 35px;
+    right: -14px;
+
+    width: 23px;
+    height: 23px;
+
+    background: inherit;
+    border-right: 3px solid #ffffff;
+    border-top: 3px solid #ffffff;
+
+    transform: rotate(45deg);
+}
+
+.nome-personagem {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+.dialogo p {
+    margin: 0;
+    font-size: 1.08rem;
+    line-height: 1.8;
+}
+/* Balões de fala do Tico */
+.dialogo-tico {
+    background-color: var(--amarelo);
+    color: #15152b;
+}
+
+/* =========================
+   FINAL DA HISTÓRIA
+========================= */
+
+.final-historia {
+    max-width: 750px;
+    margin: 75px auto 0;
+    padding: 40px 25px;
+
+    text-align: center;
+    background-color: #222242;
+    border: 3px solid var(--amarelo);
+    border-radius: 25px;
+    box-shadow: 0 8px 0 #090918;
+}
+
+.icone-final {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 4rem;
+}
+
+.final-historia h2 {
+    color: var(--amarelo);
+}
+
+.final-historia p {
+    max-width: 550px;
+    margin: 15px auto 25px;
+}
+
+/* =========================
+   SEÇÃO DOS JOGOS
+========================= */
+
+.secao-jogos {
+    background-color: #1b1b35;
+    scroll-margin-top: 20px;
+}
+
+.tema-coluna {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    min-width: 0;
+    margin-bottom: 20px;
+}
+
+/* Os três cards mantêm a mesma altura */
 .card-biologia,
 .card-genetica,
 .card-ecologia {
     position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 340px;
+    min-height: 340px;
+    flex: 0 0 340px;
+
     overflow: hidden;
 
-    background-color: #212529;
+    background-color: #222238;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    border: 1px solid #555;
-    border-radius: 10px;
+    border: 3px solid #ffffff;
+    border-radius: 18px;
 
-    min-height: 168px;
-
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
 }
 
-/* Estampa de Biologia Celular */
 .card-biologia {
     background-image:
-        linear-gradient(
-            rgba(33, 37, 41, 0.82),
-            rgba(33, 37, 41, 0.82)
-        ),
+        linear-gradient(rgba(20, 20, 40, 0.88),
+            rgba(20, 20, 40, 0.88)),
         url('/imagens/celular.jpg');
+
+    border-color: var(--amarelo);
 }
 
-/* Estampa de Genética */
 .card-genetica {
     background-image:
-        linear-gradient(
-            rgba(33, 37, 41, 0.82),
-            rgba(33, 37, 41, 0.82)
-        ),
+        linear-gradient(rgba(20, 20, 40, 0.88),
+            rgba(20, 20, 40, 0.88)),
         url('/imagens/genetica.jpg');
+
+    border-color: var(--turquesa);
 }
 
-/* Estampa de Ecologia */
 .card-ecologia {
     background-image:
-        linear-gradient(
-            rgba(33, 37, 41, 0.82),
-            rgba(33, 37, 41, 0.82)
-        ),
+        linear-gradient(rgba(20, 20, 40, 0.88),
+            rgba(20, 20, 40, 0.88)),
         url('/imagens/ecologia.jpg');
+
+    border-color: var(--verde);
 }
 
-/* Mantém o conteúdo acima da imagem */
+.card-biologia:hover,
+.card-genetica:hover,
+.card-ecologia:hover {
+    transform: translateY(-5px);
+}
+
 .card-biologia .card-body,
 .card-genetica .card-body,
 .card-ecologia .card-body {
     position: relative;
     z-index: 1;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    flex: 1;
+    min-height: 0;
     padding: 20px;
 }
 
-/* Efeito discreto ao passar o mouse */
-.card-biologia:hover,
-.card-genetica:hover,
-.card-ecologia:hover {
-    transform: translateY(-3px);
+.icone-tema {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 3rem;
 }
 
-/* Títulos dos temas */
+.titulo-celular,
+.titulo-genetica,
+.titulo-ecologia {
+    margin-bottom: 12px;
+    font-size: 1.55rem;
+}
+
 .titulo-celular {
-    color: rgb(255, 193, 7);
+    color: var(--amarelo);
 }
 
 .titulo-genetica {
-    color: rgb(61, 139, 253);
+    color: var(--turquesa);
 }
 
 .titulo-ecologia {
-    color: rgb(19, 223, 19);
+    color: var(--verde);
 }
 
-/* Botões dos temas */
+.descricao-tema {
+    margin-bottom: 18px;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* =========================
+   BOTÕES DOS TEMAS
+========================= */
+
 .btnTop-celular,
 .btnTop-genetica,
 .btnTop-ecologia {
     display: block;
     width: 100%;
+    min-height: 48px;
+    margin: 12px auto;
+    padding: 12px;
 
-    margin: 10px auto;
-    padding: 10px;
+    background-color: #090918;
+    color: #ffffff;
 
-    background-color: black;
-    color: white;
-
-    border: 2px solid yellow;
-    border-radius: 5px;
+    border: 3px solid var(--amarelo);
+    border-radius: 10px;
 
     cursor: pointer;
-
-    transition:
-        background-color 0.3s,
-        border-color 0.3s;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-/* Biologia Celular */
 .btnTop-celular:hover,
 .btnTop-celular:focus-visible {
-    background-color: rgb(255, 193, 7);
-    border-color: rgb(255, 193, 7);
-    color: black;
+    background-color: var(--amarelo);
+    color: #151515;
 }
 
-/* Genética */
+.btnTop-genetica {
+    border-color: var(--turquesa);
+}
+
 .btnTop-genetica:hover,
 .btnTop-genetica:focus-visible {
-    background-color: rgb(61, 139, 253);
-    border-color: rgb(61, 139, 253);
-    color: black;
+    background-color: var(--turquesa);
+    color: #151515;
 }
 
-/* Ecologia */
+.btnTop-ecologia {
+    border-color: var(--verde);
+}
+
 .btnTop-ecologia:hover,
 .btnTop-ecologia:focus-visible {
-    background-color: rgb(19, 223, 19);
-    border-color: rgb(19, 223, 19);
-    color: black;
+    background-color: var(--verde);
+    color: #151515;
 }
 
-/* Foco visível para navegação por teclado */
 .btnTop-celular:focus-visible,
 .btnTop-genetica:focus-visible,
 .btnTop-ecologia:focus-visible {
-    outline: 3px solid white;
-    outline-offset: 3px;
+    outline: 4px solid #ffffff;
+    outline-offset: 4px;
 }
 
-/* Mantém as cores dos títulos no tema escuro */
-:host-context([data-bs-theme="dark"]) .titulo-genetica {
-    color: rgb(61, 139, 253);
-}
+/* =========================
+   PAINEL DE DIFICULDADE
+========================= */
 
-:host-context([data-bs-theme="dark"]) .titulo-ecologia {
-    color: rgb(19, 223, 19);
-}
-
-/* Coluna de cada tema */
-.tema-coluna {
-    position: relative;
-}
-
-/* Painel flutuante de dificuldade */
 .painel-dificuldade {
-    position: absolute;
+    position: relative;
+    z-index: 2;
 
-    top: calc(100% - 20px);
-    left: 50%;
+    width: 100%;
+    min-width: 0;
+    margin-top: 15px;
+    padding: 18px;
 
-    transform: translateX(-50%);
+    background-color: #090918;
+    color: #ffffff;
 
-    width: 230px;
-    max-width: calc(100% - 10px);
-
-    padding: 16px;
-
-    background-color: #000;
-    color: white;
-
-    border: 3px solid rgb(255, 193, 7);
-    border-radius: 12px;
-
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
-
-    z-index: 100;
+    border: 3px solid var(--amarelo);
+    border-radius: 15px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
 }
 
 .painel-dificuldade h3 {
-    margin: 0 0 14px;
-
+    margin: 0 0 15px;
     text-align: center;
 
-    color: rgb(255, 193, 7);
-
-    font-size: 1rem;
+    color: var(--amarelo);
+    font-size: 1.1rem;
     font-weight: bold;
 }
 
-/* Botões de dificuldade */
-.botao-dificuldade {
-    width: 100%;
+.item-dificuldade {
+    position: relative;
+    display: flex;
+    align-items: center;
 
+    width: 100%;
+    min-width: 0;
+    margin: 10px 0;
+}
+
+.botao-dificuldade {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
 
-    margin: 7px 0;
-    padding: 8px 10px;
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 45px;
+    margin: 0;
+    padding: 10px 12px;
 
-    background-color: #000;
-    color: white;
+    background-color: #090918;
+    color: #ffffff;
 
-    border: 2px solid;
-    border-radius: 7px;
+    border: 3px solid;
+    border-radius: 9px;
 
     font-weight: bold;
     cursor: pointer;
 
-    transition:
-        background-color 0.2s,
-        color 0.2s,
-        transform 0.2s;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .botao-dificuldade span {
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .botao-dificuldade small {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: bold;
 }
 
-/* Fácil */
 .dificuldade-facil {
-    border-color: #00ff00;
-    color: #00ff00;
+    border-color: #a8f07a;
+    color: #a8f07a;
 }
 
 .dificuldade-facil:hover,
 .dificuldade-facil:focus-visible {
-    background-color: #00ff00;
-    color: #000;
+    background-color: #a8f07a;
+    color: #151515;
 }
 
-/* Médio */
 .dificuldade-medio {
-    border-color: rgb(255, 193, 7);
-    color: rgb(255, 193, 7);
+    border-color: var(--amarelo);
+    color: var(--amarelo);
 }
 
 .dificuldade-medio:hover,
 .dificuldade-medio:focus-visible {
-    background-color: rgb(255, 193, 7);
-    color: #000;
+    background-color: var(--amarelo);
+    color: #151515;
 }
 
-/* Difícil */
 .dificuldade-dificil {
-    border-color: #ff3333;
-    color: #ff3333;
+    border-color: #ff8585;
+    color: #ff8585;
 }
 
 .dificuldade-dificil:hover,
 .dificuldade-dificil:focus-visible {
-    background-color: #ff3333;
-    color: #000;
+    background-color: #ff8585;
+    color: #151515;
 }
 
-/* Foco nos botões de dificuldade */
 .botao-dificuldade:focus-visible {
-    outline: 3px solid white;
-    outline-offset: 2px;
+    outline: 4px solid #ffffff;
+    outline-offset: 3px;
 }
 
-/* Movimento sutil */
-.botao-dificuldade:hover {
-    transform: translateY(-1px);
+/* =========================
+   BALÕES DAS DIFICULDADES
+========================= */
+
+/* Balões escondidos inicialmente */
+.balao-dificuldade {
+    position: absolute;
+    z-index: 30;
+
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    max-width: 100%;
+    max-height: 180px;
+    padding: 14px;
+    overflow-y: auto;
+
+    box-sizing: border-box;
+
+    color: #15152b;
+    background-color: #ffffff;
+
+    border: 3px solid #ffffff;
+    border-radius: 12px;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(-5px);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
 }
 
-/* Telas menores */
+.balao-dificuldade strong {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 0.95rem;
+}
+
+.balao-dificuldade p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Modo teclado: apenas a dificuldade focada mostra o balão */
+.modo-teclado .botao-dificuldade:focus-visible+.balao-dificuldade {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Modo mouse: o cursor controla os balões */
+@media (hover: hover) and (pointer: fine) {
+    .pagina-home:not(.modo-teclado) .item-dificuldade:hover .balao-dificuldade {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Cores dos balões */
+.balao-facil {
+    background-color: #d9ffbd;
+    border-color: #276b00;
+}
+
+.balao-medio {
+    background-color: #fff1a8;
+    border-color: #8a6500;
+}
+
+.balao-dificil {
+    background-color: #ffd2d2;
+    border-color: #b00020;
+}
+
+/* =========================
+   RODAPÉ
+========================= */
+
+.rodape-home {
+    padding: 25px 15px;
+    text-align: center;
+
+    background-color: #101020;
+    border-top: 2px solid #39395c;
+}
+
+.rodape-home p {
+    margin: 0;
+    color: var(--amarelo);
+    font-weight: bold;
+}
+
+/* =========================
+   ANIMAÇÕES
+========================= */
+
+@keyframes flutuar {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* =========================
+   CONTRASTE CLARO
+========================= */
+
+:host-context(html[data-bs-theme="light"]) {
+    --fundo: #ffffff;
+    --texto: #111111;
+}
+
+:host-context(html[data-bs-theme="light"]) .pagina-home,
+:host-context(html[data-bs-theme="light"]) .secao-jogos {
+    background-color: #ffffff;
+    color: #111111;
+}
+
+:host-context(html[data-bs-theme="light"]) .apresentacao {
+    background:
+        radial-gradient(circle at 15% 20%, #e0e7ff 0, transparent 35%),
+        radial-gradient(circle at 85% 70%, #d7fbf5 0, transparent 35%),
+        #ffffff;
+}
+
+:host-context(html[data-bs-theme="light"]) .apresentacao h1 {
+    color: #15152b;
+}
+
+:host-context(html[data-bs-theme="light"]) .apresentacao>p:not(.dica-rolagem),
+:host-context(html[data-bs-theme="light"]) .dica-rolagem,
+:host-context(html[data-bs-theme="light"]) .titulo-secao p {
+    color: #222222;
+}
+
+:host-context(html[data-bs-theme="light"]) .final-historia {
+    background-color: #f1efff;
+}
+
+:host-context(html[data-bs-theme="light"]) .final-historia p {
+    color: #222222;
+}
+
+:host-context(html[data-bs-theme="light"]) .secao-jogos {
+    background-color: #f4f4ff;
+}
+
+:host-context(html[data-bs-theme="light"]) .card-biologia,
+:host-context(html[data-bs-theme="light"]) .card-genetica,
+:host-context(html[data-bs-theme="light"]) .card-ecologia {
+    background-image: none;
+    background-color: #ffffff;
+}
+
+:host-context(html[data-bs-theme="light"]) .descricao-tema {
+    color: #111111;
+}
+
+:host-context(html[data-bs-theme="light"]) .btnTop-celular,
+:host-context(html[data-bs-theme="light"]) .btnTop-genetica,
+:host-context(html[data-bs-theme="light"]) .btnTop-ecologia,
+:host-context(html[data-bs-theme="light"]) .botao-dificuldade,
+:host-context(html[data-bs-theme="light"]) .painel-dificuldade {
+    background-color: #ffffff;
+    color: #111111;
+}
+
+:host-context(html[data-bs-theme="light"]) .painel-dificuldade h3 {
+    color: #785500;
+}
+
+:host-context(html[data-bs-theme="light"]) .btnTop-celular {
+    border-color: #8a6500;
+}
+
+:host-context(html[data-bs-theme="light"]) .btnTop-genetica {
+    border-color: #006b68;
+}
+
+:host-context(html[data-bs-theme="light"]) .btnTop-ecologia {
+    border-color: #276b00;
+}
+
+:host-context(html[data-bs-theme="light"]) .dificuldade-facil {
+    border-color: #276b00;
+    color: #276b00;
+}
+
+:host-context(html[data-bs-theme="light"]) .dificuldade-medio {
+    border-color: #8a6500;
+    color: #785500;
+}
+
+:host-context(html[data-bs-theme="light"]) .dificuldade-dificil {
+    border-color: #b00020;
+    color: #b00020;
+}
+
+:host-context(html[data-bs-theme="light"]) .rodape-home {
+    background-color: #eeeeff;
+}
+
+:host-context(html[data-bs-theme="light"]) .rodape-home p {
+    color: #624600;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+    .balao-dificuldade {
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
-    .painel-dificuldade {
-        width: 220px;
+    .apresentacao {
+        min-height: auto;
+        padding: 65px 20px 30px;
+    }
+
+    .historia,
+    .secao-jogos {
+        padding: 50px 18px;
+    }
+
+    .etapa-historia {
+        gap: 18px;
+        margin-bottom: 45px;
+    }
+
+    .personagem {
+        flex-basis: 90px;
+        width: 90px;
+        height: 90px;
+        font-size: 3.2rem;
+    }
+
+    .dialogo {
+        padding: 18px;
+    }
+
+    .dialogo p {
+        font-size: 1rem;
+    }
+
+    .card-biologia,
+    .card-genetica,
+    .card-ecologia {
+        height: 340px;
+        min-height: 340px;
+        flex-basis: 340px;
     }
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding: 10px;
+    .apresentacao {
+        padding: 50px 16px 25px;
     }
 
-    h1 {
-        font-size: 1.5rem;
+    .apresentacao>p:not(.dica-rolagem) {
+        font-size: 1rem;
     }
 
-    h2 {
-        font-size: 1.2rem;
+    .mascote-principal {
+        width: 105px;
+        height: 105px;
     }
+
+    .mascote-emoji {
+        font-size: 4rem;
+    }
+
+    .brilho-um {
+        left: 5%;
+    }
+
+    .brilho-dois {
+        right: 5%;
+    }
+
+    .etapa-historia,
+    .etapa-invertida {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 45px;
+    }
+
+    .personagem {
+        flex-basis: 90px;
+        width: 90px;
+        height: 90px;
+    }
+
+    .dialogo {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .dialogo-coral::before,
+    .dialogo-lilas::before,
+    .dialogo-azul::before,
+    .dialogo-verde::before {
+        display: none;
+    }
+
+    .final-historia {
+        padding: 30px 18px;
+    }
+
+    .botao-aventura,
+    .botao-escolher {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+/* =========================
+   MOVIMENTO REDUZIDO
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .etapa-historia {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .balao-dificuldade {
+        transition: none;
+    }
+}
+
+/* Organização da conversa */
+.historia {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 40px 5%;
+}
+
+/* Cada fala ocupa uma linha */
+.etapa-historia {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        visibility 0.7s ease;
+}
+
+/* Mostra a fala gradualmente */
+.etapa-historia.apareceu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Alterna a posição dos personagens */
+.etapa-historia.etapa-invertida {
+    flex-direction: row-reverse;
+}
+
+/* Personagens */
+.personagem {
+    flex: 0 0 100px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+    border-radius: 28px;
+    font-size: 48px;
+}
+
+/* Balões */
+.dialogo {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    padding: 22px 26px;
+    border: 3px solid white;
+    border-radius: 24px;
+    color: #15152b;
+    overflow-wrap: break-word;
+}
+
+.dialogo p {
+    margin: 10px 0 0;
+    line-height: 1.6;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 600px) {
+    .historia {
+        padding: 28px 16px;
+        gap: 24px;
+    }
+
+    .etapa-historia {
+        gap: 12px;
+    }
+
+    .personagem {
+        flex-basis: 65px;
+        width: 65px;
+        height: 65px;
+        font-size: 34px;
+        border-radius: 20px;
+    }
+
+    .dialogo {
+        padding: 16px;
+    }
+}
+
+/* Organização interna dos cards */
+.card-biologia .card-body,
+.card-genetica .card-body,
+.card-ecologia .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    padding: 20px;
+}
+
+/* Ícones dos temas */
+.icone-tema {
+    display: block;
+    font-size: 2.8rem;
+    line-height: 1;
+    margin-bottom: 18px;
+}
+
+/* Títulos */
+.titulo-celular,
+.titulo-genetica,
+.titulo-ecologia {
+    margin: 0 0 14px;
+    line-height: 1.2;
+}
+
+/* Descrições */
+.descricao-tema {
+    margin: 0 0 20px;
+    line-height: 1.5;
+    max-width: 100%;
+}
+
+/* Botões alinhados na parte inferior */
+.btnTop-celular,
+.btnTop-genetica,
+.btnTop-ecologia {
+    width: 100%;
+    margin-top: auto;
+    min-height: 52px;
+}
+
+/* Mantém os três cards com a mesma altura */
+.card-biologia,
+.card-genetica,
+.card-ecologia {
+    height: 100%;
+    min-height: 340px;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 767px) {
 
     .card-biologia .card-body,
     .card-genetica .card-body,
     .card-ecologia .card-body {
-        padding: 15px;
+        padding: 18px;
     }
 
-    .painel-dificuldade {
-        width: 210px;
+    .icone-tema {
+        font-size: 2.4rem;
+        margin-bottom: 14px;
+    }
+
+    .titulo-celular,
+    .titulo-genetica,
+    .titulo-ecologia {
+        margin-bottom: 10px;
     }
 }
 
-/* Respeita a preferência por movimento reduzido */
-@media (prefers-reduced-motion: reduce) {
-    .card-biologia,
-    .card-genetica,
-    .card-ecologia,
-    .botao-dificuldade,
-    .btnTop-celular,
-    .btnTop-genetica,
-    .btnTop-ecologia {
-        transition: none;
+.icone-tema {
+    display: block;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 18px;
+}
+
+.personagem img {
+    width: 180%;
+    height: 180%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+.mascote-imagem {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+.estrela {
+    display: inline-block;
+    font-size: 70px;
+    animation: girar 3s linear infinite;
+}
+
+@keyframes girar {
+    from {
+        transform: rotate(0deg);
     }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+.card-apresentacao {
+    max-width: 750px;
+    margin: 30px auto;
+    padding: 25px;
+
+    background-color: #292943;
+    color: white;
+
+    border: 2px solid #ffdf4d;
+    border-radius: 15px;
+
+    text-align: center;
+    line-height: 1.7;
+    font-size: 18px;
+}
+
+.card-apresentacao p:first-child {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.card-apresentacao p:last-child {
+    margin-bottom: 0;
 }
