@@ -31,17 +31,17 @@ router.get('/jogo/:id', function(req, res) {
     console.log('Quantidade de pares:', quantidadePares);
 
     const sql = `
-        SELECT cartas.*, pares_lim.saiba_mais
-        FROM cartas
-        INNER JOIN (
-            SELECT id, saiba_mais
-            FROM pares
-            WHERE id_jogo = ?
-            ORDER BY RAND()
-            LIMIT ${quantidadePares}
-        ) pares_lim
-        ON cartas.par_id = pares_lim.id;
-    `;
+    SELECT cartas.*, pares_lim.saiba_mais, pares_lim.titulo
+    FROM cartas
+    INNER JOIN (
+        SELECT id, saiba_mais, titulo
+        FROM pares
+        WHERE id_jogo = ?
+        ORDER BY RAND()
+        LIMIT ${quantidadePares}
+    ) pares_lim
+    ON cartas.par_id = pares_lim.id;
+`;
 
     db.query(sql, [idJogo], function(erro, resultado) {
 

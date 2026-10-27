@@ -143,6 +143,8 @@ iniciarJogo(): void {
 
         conteudo: carta.conteudo,
 
+        titulo: carta.titulo,
+
         saibaMais: carta.saiba_mais,
 
         virada: false,
@@ -241,7 +243,7 @@ virarCarta(carta: any) {
       this.indiceCartaSaibaMais =
       this.cartas.indexOf(this.primeiraCarta);
 
-      this.tituloSaibaMais = this.primeiraCarta.conteudo;
+      this.tituloSaibaMais = this.primeiraCarta.titulo;
       this.textoSaibaMais = this.primeiraCarta.saibaMais;
 
       this.mostrarSaibaMais = true;
@@ -437,13 +439,11 @@ const dadosPartida = {
   this.embaralharCartas();
 
 }
-  sairJogo() {
 
-    speechSynthesis.cancel();
-
-    this.router.navigate(['/home']);
-
-  }
+sairJogo(): void {
+  speechSynthesis.cancel();
+  this.router.navigate(['/home']);
+}
 
   falarTexto(texto: string) {
 

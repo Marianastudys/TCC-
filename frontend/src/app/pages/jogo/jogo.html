@@ -2,9 +2,11 @@
 
 @if (mostrarInstrucoes) {
 
-  <app-instrucoes-jogo
-    (iniciar)="iniciarJogo()">
-  </app-instrucoes-jogo>
+<app-instrucoes-jogo
+  [idJogo]="idJogo"
+  (iniciar)="iniciarJogo()"
+  (voltar)="sairJogo()">
+</app-instrucoes-jogo>
 
 } @else {
 

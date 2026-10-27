@@ -1,91 +1,121 @@
+
 <div class="fundo-instrucoes">
 
-  <div
-     #cardInstrucoes
-     class="card-instrucoes"
-     tabindex="0"
-     role="dialog"
-     aria-labelledby="tituloInstrucoes">
+<div
+  #cardInstrucoes
+  class="card-instrucoes"
+  [class.tema-celular]="idJogo === 1"
+  [class.tema-genetica]="idJogo === 2"
+  [class.tema-ecologia]="idJogo === 3"
+  tabindex="0"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="tituloInstrucoes">
 
-    <h1 id="tituloInstrucoes">
-      Como jogar?
-    </h1>
+  <button
+  type="button"
+  class="botao-fechar-instrucoes"
+  aria-label="Voltar para a página inicial"
+  title="Voltar para a página inicial"
+  (click)="voltarInicio()">
+  <span aria-hidden="true">×</span>
+</button>
 
-    <p class="introducao">
-      Antes de começar, confira as instruções e os recursos de acessibilidade
-      disponíveis no jogo.
-    </p>
+ <div class="conteudo-instrucoes">  
+    @switch (idJogo) {
 
-    <section>
-      <h2>Objetivo do jogo</h2>
+      @case (1) {
+        <h1 id="tituloInstrucoes">
+          Biologia Celular
+        </h1>
 
-      <p>
-        Encontre os pares de cartas onde os conceitos sejam correspondentes. Ao acertar um par,
-        você receberá pontos e poderá consultar informações adicionais
-        sobre o conteúdo.
-      </p>
-    </section>
+        <p>
+          Neste tema, você vai aprender mais sobre as células, 
+          que são as pequenas estruturas que formam os seres vivos.
+        </p>
 
-    <section>
-      <h2>Navegação pelo teclado</h2>
+        <p>
+          Para jogar, é importante saber o que são as células, 
+          conhecer seus diferentes tipos, identificar suas principais 
+          partes e entender as funções de algumas estruturas, 
+          como o núcleo, a membrana plasmática e as organelas celulares.
+        </p>
 
-      <p>
-        Use as setas do teclado para navegar entre as cartas.
-      </p>
+        <p>
+          Seu desafio será encontrar os pares que combinam cada 
+          estrutura ou conceito com sua função ou característica. 
+          A cada par encontrado, você poderá descobrir novas informações 
+          na seção “Saiba Mais” e ampliar seus conhecimentos sobre as células!
+        </p>
+      }
 
-      <ul>
-        <li><strong>← →</strong> Navegar para os lados</li>
-        <li><strong>↑ ↓</strong> Navegar entre as linhas</li>
-        <li><strong>Enter ou Espaço</strong> Selecionar uma carta</li>
-      </ul>
-    </section>
+      @case (2) {
+        <h1 id="tituloInstrucoes">
+          Genética
+        </h1>
 
-    <section>
-      <h2>Recursos de acessibilidade</h2>
+        <p>
+          Neste tema, você vai aprender mais sobre a Genética, 
+          que é a área da Biologia que estuda como as características 
+          dos seres vivos são transmitidas de pais para filhos.
+        </p>
 
-      <ul>
-        <li>
-          <strong>A+</strong> aumenta o tamanho da fonte.
-        </li>
+        <p>
+          Para jogar, é importante saber o que é hereditariedade, 
+          conhecer conceitos como DNA, genes e cromossomos, entender 
+          como as características são herdadas e compreender a relação 
+          entre reprodução, fecundação e transmissão das informações genéticas. 
+          Você também vai conhecer um pouco sobre os estudos de Gregor Mendel, 
+          considerado o pai da Genética.
+        </p>
 
-        <li>
-          <strong>A-</strong> diminui o tamanho da fonte.
-        </li>
+        <p>
+          Seu desafio será encontrar os pares que combinam cada conceito 
+          com sua definição ou característica. A cada par encontrado, 
+          você poderá descobrir novas informações na seção “Saiba Mais” 
+          e ampliar seus conhecimentos sobre Genética! 
+        </p>
+      }
 
-        <li>
-          O botão de tema permite alterar a aparência da aplicação
-          para melhorar o contraste.
-        </li>
+      @case (3) {
+        <h1 id="tituloInstrucoes">
+          Ecologia
+        </h1>
 
-        <li>
-          O leitor de tela pode reproduzir informações da interface
-          por meio de áudio.
-        </li>
+        <p>
+          Neste tema, você vai aprender mais sobre a Ecologia, 
+          que é a área da Biologia que estuda as relações dos seres vivos 
+          entre si e com o ambiente em que vivem.
+        </p>
 
-        <li>
-          O destaque visual indica qual elemento está selecionado
-          pelo teclado.
-        </li>
-      </ul>
-    </section>
+        <p>
+          Para jogar, é importante conhecer conceitos como habitat, 
+          população, comunidade e ecossistema, entender como os seres vivos 
+          se relacionam por meio das cadeias e teias alimentares e compreender 
+          o papel dos produtores, consumidores e decompositores. 
+          Você também vai conhecer as principais características dos biomas
+          brasileiros e entender a importância da biodiversidade para o equilíbrio da natureza.
+        </p>
 
-    <section>
-      <h2>Pontuação</h2>
+        <p>
+          Seu desafio será encontrar os pares que combinam cada conceito 
+          com sua definição ou característica. A cada par encontrado, 
+          você poderá descobrir novas informações na seção “Saiba Mais” 
+          e ampliar seus conhecimentos sobre Ecologia! 
+        </p>
+      }
 
-      <p>
-        Cada par correto adiciona 100 pontos. Cada tentativa incorreta
-        reduz 20 pontos, sem permitir que a pontuação fique abaixo de zero.
-      </p>
-    </section>
+      @default {
+        <h1 id="tituloInstrucoes">
+          Instruções do jogo
+        </h1>
 
-    <section>
-      <h2>Saiba mais</h2>
+        <p>
+          Não foi possível identificar o tema selecionado.
+        </p>
+      }
 
-      <p>
-        Ao encontrar um par corretamente, será exibido um cartão
-        com informações adicionais sobre o conteúdo.
-      </p>
-    </section>
+    }
 
     <button
       #botaoComecar
@@ -96,6 +126,7 @@
       Começar jogo
 
     </button>
+</div>
 
   </div>
 

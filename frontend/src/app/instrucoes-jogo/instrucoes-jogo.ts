@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Output,
+  Input,
   ElementRef,
   ViewChild,
   AfterViewInit,
@@ -18,6 +19,8 @@ import {
 export class InstrucoesJogo implements AfterViewInit {
 
   @Output() iniciar = new EventEmitter<void>();
+  @Output() voltar = new EventEmitter<void>();
+  @Input() idJogo: number = 0;
 
   @ViewChild('cardInstrucoes')
   cardInstrucoes!: ElementRef<HTMLElement>;
@@ -123,5 +126,9 @@ export class InstrucoesJogo implements AfterViewInit {
   comecarJogo(): void {
     this.iniciar.emit();
   }
+
+voltarInicio(): void {
+  this.voltar.emit();
+}
 
 }
