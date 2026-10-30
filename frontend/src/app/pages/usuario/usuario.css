@@ -1,38 +1,84 @@
 /* =========================================
-   PÁGINA
+   CORES (MODO ESCURO = PADRÃO)
 ========================================= */
 
 :host {
+    --fundo: #15152b;
+    --texto: #ffffff;
+    --tinta: #15152b;
+
+    --amarelo: #ffdf4d;
+    --turquesa: #75e6da;
+    --coral: #ff9f9f;
+    --lilas: #c5adff;
+    --verde: #a8f07a;
+
+    /* Tokens usados pelos componentes */
+    --brilho-1: #30305b;
+    --brilho-2: #253d57;
+    --painel: #222242;
+    --campo-fundo: #090918;
+    --campo-borda: var(--turquesa);
+    --campo-placeholder: #b9b9d9;
+    --linha-tabela: #39395c;
+    --linha-hover: #2c2c54;
+    --contorno-foco: #ffffff;
+    --titulo-h2: var(--amarelo);
+
     display: block;
     min-height: 100vh;
-    background: #000;
-    color: #fff;
+    color: var(--texto);
     font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(circle at 8% 6%, var(--brilho-1) 0, transparent 30%),
+        radial-gradient(circle at 95% 38%, var(--brilho-2) 0, transparent 32%),
+        var(--fundo);
 }
 
 .pagina-usuario {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px 60px;
+    padding: 50px 20px 70px;
+}
+
+.pagina-usuario * {
+    box-sizing: border-box;
+}
+
+.pagina-usuario button,
+.pagina-usuario input {
+    font-family: inherit;
 }
 
 
 /* =========================================
-   TÍTULO
+   TÍTULO E BOAS-VINDAS
 ========================================= */
 
 .pagina-usuario h1 {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 10px auto 12px;
+    padding: 0 0.15em;
+
     text-align: center;
-    color: #ffff00;
-    font-size: 2.5rem;
-    margin: 20px 0 10px;
+    color: var(--texto);
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    font-weight: 900;
+}
+
+.pagina-usuario h1 i {
+    color: var(--amarelo);
 }
 
 .boas-vindas {
+    margin: 0 0 50px;
     text-align: center;
     font-size: 1.3rem;
-    margin-bottom: 40px;
+    line-height: 1.7;
 }
 
 
@@ -43,17 +89,21 @@
 .desempenho,
 .conta,
 .historico {
-    margin-bottom: 45px;
+    margin-bottom: 50px;
 }
 
 .desempenho h2,
 .conta h2,
 .historico h2 {
-    color: #ffff00;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ffff00;
-    padding-bottom: 10px;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 0 25px;
+    padding: 0 0.15em 0 0;
+
+    color: var(--titulo-h2);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 900;
 }
 
 
@@ -63,88 +113,83 @@
 
 .cards-estatisticas {
     display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(180px, 1fr));
-
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 22px;
 }
 
-
-/* =========================================
-   CARD
-========================================= */
-
 .card-estatistica {
-    background: #111;
-    border: 2px solid #333;
-    border-radius: 12px;
-
-    padding: 25px 15px;
+    --cor: var(--amarelo);
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
+    min-height: 160px;
+    padding: 25px 15px;
+
     text-align: center;
+    background-color: #1b1b35;
+    color: var(--texto);
 
-    min-height: 150px;
+    border: 3px solid var(--cor);
+    border-radius: 18px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
 
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: transform 0.25s ease;
 }
 
-
-/* Ícone */
+/* Cada card tem a sua cor, como os temas da home */
+.card-estatistica:nth-child(1) { --cor: var(--amarelo); }
+.card-estatistica:nth-child(2) { --cor: var(--turquesa); }
+.card-estatistica:nth-child(3) { --cor: var(--coral); }
+.card-estatistica:nth-child(4) { --cor: var(--lilas); }
+.card-estatistica:nth-child(5) { --cor: var(--verde); }
 
 .card-estatistica span:first-child {
-    font-size: 2rem;
     margin-bottom: 10px;
+    font-size: 2.2rem;
+    line-height: 1;
 }
-
-
-/* Número */
 
 .card-estatistica strong {
-    color: #ffff00;
-    font-size: 2rem;
     margin-bottom: 8px;
+    color: var(--cor);
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.1;
 }
-
-
-/* Descrição */
 
 .card-estatistica span:last-child {
     font-size: 1rem;
-    color: #fff;
+    font-weight: bold;
 }
 
-
-/* Hover */
-
 .card-estatistica:hover {
-    transform: translateY(-4px);
-    border-color: #ffff00;
-
-    box-shadow:
-        0 0 12px rgba(255, 255, 0, 0.25);
+    transform: translateY(-5px);
 }
 
 
 /* =========================================
-   CONTA
+   PAINÉIS (CONTA E HISTÓRICO)
 ========================================= */
 
-.conta {
-    background: #111;
+.conta,
+.historico {
+    --cor-painel: var(--turquesa);
 
-    border: 2px solid #333;
-    border-radius: 12px;
+    padding: 35px 30px;
 
-    padding: 30px;
+    background-color: var(--painel);
+    color: var(--texto);
+
+    border: 3px solid var(--cor-painel);
+    border-radius: 25px;
+    box-shadow: 0 8px 0 #090918;
+}
+
+.historico {
+    --cor-painel: var(--lilas);
 }
 
 
@@ -155,44 +200,38 @@
 .campo {
     display: flex;
     flex-direction: column;
-
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
-
 
 .campo label {
+    margin-bottom: 8px;
     font-size: 1.1rem;
     font-weight: bold;
-
-    margin-bottom: 8px;
 }
-
 
 .campo input {
     width: 100%;
-    box-sizing: border-box;
-
-    background: #000;
-    color: #fff;
-
-    border: 2px solid #555;
-    border-radius: 8px;
-
+    min-height: 52px;
     padding: 13px 15px;
+
+    background-color: var(--campo-fundo);
+    color: var(--texto);
+
+    border: 3px solid var(--campo-borda);
+    border-radius: 12px;
 
     font-size: 1rem;
 }
 
+.campo input::placeholder {
+    color: var(--campo-placeholder);
+    opacity: 1;
+}
 
-/* =========================================
-   FOCO DOS INPUTS
-========================================= */
-
-.campo input:focus {
-    outline: 3px solid #ffff00;
-    outline-offset: 2px;
-
-    border-color: #ffff00;
+.campo input:focus,
+.campo input:focus-visible {
+    outline: 4px solid var(--contorno-foco);
+    outline-offset: 3px;
 }
 
 
@@ -201,51 +240,33 @@
 ========================================= */
 
 .conta button {
-    background: #ffff00;
-    color: #000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 28px;
 
-    border: 2px solid #ffff00;
-    border-radius: 8px;
+    background-color: var(--amarelo);
+    color: #151515;
 
-    padding: 13px 25px;
+    border: 3px solid var(--amarelo);
+    border-radius: 15px;
 
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: bold;
-
     cursor: pointer;
 
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
-
 
 .conta button:hover {
-    background: #000;
-    color: #ffff00;
-
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 0 #a57a00;
 }
 
-
-.conta button:focus {
-    outline: 3px solid #fff;
-    outline-offset: 3px;
-}
-
-
-/* =========================================
-   HISTÓRICO
-========================================= */
-
-.historico {
-    background: #111;
-
-    border: 2px solid #333;
-    border-radius: 12px;
-
-    padding: 30px;
+.conta button:focus-visible {
+    outline: 4px solid var(--contorno-foco);
+    outline-offset: 5px;
 }
 
 
@@ -254,20 +275,19 @@
 ========================================= */
 
 .sem-partidas {
-    background: #000;
+    padding: 28px 20px;
 
-    border: 2px dashed #555;
-    border-radius: 8px;
-
-    padding: 25px;
+    background-color: var(--campo-fundo);
+    border: 3px dashed var(--lilas);
+    border-radius: 15px;
 
     text-align: center;
 }
 
-
 .sem-partidas p {
     margin: 0;
     font-size: 1.1rem;
+    line-height: 1.7;
 }
 
 
@@ -278,129 +298,173 @@
 .tabela-container {
     width: 100%;
     overflow-x: auto;
+
+    border: 3px solid var(--lilas);
+    border-radius: 15px;
 }
 
-
-table {
+.pagina-usuario table {
     width: 100%;
+    min-width: 650px;
 
     border-collapse: collapse;
-
-    background: #000;
-
-    min-width: 650px;
+    background-color: var(--campo-fundo);
+    color: var(--texto);
 }
 
-
-/* Cabeçalho */
-
-thead {
-    background: #ffff00;
-    color: #000;
+.pagina-usuario thead {
+    background-color: var(--amarelo);
+    color: #15152b;
 }
 
-
-th {
+.pagina-usuario th {
     padding: 15px;
-
+    text-align: center;
     font-size: 1rem;
     font-weight: bold;
-
-    text-align: center;
 }
 
-
-/* Corpo */
-
-td {
+.pagina-usuario td {
     padding: 14px;
-
-    border-bottom: 1px solid #444;
-
     text-align: center;
-
     font-size: 1rem;
+    border-bottom: 2px solid var(--linha-tabela);
 }
 
-
-/* Linhas */
-
-tbody tr {
-    transition: background 0.2s ease;
+.pagina-usuario tbody tr:last-child td {
+    border-bottom: none;
 }
 
+.pagina-usuario tbody tr {
+    transition: background-color 0.2s ease;
+}
 
-tbody tr:hover {
-    background: #1f1f1f;
+.pagina-usuario tbody tr:hover {
+    background-color: var(--linha-hover);
+}
+
+.pagina-usuario tbody tr:focus-within {
+    outline: 4px solid var(--contorno-foco);
+    outline-offset: -4px;
 }
 
 
 /* =========================================
-   ACESSIBILIDADE - FOCO NA TABELA
+   MODO CLARO
 ========================================= */
 
-tbody tr:focus-within {
-    outline: 3px solid #ffff00;
+:host-context(html[data-bs-theme="light"]) {
+    --fundo: #ffffff;
+    --texto: #15152b;
+
+    --brilho-1: #e3e8ff;
+    --brilho-2: #d7fbf5;
+    --painel: #f4f4ff;
+    --campo-fundo: #ffffff;
+    --campo-borda: #15152b;
+    --campo-placeholder: #5a5a6e;
+    --linha-tabela: #c9c9e3;
+    --linha-hover: #fff8d6;
+    --contorno-foco: #0057d9;
+    --titulo-h2: #15152b;
+
+    /* Tons escuros das cores, para texto legível no fundo claro */
+    --amarelo-escuro: #7a5a00;
+    --turquesa-escuro: #00665f;
+    --coral-escuro: #a3314f;
+    --lilas-escuro: #5b3db5;
+    --verde-escuro: #276b00;
 }
 
+/* ---------- Títulos: marca-texto amarelo ---------- */
 
-/* =========================================
-   TEMA CLARO
-========================================= */
-
-:host-context([data-bs-theme="light"]) {
-    background: #fff;
-    color: #000;
+:host-context(html[data-bs-theme="light"]) .pagina-usuario h1,
+:host-context(html[data-bs-theme="light"]) .desempenho h2,
+:host-context(html[data-bs-theme="light"]) .conta h2,
+:host-context(html[data-bs-theme="light"]) .historico h2 {
+    background: linear-gradient(transparent 58%, var(--amarelo) 58%);
 }
 
-
-:host-context([data-bs-theme="light"]) .pagina-usuario {
-    color: #000;
+:host-context(html[data-bs-theme="light"]) .desempenho h2,
+:host-context(html[data-bs-theme="light"]) .conta h2,
+:host-context(html[data-bs-theme="light"]) .historico h2 {
+    padding-right: 0.3em;
 }
 
-
-:host-context([data-bs-theme="light"]) .pagina-usuario h1,
-:host-context([data-bs-theme="light"]) .desempenho h2,
-:host-context([data-bs-theme="light"]) .conta h2,
-:host-context([data-bs-theme="light"]) .historico h2 {
-    color: #000;
+:host-context(html[data-bs-theme="light"]) .pagina-usuario h1 i {
+    color: #15152b;
 }
 
+/* ---------- Cards de estatística ---------- */
 
-:host-context([data-bs-theme="light"]) .card-estatistica,
-:host-context([data-bs-theme="light"]) .conta,
-:host-context([data-bs-theme="light"]) .historico {
-    background: #f2f2f2;
-    border-color: #aaa;
+:host-context(html[data-bs-theme="light"]) .card-estatistica {
+    --cor-escura: var(--amarelo-escuro);
+    --fundo-card: #fff8d6;
+
+    background-color: var(--fundo-card);
+    box-shadow: 0 6px 0 var(--cor-escura);
 }
 
-
-:host-context([data-bs-theme="light"]) .card-estatistica strong {
-    color: #8a8a00;
+:host-context(html[data-bs-theme="light"]) .card-estatistica:nth-child(1) {
+    --cor-escura: var(--amarelo-escuro);
+    --fundo-card: #fff8d6;
 }
 
-
-:host-context([data-bs-theme="light"]) .campo input {
-    background: #fff;
-    color: #000;
-    border-color: #555;
+:host-context(html[data-bs-theme="light"]) .card-estatistica:nth-child(2) {
+    --cor-escura: var(--turquesa-escuro);
+    --fundo-card: #e3fbf8;
 }
 
-
-:host-context([data-bs-theme="light"]) .sem-partidas {
-    background: #fff;
-    border-color: #777;
+:host-context(html[data-bs-theme="light"]) .card-estatistica:nth-child(3) {
+    --cor-escura: var(--coral-escuro);
+    --fundo-card: #ffecec;
 }
 
-
-:host-context([data-bs-theme="light"]) table {
-    background: #fff;
-    color: #000;
+:host-context(html[data-bs-theme="light"]) .card-estatistica:nth-child(4) {
+    --cor-escura: var(--lilas-escuro);
+    --fundo-card: #f1ebff;
 }
 
+:host-context(html[data-bs-theme="light"]) .card-estatistica:nth-child(5) {
+    --cor-escura: var(--verde-escuro);
+    --fundo-card: #eefbe3;
+}
 
-:host-context([data-bs-theme="light"]) tbody tr:hover {
-    background: #eee;
+:host-context(html[data-bs-theme="light"]) .card-estatistica strong {
+    color: var(--cor-escura);
+}
+
+/* ---------- Painéis: contorno escuro + sombra colorida ---------- */
+
+:host-context(html[data-bs-theme="light"]) .conta,
+:host-context(html[data-bs-theme="light"]) .historico {
+    border-color: #15152b;
+    box-shadow: 0 8px 0 var(--cor-painel);
+}
+
+/* ---------- Botão ---------- */
+
+:host-context(html[data-bs-theme="light"]) .conta button {
+    border-color: #15152b;
+    box-shadow: 0 4px 0 #15152b;
+}
+
+:host-context(html[data-bs-theme="light"]) .conta button:hover {
+    box-shadow: 0 7px 0 #15152b;
+}
+
+/* ---------- Sem partidas e tabela ---------- */
+
+:host-context(html[data-bs-theme="light"]) .sem-partidas {
+    border-color: var(--lilas-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .tabela-container {
+    border-color: #15152b;
+}
+
+:host-context(html[data-bs-theme="light"]) .pagina-usuario thead {
+    border-bottom: 3px solid #15152b;
 }
 
 
@@ -409,74 +473,62 @@ tbody tr:focus-within {
 ========================================= */
 
 @media (max-width: 768px) {
-
     .pagina-usuario {
         width: 95%;
-        padding: 30px 10px 50px;
+        padding: 35px 10px 50px;
     }
-
-
-    .pagina-usuario h1 {
-        font-size: 2rem;
-    }
-
 
     .boas-vindas {
         font-size: 1.1rem;
+        margin-bottom: 35px;
     }
-
 
     .cards-estatisticas {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
     }
-
 
     .conta,
     .historico {
-        padding: 20px;
+        padding: 25px 20px;
     }
-
 }
 
-
 @media (max-width: 480px) {
-
     .pagina-usuario {
-        width: 92%;
-        padding: 25px 5px 40px;
+        width: 94%;
+        padding: 28px 5px 40px;
     }
-
-
-    .pagina-usuario h1 {
-        font-size: 1.8rem;
-    }
-
-
-    .desempenho h2,
-    .conta h2,
-    .historico h2 {
-        font-size: 1.5rem;
-    }
-
 
     .cards-estatisticas {
         grid-template-columns: 1fr;
     }
 
-
     .card-estatistica {
-        min-height: 130px;
+        min-height: 135px;
     }
-
 
     .conta,
     .historico {
-        padding: 15px;
+        padding: 20px 15px;
     }
-
 
     .conta button {
         width: 100%;
     }
+}
 
+
+/* =========================================
+   MOVIMENTO REDUZIDO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }

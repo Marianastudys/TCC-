@@ -774,88 +774,255 @@
 
 :host-context(html[data-bs-theme="light"]) {
     --fundo: #ffffff;
-    --texto: #111111;
+    --texto: #15152b;
+    --tinta: #15152b;
+    --amarelo-escuro: #7a5a00;
+    --turquesa-escuro: #00665f;
+    --verde-escuro: #276b00;
 }
+
+/* ---------- Fundo geral ---------- */
 
 :host-context(html[data-bs-theme="light"]) .pagina-home,
 :host-context(html[data-bs-theme="light"]) .secao-jogos {
     background-color: #ffffff;
-    color: #111111;
-}
-
-:host-context(html[data-bs-theme="light"]) .apresentacao {
-    background:
-        radial-gradient(circle at 15% 20%, #e0e7ff 0, transparent 35%),
-        radial-gradient(circle at 85% 70%, #d7fbf5 0, transparent 35%),
-        #ffffff;
-}
-
-:host-context(html[data-bs-theme="light"]) .apresentacao h1 {
-    color: #15152b;
-}
-
-:host-context(html[data-bs-theme="light"]) .apresentacao>p:not(.dica-rolagem),
-:host-context(html[data-bs-theme="light"]) .dica-rolagem,
-:host-context(html[data-bs-theme="light"]) .titulo-secao p {
-    color: #222222;
-}
-
-:host-context(html[data-bs-theme="light"]) .final-historia {
-    background-color: #f1efff;
-}
-
-:host-context(html[data-bs-theme="light"]) .final-historia p {
-    color: #222222;
+    color: var(--tinta);
 }
 
 :host-context(html[data-bs-theme="light"]) .secao-jogos {
     background-color: #f4f4ff;
 }
 
+/* ---------- Apresentação ---------- */
+
+:host-context(html[data-bs-theme="light"]) .apresentacao {
+    background:
+        radial-gradient(circle at 15% 20%, #e3e8ff 0, transparent 35%),
+        radial-gradient(circle at 85% 70%, #d7fbf5 0, transparent 35%),
+        radial-gradient(circle at 90% 10%, #ffe9e9 0, transparent 28%),
+        #ffffff;
+}
+
+:host-context(html[data-bs-theme="light"]) .etiqueta {
+    color: var(--turquesa-escuro);
+    background-color: #e3fbf8;
+    border-color: var(--turquesa-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .apresentacao h1 {
+    color: var(--tinta);
+}
+
+/* "Memória!" vira um marca-texto amarelo com texto escuro */
+:host-context(html[data-bs-theme="light"]) .apresentacao h1 span {
+    display: inline-block;
+    padding: 0 0.18em;
+    color: var(--tinta);
+    background-color: var(--amarelo);
+    border-radius: 0.2em;
+    box-shadow: 0 5px 0 var(--tinta);
+    transform: rotate(-2deg);
+}
+
+:host-context(html[data-bs-theme="light"]) .apresentacao>p:not(.dica-rolagem),
+:host-context(html[data-bs-theme="light"]) .dica-rolagem,
+:host-context(html[data-bs-theme="light"]) .titulo-secao p,
+:host-context(html[data-bs-theme="light"]) .final-historia p {
+    color: #222233;
+}
+
+:host-context(html[data-bs-theme="light"]) .brilho {
+    color: #f2b600;
+    filter: drop-shadow(0 1px 0 rgba(21, 21, 43, 0.35));
+}
+
+/* Card de apresentação: claro, com contorno e sombra chapada */
+:host-context(html[data-bs-theme="light"]) .card-apresentacao {
+    background-color: #ffffff;
+    color: var(--tinta);
+    border: 3px solid var(--tinta);
+    box-shadow: 0 8px 0 var(--amarelo);
+}
+
+:host-context(html[data-bs-theme="light"]) .card-apresentacao p:first-child {
+    color: var(--tinta);
+}
+
+/* Botões principais */
+:host-context(html[data-bs-theme="light"]) .botao-aventura,
+:host-context(html[data-bs-theme="light"]) .botao-escolher {
+    color: var(--tinta);
+    border-color: var(--tinta);
+    box-shadow: 0 4px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-aventura:hover,
+:host-context(html[data-bs-theme="light"]) .botao-escolher:hover {
+    box-shadow: 0 7px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-aventura:focus-visible,
+:host-context(html[data-bs-theme="light"]) .botao-escolher:focus-visible {
+    outline-color: var(--tinta);
+}
+
+/* Mascote */
+:host-context(html[data-bs-theme="light"]) .mascote-principal {
+    border-color: var(--tinta);
+    box-shadow: 0 8px 0 var(--tinta);
+}
+
+/* ---------- Títulos das seções ---------- */
+
+/* Marca-texto amarelo atrás do título (o amarelo puro sumia no branco) */
+:host-context(html[data-bs-theme="light"]) .titulo-secao h2,
+:host-context(html[data-bs-theme="light"]) .final-historia h2 {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 20px auto 12px;
+    padding: 0 0.15em;
+    color: var(--tinta);
+    background: linear-gradient(transparent 58%, var(--amarelo) 58%);
+}
+
+/* ---------- Diálogos ---------- */
+
+:host-context(html[data-bs-theme="light"]) .personagem {
+    border-color: var(--tinta);
+    box-shadow: 0 5px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .dialogo {
+    border-color: var(--tinta);
+    box-shadow: 0 6px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .dialogo-coral::before,
+:host-context(html[data-bs-theme="light"]) .dialogo-lilas::before,
+:host-context(html[data-bs-theme="light"]) .dialogo-azul::before,
+:host-context(html[data-bs-theme="light"]) .dialogo-verde::before {
+    border-color: var(--tinta);
+}
+
+/* ---------- Final da história ---------- */
+
+:host-context(html[data-bs-theme="light"]) .final-historia {
+    background-color: #f1efff;
+    border-color: var(--tinta);
+    box-shadow: 0 8px 0 var(--amarelo);
+}
+
+/* ---------- Cards dos temas ---------- */
+
 :host-context(html[data-bs-theme="light"]) .card-biologia,
 :host-context(html[data-bs-theme="light"]) .card-genetica,
 :host-context(html[data-bs-theme="light"]) .card-ecologia {
     background-image: none;
-    background-color: #ffffff;
+}
+
+:host-context(html[data-bs-theme="light"]) .card-biologia {
+    background-color: #fff8d6;
+    border-color: var(--amarelo);
+    box-shadow: 0 7px 0 var(--amarelo-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .card-genetica {
+    background-color: #e3fbf8;
+    border-color: var(--turquesa);
+    box-shadow: 0 7px 0 var(--turquesa-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .card-ecologia {
+    background-color: #eefbe3;
+    border-color: var(--verde);
+    box-shadow: 0 7px 0 var(--verde-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .titulo-celular {
+    color: var(--amarelo-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .titulo-genetica {
+    color: var(--turquesa-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .titulo-ecologia {
+    color: var(--verde-escuro);
 }
 
 :host-context(html[data-bs-theme="light"]) .descricao-tema {
-    color: #111111;
+    color: var(--tinta);
 }
+
+/* ---------- Botões dos temas: preenchidos, e invertem no hover ---------- */
 
 :host-context(html[data-bs-theme="light"]) .btnTop-celular,
 :host-context(html[data-bs-theme="light"]) .btnTop-genetica,
-:host-context(html[data-bs-theme="light"]) .btnTop-ecologia,
-:host-context(html[data-bs-theme="light"]) .botao-dificuldade,
-:host-context(html[data-bs-theme="light"]) .painel-dificuldade {
-    background-color: #ffffff;
-    color: #111111;
-}
-
-:host-context(html[data-bs-theme="light"]) .painel-dificuldade h3 {
-    color: #785500;
+:host-context(html[data-bs-theme="light"]) .btnTop-ecologia {
+    color: var(--tinta);
+    border-color: var(--tinta);
+    font-weight: bold;
+    box-shadow: 0 4px 0 var(--tinta);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 :host-context(html[data-bs-theme="light"]) .btnTop-celular {
-    border-color: #8a6500;
+    background-color: var(--amarelo);
 }
 
 :host-context(html[data-bs-theme="light"]) .btnTop-genetica {
-    border-color: #006b68;
+    background-color: var(--turquesa);
 }
 
 :host-context(html[data-bs-theme="light"]) .btnTop-ecologia {
-    border-color: #276b00;
+    background-color: var(--verde);
+}
+
+:host-context(html[data-bs-theme="light"]) .btnTop-celular:hover,
+:host-context(html[data-bs-theme="light"]) .btnTop-celular:focus-visible,
+:host-context(html[data-bs-theme="light"]) .btnTop-genetica:hover,
+:host-context(html[data-bs-theme="light"]) .btnTop-genetica:focus-visible,
+:host-context(html[data-bs-theme="light"]) .btnTop-ecologia:hover,
+:host-context(html[data-bs-theme="light"]) .btnTop-ecologia:focus-visible {
+    background-color: var(--tinta);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(21, 21, 43, 0.35);
+}
+
+:host-context(html[data-bs-theme="light"]) .btnTop-celular:focus-visible,
+:host-context(html[data-bs-theme="light"]) .btnTop-genetica:focus-visible,
+:host-context(html[data-bs-theme="light"]) .btnTop-ecologia:focus-visible,
+:host-context(html[data-bs-theme="light"]) .botao-dificuldade:focus-visible {
+    outline-color: #0057d9;
+}
+
+/* ---------- Painel de dificuldade ---------- */
+
+:host-context(html[data-bs-theme="light"]) .painel-dificuldade {
+    background-color: #ffffff;
+    color: var(--tinta);
+    border-color: var(--tinta);
+    box-shadow: 0 6px 0 rgba(21, 21, 43, 0.25);
+}
+
+:host-context(html[data-bs-theme="light"]) .painel-dificuldade h3 {
+    color: var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-dificuldade {
+    background-color: #ffffff;
 }
 
 :host-context(html[data-bs-theme="light"]) .dificuldade-facil {
-    border-color: #276b00;
-    color: #276b00;
+    border-color: var(--verde-escuro);
+    color: var(--verde-escuro);
 }
 
 :host-context(html[data-bs-theme="light"]) .dificuldade-medio {
-    border-color: #8a6500;
-    color: #785500;
+    border-color: var(--amarelo-escuro);
+    color: var(--amarelo-escuro);
 }
 
 :host-context(html[data-bs-theme="light"]) .dificuldade-dificil {
@@ -863,8 +1030,29 @@
     color: #b00020;
 }
 
+:host-context(html[data-bs-theme="light"]) .dificuldade-facil:hover,
+:host-context(html[data-bs-theme="light"]) .dificuldade-facil:focus-visible {
+    background-color: var(--verde-escuro);
+    color: #ffffff;
+}
+
+:host-context(html[data-bs-theme="light"]) .dificuldade-medio:hover,
+:host-context(html[data-bs-theme="light"]) .dificuldade-medio:focus-visible {
+    background-color: var(--amarelo-escuro);
+    color: #ffffff;
+}
+
+:host-context(html[data-bs-theme="light"]) .dificuldade-dificil:hover,
+:host-context(html[data-bs-theme="light"]) .dificuldade-dificil:focus-visible {
+    background-color: #b00020;
+    color: #ffffff;
+}
+
+/* ---------- Rodapé ---------- */
+
 :host-context(html[data-bs-theme="light"]) .rodape-home {
     background-color: #eeeeff;
+    border-top: 3px solid var(--tinta);
 }
 
 :host-context(html[data-bs-theme="light"]) .rodape-home p {
