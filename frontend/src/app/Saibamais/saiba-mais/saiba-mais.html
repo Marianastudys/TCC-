@@ -1,24 +1,26 @@
-
 <div
   class="card-saiba-mais"
   role="dialog"
   aria-modal="true"
   aria-labelledby="tituloSaibaMais"
+  aria-describedby="textoSaibaMais"
+  (keydown.escape)="fechar()"
 >
   <h2 id="tituloSaibaMais" class="titulo-saiba-mais">
     <img
-        src="/imagens/lampada.png"
-        alt=""
-        class="icone-lampada">
+      src="/imagens/lampada.png"
+      alt=""
+      class="icone-lampada">
 
-    Saiba mais sobre: {{ titulo }}
-</h2>
+    <span>Saiba mais sobre: {{ titulo }}</span>
+  </h2>
 
-  <p>{{ texto }}</p>
+  <p id="textoSaibaMais" class="texto-saiba-mais">{{ texto }}</p>
 
   <button
     #botaoContinuar
     type="button"
+    class="botao-continuar"
     (click)="fechar()"
   >
     Continuar

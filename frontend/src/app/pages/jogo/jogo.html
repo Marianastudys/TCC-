@@ -10,100 +10,117 @@
 
 } @else {
 
+<main class="pagina-jogo">
+
   <div class="container">
 
-    <div class="informacoes">
+    <h1 class="somente-leitor">Jogo da Memória</h1>
 
-        <p class="lead fw-bold">
-            Acertos: {{ acertos }}
-        </p>
+    <!-- PLACAR -->
+    <div class="informacoes" aria-live="polite" aria-atomic="true">
 
-        <p class="lead fw-bold">
-            Tentativas: {{ erros + acertos }}
-        </p>
+      <p class="info info-acertos">
+        <span class="info-rotulo">Acertos</span>
+        <strong class="info-valor">{{ acertos }}</strong>
+      </p>
 
-        <p class="lead fw-bold">
-            Pontuação: {{ score }}
-        </p>
+      <p class="info info-tentativas">
+        <span class="info-rotulo">Tentativas</span>
+        <strong class="info-valor">{{ erros + acertos }}</strong>
+      </p>
+
+      <p class="info info-pontuacao">
+        <span class="info-rotulo">Pontuação</span>
+        <strong class="info-valor">{{ score }}</strong>
+      </p>
 
     </div>
 
+    <!-- TABULEIRO -->
     <div class="tabuleiro">
 
-        @for (carta of cartas; track carta; let i = $index) {
+      @for (carta of cartas; track carta; let i = $index) {
 
-            <div class="carta-container">
+        <div class="carta-container">
 
-                <button
-                #cartaBotao
-                [class]="
-                    'carta' +
-                    (carta.virada ? ' virada' : '') +
-                    (carta.acertada ? ' acertada' : '') +
-                    (indicesErrados.includes(i) ? ' errada' : '')
-                "
-                (keydown)="moverFoco($event, i)"
-                (click)="virarCarta(carta)"
-                [attr.aria-label]="
-                    carta.virada
-                    ? carta.conteudo
-                    : 'Carta virada para baixo'
-                "
-            >
-                <span class="conteudo-carta">
-                    {{ carta.virada ? carta.conteudo : '?' }}
-                </span>
-            </button>
+          <button
+            #cartaBotao
+            [class]="
+              'carta' +
+              (carta.virada ? ' virada' : '') +
+              (carta.acertada ? ' acertada' : '') +
+              (indicesErrados.includes(i) ? ' errada' : '')
+            "
+            (keydown)="moverFoco($event, i)"
+            (click)="virarCarta(carta)"
+            [attr.aria-label]="
+              carta.acertada
+                ? carta.conteudo + ', par encontrado'
+                : carta.virada
+                  ? carta.conteudo
+                  : 'Carta virada para baixo'
+            "
+          >
+            <span class="conteudo-carta">
+              {{ carta.virada ? carta.conteudo : '?' }}
+            </span>
+          </button>
 
-                @if (mostrarSaibaMais && carta === cartaSaibaMais) {
+          @if (mostrarSaibaMais && carta === cartaSaibaMais) {
 
-                    <app-saiba-mais
-                        [titulo]="tituloSaibaMais"
-                        [texto]="textoSaibaMais"
-                        (continuar)="fecharSaibaMais()">
-                    </app-saiba-mais>
+            <app-saiba-mais
+              [titulo]="tituloSaibaMais"
+              [texto]="textoSaibaMais"
+              (continuar)="fecharSaibaMais()">
+            </app-saiba-mais>
 
-                }
-
-            </div>
-
-        }
-
-    </div>
-
-    @if (jogoFinalizado) {
-
-        <div class="fim-jogo">
-
-            <h2 class="display-6 fw-bold text-warning bi bi-award-fill">
-                Você venceu!
-            </h2>
-
-            <div class="botoes-finais">
-
-                <button
-                    #botaoReiniciar
-                    class="botao-reiniciar fw-bold"
-                    (click)="reiniciarJogo()"
-                >
-                    Jogar novamente
-                </button>
-
-                <button
-                    #botaoSair
-                    class="botao-sair fw-bold"
-                    (click)="sairJogo()"
-                >
-                    Sair
-                </button>
-
-            </div>
+          }
 
         </div>
 
+      }
+
+    </div>
+
+    <!-- FIM DE JOGO -->
+    @if (jogoFinalizado) {
+
+      <div class="fim-jogo">
+
+        <h2 class="fw-bold bi bi-award-fill">
+          Você venceu!
+        </h2>
+
+        <p class="fim-texto">
+          Parabéns! Você encontrou todos os pares.
+        </p>
+
+        <div class="botoes-finais">
+
+          <button
+            #botaoReiniciar
+            class="botao-reiniciar fw-bold"
+            (click)="reiniciarJogo()"
+          >
+            Jogar novamente
+          </button>
+
+          <button
+            #botaoSair
+            class="botao-sair fw-bold"
+            (click)="sairJogo()"
+          >
+            Sair
+          </button>
+
+        </div>
+
+      </div>
+
     }
 
-</div>
+  </div>
+
+</main>
 
 }
-

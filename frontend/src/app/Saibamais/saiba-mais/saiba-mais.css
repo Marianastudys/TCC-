@@ -1,98 +1,183 @@
+/* =========================
+   JANELA (fundo escurecido)
+========================= */
+
+:host {
+  --amarelo: #ffdf4d;
+  --tinta: #15152b;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+
+  background-color: rgba(9, 9, 24, 0.85);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   CARTÃO
+========================= */
+
 .card-saiba-mais {
-  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  margin: auto;
+  padding: 28px 26px;
+  overflow-y: auto;
+  text-align: center;
 
-  top: calc(100% + 10px);
-  left: 50%;
+  background-color: #222242;
+  color: #ffffff;
 
-  transform: translateX(-50%);
-
-  width: 280px;
-  max-width: 90vw;
-
-  background-color: black;
-  color: white;
-
-  border: 3px solid yellow;
-  border-radius: 10px;
-
-  padding: 20px;
-
-  z-index: 100;
-
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  border: 3px solid var(--amarelo);
+  border-radius: 25px;
+  box-shadow: 0 8px 0 #090918;
 
   animation: aparecerSaibaMais 0.3s ease-out;
-  
 }
 
-.card-saiba-mais h2 {
-  color: yellow;
-  font-size: 22px;
-  margin-bottom: 15px;
-  font-size: 20px;
-  line-height: 1.3;
-  overflow-wrap: anywhere;
-  max-width: 100%;
-}
-
-.card-saiba-mais p {
-  font-size: 17px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  overflow-wrap: anywhere;
-  word-break: normal;
-  max-width: 100%;
-}
-
-.card-saiba-mais button {
-  background-color: black;
-  color: white;
-
-  border: 3px solid yellow;
-  border-radius: 8px;
-
-  padding: 10px 20px;
-
-  font-size: 17px;
-  font-weight: bold;
-
-  cursor: pointer;
-}
-
-.card-saiba-mais button:hover {
-  background-color: #222;
-}
-
-.card-saiba-mais button:focus {
-  outline: 4px solid white;
-  outline-offset: 3px;
-}
 .titulo-saiba-mais {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 
-    color: yellow;
-    font-weight: bold;
+  margin: 0 0 18px;
+  color: var(--amarelo);
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .icone-lampada {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
-@keyframes aparecerSaibaMais {
 
+.texto-saiba-mais {
+  margin: 0 0 24px;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   BOTÃO
+========================= */
+
+.botao-continuar {
+  min-height: 52px;
+  padding: 12px 28px;
+
+  background-color: var(--amarelo);
+  color: #151515;
+  border: 3px solid var(--amarelo);
+  border-radius: 14px;
+
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.botao-continuar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 0 #a57a00;
+}
+
+.botao-continuar:focus-visible {
+  outline: 4px solid #ffffff;
+  outline-offset: 5px;
+}
+
+/* =========================
+   TEMA CLARO
+========================= */
+
+:host-context(html[data-bs-theme="light"]) .card-saiba-mais {
+  background-color: #ffffff;
+  color: var(--tinta);
+  border-color: var(--tinta);
+  box-shadow: 0 8px 0 var(--amarelo);
+}
+
+:host-context(html[data-bs-theme="light"]) .titulo-saiba-mais {
+  color: var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-continuar {
+  color: var(--tinta);
+  border-color: var(--tinta);
+  box-shadow: 0 4px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-continuar:hover {
+  box-shadow: 0 7px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-continuar:focus-visible {
+  outline-color: #0057d9;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 480px) {
+  .card-saiba-mais {
+    padding: 22px 18px;
+  }
+
+  .titulo-saiba-mais {
+    font-size: 1.25rem;
+  }
+
+  .texto-saiba-mais {
+    font-size: 1.05rem;
+  }
+
+  .botao-continuar {
+    width: 100%;
+  }
+}
+
+/* =========================
+   ANIMAÇÃO
+========================= */
+
+@keyframes aparecerSaibaMais {
   from {
     opacity: 0;
-    transform: translate(-50%, -15px);
+    transform: translateY(-15px);
   }
 
   to {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translateY(0);
   }
+}
 
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

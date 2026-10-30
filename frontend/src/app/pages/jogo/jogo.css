@@ -1,102 +1,243 @@
+/* =========================
+   CORES E PÁGINA
+========================= */
 
-body {
-    background-color: black;
-    color: white;
+:host {
+    --fundo: #15152b;
+    --texto: #ffffff;
+    --amarelo: #ffdf4d;
+    --turquesa: #75e6da;
+    --coral: #ff9f9f;
+    --lilas: #c5adff;
+    --verde: #a8f07a;
+
+    display: block;
+    min-height: 100vh;
+    background-color: var(--fundo);
+    color: var(--texto);
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
 }
+
+.pagina-jogo {
+    min-height: 100vh;
+    padding: 20px 0 60px;
+    color: var(--texto);
+
+    background:
+        radial-gradient(circle at 15% 10%, #30305b 0, transparent 30%),
+        radial-gradient(circle at 85% 80%, #253d57 0, transparent 32%),
+        var(--fundo);
+}
+
+.pagina-jogo * {
+    box-sizing: border-box;
+}
+
+.pagina-jogo button {
+    font-family: inherit;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Texto só para leitores de tela */
+.somente-leitor {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* =========================
+   PLACAR
+========================= */
+
+.informacoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    min-width: 150px;
+    margin: 0;
+    padding: 14px 22px;
+
+    background-color: #222242;
+    border: 3px solid var(--amarelo);
+    border-radius: 18px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+.info-acertos {
+    border-color: var(--verde);
+}
+
+.info-tentativas {
+    border-color: var(--turquesa);
+}
+
+.info-pontuacao {
+    border-color: var(--amarelo);
+}
+
+.info-rotulo {
+    font-size: 0.95rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #eeeeff;
+}
+
+.info-valor {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--amarelo);
+}
+
+.info-acertos .info-valor {
+    color: var(--verde);
+}
+
+.info-tentativas .info-valor {
+    color: var(--turquesa);
+}
+
+/* =========================
+   TABULEIRO
+========================= */
 
 .carta-container {
     position: relative;
 }
 
-.container {
-    text-align: center;
-    padding: 20px;
-}
-
-h1 {
-    color: yellow;
-    margin-bottom: 20px;
-}
-
-.informacoes {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 30px;
-    font-size: 20px;
-}
-
-/* Tabuleiro de cartas */
 .tabuleiro {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 22px;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-/* Cartas */
+/* =========================
+   CARTAS
+========================= */
+
 .carta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
-    min-height: calc(120px * var(--escala-cartas, 1));
-    background-color: var(--fundo-carta, black);
-    color: var(--texto-carta, white);
-    border: 3px solid rgb(255, 193, 7);
-    border-radius: 10px;
-    padding: calc(10px * var(--escala-cartas, 1));
-    cursor: pointer;
+    min-height: calc(130px * var(--escala-cartas, 1));
+    padding: calc(12px * var(--escala-cartas, 1));
+
+    background-color: var(--fundo-carta, #222242);
+    color: var(--texto-carta, #ffffff);
+
+    border: 3px solid var(--amarelo);
+    border-radius: 18px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+
     text-align: center;
+    line-height: 1.4;
+    font-weight: bold;
+    cursor: pointer;
+
     transition:
         background-color 0.2s,
-        transform 0.2s;
+        transform 0.2s,
+        box-shadow 0.2s;
 }
 
-/* Efeito ao passar o mouse */
+.conteudo-carta {
+    font-size: calc(18px * var(--escala-cartas, 1));
+    overflow-wrap: anywhere;
+}
+
+/* Carta virada para baixo: o "?" ganha destaque */
+.carta:not(.virada):not(.acertada) .conteudo-carta {
+    font-size: calc(40px * var(--escala-cartas, 1));
+    font-weight: 900;
+    color: var(--amarelo);
+}
+
 .carta:hover {
-    background-color: var(--fundo-carta-interacao, #222);
-    color: var(--texto-carta, white);
+    background-color: var(--fundo-carta-interacao, #30305b);
+    color: var(--texto-carta, #ffffff);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.35);
 }
 
-/* Destaque ao navegar com o teclado */
-/* Moldura amarela externa ao selecionar a carta pelo teclado */
+/* Moldura externa ao navegar pelo teclado */
 .carta:focus,
 .carta:focus-visible {
-    outline: 4px solid yellow;
-    outline-offset: 4px;
+    outline: 4px solid #ffffff;
+    outline-offset: 5px;
     transform: scale(1.05);
-    background-color: var(--fundo-carta-interacao, #222);
-    color: var(--texto-carta, white);
+    background-color: var(--fundo-carta-interacao, #30305b);
+    color: var(--texto-carta, #ffffff);
 }
 
 /* Carta virada */
 .carta.virada {
-    background-color: var(--fundo-carta, black);
-    color: var(--texto-carta, white);
+    background-color: var(--fundo-carta, #222242);
+    color: var(--texto-carta, #ffffff);
+    border-color: var(--turquesa);
     animation: virarCarta 0.4s;
 }
 
-/* Par encontrado */
+/* Par encontrado: cor + selo (não depende só da cor) */
 .carta.acertada {
-    border-color: #00ff22;
+    border-color: var(--verde);
     box-shadow:
-        0 0 10px #00ff22,
-        0 0 20px #00ff22,
-        0 0 40px #00ff22;
+        0 0 0 3px var(--verde),
+        0 0 18px rgba(168, 240, 122, 0.8);
 }
 
-/* Carta de uma tentativa incorreta */
+.carta.acertada::after {
+    content: "✓ Par";
+    position: absolute;
+    top: -14px;
+    right: 10px;
+    padding: 3px 10px;
+
+    background-color: var(--verde);
+    color: #151515;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+/* Tentativa incorreta */
 .carta.errada {
     animation: tremer 0.4s ease;
 }
 
-/* Animação caso a carta esteja acertada e receba a classe de erro */
 .carta.acertada.errada {
     animation: tremer 0.4s;
 }
 
-/* Animação de virar a carta */
 @keyframes virarCarta {
     0% {
         transform: rotateY(0deg);
@@ -111,7 +252,6 @@ h1 {
     }
 }
 
-/* Animação de erro */
 @keyframes tremer {
     0% {
         transform: translateX(0);
@@ -138,114 +278,346 @@ h1 {
     }
 }
 
-/* Tela de fim de jogo */
+/* =========================
+   FIM DE JOGO
+========================= */
+
 .fim-jogo {
-    margin-top: 30px;
+    max-width: 750px;
+    margin: 55px auto 0;
+    padding: 35px 25px;
+
+    background-color: #222242;
+    border: 3px solid var(--amarelo);
+    border-radius: 25px;
+    box-shadow: 0 8px 0 #090918;
 }
 
 .fim-jogo h2 {
-    color: yellow;
-    margin-bottom: 20px;
+    margin: 0 0 12px;
+    color: var(--amarelo);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+}
+
+.fim-texto {
+    margin: 0 0 10px;
+    color: #eeeeff;
+    font-size: 1.1rem;
+    line-height: 1.7;
 }
 
 .botoes-finais {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
 }
 
-/* Botão Jogar novamente */
-.botao-reiniciar {
-    background-color: black;
-    color: white;
-    border: 3px solid rgb(255, 193, 7);
-    padding: 12px 24px;
-    font-size: 18px;
-    border-radius: 10px;
+.botao-reiniciar,
+.botao-sair {
+    min-height: 54px;
+    padding: 14px 26px;
+
+    background-color: #090918;
+    color: #ffffff;
+
+    border: 3px solid var(--amarelo);
+    border-radius: 15px;
+
+    font-size: 1.1rem;
     cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background-color 0.2s,
+        color 0.2s;
+}
+
+.botao-reiniciar {
+    border-color: var(--verde);
+}
+
+.botao-sair {
+    border-color: #ff8585;
 }
 
 .botao-reiniciar:hover,
 .botao-reiniciar:focus-visible {
-    background: rgb(0, 128, 0);
-    border: 2px solid rgb(5, 204, 5);
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.botao-reiniciar:focus-visible {
-    outline: 4px solid yellow;
-    outline-offset: 4px;
-}
-
-/* Botão Sair */
-.botao-sair {
-    background-color: black;
-    color: white;
-    border: 3px solid rgb(255, 193, 7);
-    padding: 12px 24px;
-    font-size: 18px;
-    border-radius: 10px;
-    cursor: pointer;
+    background-color: var(--verde);
+    color: #151515;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 0 #3f7a1c;
 }
 
 .botao-sair:hover,
 .botao-sair:focus-visible {
-    background: rgb(185, 9, 9);
-    border: 2px solid rgb(236, 16, 16);
-    transition: background-color 0.3s, border-color 0.3s;
+    background-color: #ff8585;
+    color: #151515;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 0 #8f2f2f;
 }
 
+.botao-reiniciar:focus-visible,
 .botao-sair:focus-visible {
-    outline: 4px solid yellow;
-    outline-offset: 4px;
+    outline: 4px solid #ffffff;
+    outline-offset: 5px;
 }
 
-/* Ajustes para tablets */
+/* =========================
+   CONTRASTE CLARO
+========================= */
+
+:host-context(html[data-bs-theme="light"]) {
+    --fundo: #ffffff;
+    --texto: #15152b;
+    --tinta: #15152b;
+    --amarelo-escuro: #7a5a00;
+    --turquesa-escuro: #00665f;
+    --verde-escuro: #276b00;
+}
+
+:host-context(html[data-bs-theme="light"]) .pagina-jogo {
+    color: var(--tinta);
+    background:
+        radial-gradient(circle at 15% 10%, #e3e8ff 0, transparent 35%),
+        radial-gradient(circle at 85% 80%, #d7fbf5 0, transparent 35%),
+        #ffffff;
+}
+
+/* Placar */
+:host-context(html[data-bs-theme="light"]) .info {
+    background-color: #ffffff;
+    border-color: var(--tinta);
+    box-shadow: 0 6px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .info-rotulo {
+    color: var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .info-acertos .info-valor {
+    color: var(--verde-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .info-tentativas .info-valor {
+    color: var(--turquesa-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .info-pontuacao .info-valor {
+    color: var(--amarelo-escuro);
+}
+
+/* Cartas */
+:host-context(html[data-bs-theme="light"]) .carta {
+    background-color: var(--fundo-carta, #fff8d6);
+    color: var(--texto-carta, #15152b);
+    border-color: var(--tinta);
+    box-shadow: 0 6px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .carta:not(.virada):not(.acertada) .conteudo-carta {
+    color: var(--amarelo-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .carta:hover {
+    background-color: var(--fundo-carta-interacao, #ffefa8);
+    color: var(--texto-carta, #15152b);
+    box-shadow: 0 10px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .carta:focus,
+:host-context(html[data-bs-theme="light"]) .carta:focus-visible {
+    outline-color: #0057d9;
+    background-color: var(--fundo-carta-interacao, #ffefa8);
+    color: var(--texto-carta, #15152b);
+}
+
+:host-context(html[data-bs-theme="light"]) .carta.virada {
+    background-color: var(--fundo-carta, #e3fbf8);
+    color: var(--texto-carta, #15152b);
+    border-color: var(--turquesa-escuro);
+    box-shadow: 0 6px 0 var(--turquesa-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .carta.acertada {
+    background-color: var(--fundo-carta, #eefbe3);
+    border-color: var(--verde-escuro);
+    box-shadow:
+        0 0 0 3px var(--verde-escuro),
+        0 6px 0 3px var(--verde-escuro);
+}
+
+:host-context(html[data-bs-theme="light"]) .carta.acertada::after {
+    background-color: var(--verde-escuro);
+    color: #ffffff;
+    border-color: var(--tinta);
+}
+
+/* Fim de jogo */
+:host-context(html[data-bs-theme="light"]) .fim-jogo {
+    background-color: #f1efff;
+    border-color: var(--tinta);
+    box-shadow: 0 8px 0 var(--amarelo);
+}
+
+:host-context(html[data-bs-theme="light"]) .fim-jogo h2 {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 12px;
+    padding: 0 0.15em;
+    color: var(--tinta);
+    background: linear-gradient(transparent 58%, var(--amarelo) 58%);
+}
+
+:host-context(html[data-bs-theme="light"]) .fim-texto {
+    color: #222233;
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-reiniciar,
+:host-context(html[data-bs-theme="light"]) .botao-sair {
+    background-color: #ffffff;
+    color: var(--tinta);
+    border-color: var(--tinta);
+    box-shadow: 0 4px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-reiniciar:hover,
+:host-context(html[data-bs-theme="light"]) .botao-reiniciar:focus-visible {
+    background-color: var(--verde-escuro);
+    color: #ffffff;
+    box-shadow: 0 7px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-sair:hover,
+:host-context(html[data-bs-theme="light"]) .botao-sair:focus-visible {
+    background-color: #b00020;
+    color: #ffffff;
+    box-shadow: 0 7px 0 var(--tinta);
+}
+
+:host-context(html[data-bs-theme="light"]) .botao-reiniciar:focus-visible,
+:host-context(html[data-bs-theme="light"]) .botao-sair:focus-visible {
+    outline-color: #0057d9;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+    .tabuleiro {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .tabuleiro {
         grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
     }
 
     .informacoes {
-        gap: 20px;
-        font-size: 16px;
+        gap: 14px;
     }
 
-    .carta {
-        font-size: 16px;
+    .info {
+        min-width: 120px;
+        padding: 12px 16px;
+    }
+
+    .info-valor {
+        font-size: 1.6rem;
     }
 }
 
-.conteudo-carta {
-    font-size: calc(18px * var(--escala-cartas, 1));
-}
-
-/* Ajustes para celulares */
 @media (max-width: 480px) {
-    .tabuleiro {
-        grid-template-columns: 1fr;
-    }
-
     .container {
         padding: 10px;
     }
 
-    h1 {
-        font-size: 1.6rem;
+    .tabuleiro {
+        grid-template-columns: 1fr;
     }
 
     .informacoes {
         flex-direction: column;
-        gap: 5px;
-        margin-bottom: 20px;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+
+    .info {
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .carta {
-        width: 100%;
-        font-size: 14px;
-        min-height: 120px;
-        transition: transform 0.4s, background-color 0.3s;
-        transform-style: preserve-3d;
+        min-height: calc(120px * var(--escala-cartas, 1));
     }
+
+    .botoes-finais {
+        flex-direction: column;
+    }
+
+    .botao-reiniciar,
+    .botao-sair {
+        width: 100%;
+    }
+}
+
+/* =========================
+   MOVIMENTO REDUZIDO
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .carta:hover,
+    .carta:focus,
+    .carta:focus-visible {
+        transform: none;
+    }
+}
+
+/* =========================
+   SAIBA MAIS COMO JANELA CENTRALIZADA
+   (evita estourar o fim da página e cobrir as cartas)
+========================= */
+
+app-saiba-mais {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow-y: auto;
+
+    background-color: rgba(9, 9, 24, 0.85);
+}
+
+/* Cartão interno: sai do posicionamento absoluto e centraliza */
+:host ::ng-deep app-saiba-mais > * {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+
+    width: 100% !important;
+    max-width: 560px !important;
+    max-height: 90vh;
+    margin: auto !important;
+    overflow-y: auto;
 }
