@@ -1,8 +1,8 @@
-
 import {
   Component,
   OnInit,
   AfterViewInit,
+  OnDestroy,
   ChangeDetectorRef,
   ViewChildren,
   QueryList,
@@ -22,7 +22,7 @@ import { NavbarComponent } from '../navbar/navbar';
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
-export class Home implements OnInit, AfterViewInit {
+export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   jogosCitologia: any[] = [];
   jogosGenetica: any[] = [];
@@ -30,8 +30,11 @@ export class Home implements OnInit, AfterViewInit {
 
   temaSelecionado: number | null = null;
 
-  // Controla a aparição de cada diálogo
-  etapasVisiveis: boolean[] = [false, false, false, false];
+  // Controla a aparição de cada diálogo (são 8 diálogos)
+  etapasVisiveis: boolean[] = [false, false, false, false, false, false, false, false];
+
+  // Índice do balão que está sendo lido em voz alta (null = nenhum)
+  dialogoFalando: number | null = null;
 
   @ViewChildren('etapaHistoria')
   etapasHistoria!: QueryList<ElementRef<HTMLElement>>;
@@ -54,6 +57,7 @@ export class Home implements OnInit, AfterViewInit {
   ativarModoMouse() {
     this.navegacaoPorTeclado = false;
   }
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -66,13 +70,18 @@ export class Home implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // Começa com todos os diálogos escondidos
-    this.etapasVisiveis = [false, false, false, false];
+    this.etapasVisiveis = [false, false, false, false, false, false, false, false];
 
     // Aguarda a página terminar de carregar
     setTimeout(() => {
       window.scrollTo(0, 0);
       this.revelarEtapas();
     }, 100);
+  }
+
+  ngOnDestroy() {
+    // Para a voz ao sair da página
+    this.pararLeitura();
   }
 
   // Busca os jogos cadastrados no banco de dados
@@ -96,6 +105,64 @@ export class Home implements OnInit, AfterViewInit {
         this.cdr.detectChanges();
       });
   }
+
+  // =========================
+  // LEITURA POR VOZ
+  // =========================
+
+  // Lê em voz alta o nome do personagem e a fala do balão clicado
+  ouvirDialogo(indice: number, evento: Event) {
+
+    if (!('speechSynthesis' in window)) {
+      return; // navegador sem suporte
+    }
+
+    // Clicar de novo no mesmo balão para a leitura
+    if (this.dialogoFalando === indice) {
+      this.pararLeitura();
+      return;
+    }
+
+    this.pararLeitura();
+
+    // Pega o nome e o texto direto do balão clicado
+    const balao = (evento.currentTarget as HTMLElement).closest('.dialogo');
+    const nome = balao?.querySelector('.nome-personagem')?.textContent?.trim();
+    const texto = balao?.querySelector('p')?.textContent?.replace(/\s+/g, ' ').trim();
+
+    if (!texto) {
+      return;
+    }
+
+    const fala = new SpeechSynthesisUtterance(`${nome} diz: ${texto}`);
+    fala.lang = 'pt-BR';
+    fala.rate = 0.9; // um pouco mais devagar
+
+    const terminou = () => {
+      // Só limpa se ainda for este balão (evita conflito ao trocar de balão)
+      if (this.dialogoFalando === indice) {
+        this.dialogoFalando = null;
+        this.cdr.detectChanges();
+      }
+    };
+
+    fala.onend = terminou;
+    fala.onerror = terminou;
+
+    this.dialogoFalando = indice;
+    window.speechSynthesis.speak(fala);
+  }
+
+  pararLeitura() {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    this.dialogoFalando = null;
+  }
+
+  // =========================
+  // HISTÓRIA E NAVEGAÇÃO
+  // =========================
 
   // Revela os diálogos conforme a rolagem da página
   @HostListener('window:scroll')

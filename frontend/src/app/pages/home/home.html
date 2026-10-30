@@ -74,6 +74,13 @@
                 <p>
                     Oi, aventureiro(a)! Seja bem-vindo(a)! Vamos aprender Biologia enquanto nos divertimos com um jogo da memória?
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(0, $event)"
+                    [attr.aria-label]="dialogoFalando === 0 ? 'Parar leitura da fala de Lumi' : 'Ouvir a fala de Lumi'">
+                    <span aria-hidden="true">{{ dialogoFalando === 0 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 0 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
@@ -90,11 +97,18 @@
                 <p>
                     Escolha um tema e uma dificuldade. Depois, vire duas cartas por vez e tente encontrar os pares que possuem conceitos correspondentes!
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(1, $event)"
+                    [attr.aria-label]="dialogoFalando === 1 ? 'Parar leitura da fala de Tico' : 'Ouvir a fala de Tico'">
+                    <span aria-hidden="true">{{ dialogoFalando === 1 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 1 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
 
-                <!-- DIÁLOGO 3 -->
+        <!-- DIÁLOGO 3 -->
         <article #etapaHistoria class="etapa-historia" [class.apareceu]="etapasVisiveis[2]">
 
             <div class="personagem personagem-raposa">
@@ -104,12 +118,20 @@
             <div class="dialogo dialogo-coral">
                 <strong class="nome-personagem">Lumi</strong>
                 <p>
-Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, você perde 20 pontos. Tente acertar o máximo possível!
+                    Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, você perde 20 pontos. Tente acertar o máximo possível!
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(2, $event)"
+                    [attr.aria-label]="dialogoFalando === 2 ? 'Parar leitura da fala de Lumi' : 'Ouvir a fala de Lumi'">
+                    <span aria-hidden="true">{{ dialogoFalando === 2 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 2 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
-                <!-- DIÁLOGO 4 -->
+
+        <!-- DIÁLOGO 4 -->
         <article #etapaHistoria class="etapa-historia etapa-invertida" [class.apareceu]="etapasVisiveis[3]">
 
             <div class="personagem personagem-robo">
@@ -121,6 +143,13 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
                 <p>
                     Você também pode jogar pelo teclado! Use a tecla Tab para navegar entre os elementos e Enter ou Espaço para ativar botões e selecionar cartas. Use as setas para navegar pelas cartas, quando disponível.
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(3, $event)"
+                    [attr.aria-label]="dialogoFalando === 3 ? 'Parar leitura da fala de Tico' : 'Ouvir a fala de Tico'">
+                    <span aria-hidden="true">{{ dialogoFalando === 3 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 3 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
@@ -137,6 +166,13 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
                 <p>
                     Está difícil enxergar as palavras? Procure o controle de tamanho do texto e aumente a fonte para deixar as informações mais fáceis de ler!
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(4, $event)"
+                    [attr.aria-label]="dialogoFalando === 4 ? 'Parar leitura da fala de Lumi' : 'Ouvir a fala de Lumi'">
+                    <span aria-hidden="true">{{ dialogoFalando === 4 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 4 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
@@ -151,13 +187,20 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
             <div class="dialogo dialogo-tico">
                 <strong class="nome-personagem">Tico</strong>
                 <p>
-                   Quer enxergar melhor? Experimente o botão de contraste para alternar entre os temas disponíveis e escolher o que ficar mais confortável para você.
+                    Quer enxergar melhor? Experimente o botão de contraste para alternar entre os temas disponíveis e escolher o que ficar mais confortável para você.
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(5, $event)"
+                    [attr.aria-label]="dialogoFalando === 5 ? 'Parar leitura da fala de Tico' : 'Ouvir a fala de Tico'">
+                    <span aria-hidden="true">{{ dialogoFalando === 5 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 5 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
 
-                <!-- DIÁLOGO 7 -->
+        <!-- DIÁLOGO 7 -->
         <article #etapaHistoria class="etapa-historia" [class.apareceu]="etapasVisiveis[6]">
 
             <div class="personagem personagem-raposa" aria-hidden="true">
@@ -169,6 +212,13 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
                 <p>
                     Você também pode usar o recurso de leitura por voz para ouvir textos e informações da tela. Assim, fica mais fácil acompanhar a aventura!
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(6, $event)"
+                    [attr.aria-label]="dialogoFalando === 6 ? 'Parar leitura da fala de Lumi' : 'Ouvir a fala de Lumi'">
+                    <span aria-hidden="true">{{ dialogoFalando === 6 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 6 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
@@ -183,8 +233,15 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
             <div class="dialogo dialogo-tico">
                 <strong class="nome-personagem">Tico</strong>
                 <p>
-                   Encontrou um par? Muito bem! Depois de acertar, confira o cartão “Saiba mais” para descobrir curiosidades e aprender um pouquinho além do jogo.
+                    Encontrou um par? Muito bem! Depois de acertar, confira o cartão “Saiba mais” para descobrir curiosidades e aprender um pouquinho além do jogo.
                 </p>
+
+                <button type="button" class="botao-ouvir"
+                    (click)="ouvirDialogo(7, $event)"
+                    [attr.aria-label]="dialogoFalando === 7 ? 'Parar leitura da fala de Tico' : 'Ouvir a fala de Tico'">
+                    <span aria-hidden="true">{{ dialogoFalando === 7 ? '⏹' : '🔊' }}</span>
+                    {{ dialogoFalando === 7 ? 'Parar' : 'Ouvir' }}
+                </button>
             </div>
 
         </article>
@@ -260,38 +317,27 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
                     <h3>Escolha a dificuldade</h3>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
                             (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil">
                             <span>Fácil</span>
                             <small>8 cartas</small>
                         </button>
-
-
-
                     </div>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
                             (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio">
                             <span>Médio</span>
                             <small>12 cartas</small>
                         </button>
-
-
                     </div>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
                             (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil">
                             <span>Difícil</span>
                             <small>16 cartas</small>
                         </button>
-
-                       
-
                     </div>
 
                 </div>
@@ -333,39 +379,27 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
                     <h3>Escolha a dificuldade</h3>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
                             (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil-genetica">
                             <span>Fácil</span>
                             <small>8 cartas</small>
                         </button>
-
-                    
-
                     </div>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
                             (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio-genetica">
                             <span>Médio</span>
                             <small>12 cartas</small>
                         </button>
-
-                        
-
                     </div>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
                             (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil-genetica">
                             <span>Difícil</span>
                             <small>16 cartas</small>
                         </button>
-
-                       
-
                     </div>
 
                 </div>
@@ -408,39 +442,27 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
                     <h3>Escolha a dificuldade</h3>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
                             (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil-ecologia">
                             <span>Fácil</span>
                             <small>8 cartas</small>
                         </button>
-
-                    
-
                     </div>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
                             (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio-ecologia">
                             <span>Médio</span>
                             <small>12 cartas</small>
                         </button>
-
-                    
-
                     </div>
 
                     <div class="item-dificuldade">
-
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
                             (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil-ecologia">
                             <span>Difícil</span>
                             <small>16 cartas</small>
                         </button>
-
-                    
-
                     </div>
 
                 </div>
@@ -450,7 +472,5 @@ Cada par correto vale +100 pontos! Mas atenção: se as cartas não combinarem, 
         </div>
 
     </section>
-
-
 
 </main>
