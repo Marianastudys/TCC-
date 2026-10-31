@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar';
+import { SomService } from '../../services/som.service';
 
 @Component({
   selector: 'app-home',
@@ -67,11 +68,13 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private som: SomService
   ) { }
 
   ngOnInit() {
     this.buscarJogos();
+    this.som.ativar();
   }
 
   ngAfterViewInit() {
@@ -86,8 +89,9 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Para a voz ao sair da página
+    // Para a voz e os sons ao sair da página
     this.pararLeitura();
+    this.som.desativar();
   }
 
   // Busca os jogos cadastrados no banco de dados

@@ -6,8 +6,12 @@ import {
   ElementRef,
   ViewChild,
   AfterViewInit,
-  HostListener
+  OnInit,
+  OnDestroy,
+  HostListener,
+  inject
 } from '@angular/core';
+import { SomService } from '../services/som.service';
 
 @Component({
   selector: 'app-instrucoes-jogo',
@@ -16,7 +20,17 @@ import {
   templateUrl: './instrucoes-jogo.html',
   styleUrl: './instrucoes-jogo.css'
 })
-export class InstrucoesJogo implements AfterViewInit {
+export class InstrucoesJogo implements OnInit, AfterViewInit, OnDestroy {
+
+  private som = inject(SomService);
+
+  ngOnInit(): void {
+    this.som.ativar();
+  }
+
+  ngOnDestroy(): void {
+    this.som.desativar();
+  }
 
   @Output() iniciar = new EventEmitter<void>();
   @Output() voltar = new EventEmitter<void>();
