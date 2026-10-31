@@ -28,6 +28,9 @@ export class InstrucoesJogo implements AfterViewInit {
   @ViewChild('botaoComecar')
   botaoComecar!: ElementRef<HTMLButtonElement>;
 
+  @ViewChild('botaoFechar')
+  botaoFechar!: ElementRef<HTMLButtonElement>;
+
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.cardInstrucoes.nativeElement.focus();
@@ -39,6 +42,7 @@ export class InstrucoesJogo implements AfterViewInit {
 
     const card = this.cardInstrucoes?.nativeElement;
     const botao = this.botaoComecar?.nativeElement;
+    const fechar = this.botaoFechar?.nativeElement;
 
     if (!card || !botao || !card.isConnected) {
       return;
@@ -46,7 +50,25 @@ export class InstrucoesJogo implements AfterViewInit {
 
     const ativo = document.activeElement;
 
-    // Controla as teclas somente enquanto o foco
+    // Esc fecha as instruções e volta para a página inicial
+    // (funciona com o foco em qualquer lugar dentro do card).
+    if (event.key === 'Escape' && ativo && card.contains(ativo)) {
+      event.preventDefault();
+      this.voltarInicio();
+      return;
+    }
+
+    // Foco no botão X: ↓ volta para o texto das instruções.
+    // Enter e Espaço já funcionam nativamente no <button>.
+    if (fechar && ativo === fechar) {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        card.focus();
+      }
+      return;
+    }
+
+    // Controla as demais teclas somente enquanto o foco
     // estiver no card ou no botão Começar jogo.
     if (ativo !== card && ativo !== botao) {
       return;
@@ -91,8 +113,15 @@ export class InstrucoesJogo implements AfterViewInit {
 
       event.preventDefault();
 
+      // Do botão "Começar jogo", volta para o texto.
       if (ativo === botao) {
-        this.cardInstrucoes.nativeElement.focus();
+        card.focus();
+        return;
+      }
+
+      // No topo do texto, ↑ leva o foco para o botão X.
+      if (card.scrollTop <= 5) {
+        fechar?.focus();
         return;
       }
 
@@ -127,8 +156,8 @@ export class InstrucoesJogo implements AfterViewInit {
     this.iniciar.emit();
   }
 
-voltarInicio(): void {
-  this.voltar.emit();
-}
+  voltarInicio(): void {
+    this.voltar.emit();
+  }
 
 }

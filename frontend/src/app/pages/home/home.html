@@ -36,7 +36,7 @@
         </div>
 
         <button type="button" class="botao-aventura" (click)="escolherJogo()">
-            Vamos começar! <span>➜</span>
+            Vamos começar! <span aria-hidden="true">➜</span>
         </button>
 
         <div class="mascote-principal" aria-label="Lumi, a raposinha">
@@ -141,7 +141,7 @@
             <div class="dialogo dialogo-tico">
                 <strong class="nome-personagem">Tico</strong>
                 <p>
-                    Você também pode jogar pelo teclado! Use a tecla Tab para navegar entre os elementos e Enter ou Espaço para ativar botões e selecionar cartas. Use as setas para navegar pelas cartas, quando disponível.
+                    Você também pode jogar pelo teclado! Use as setas para cima e para baixo para pular entre os botões, e as setas para a esquerda e para a direita para trocar de tema. Use Enter ou Espaço para apertar um botão ou selecionar uma carta. A tecla Tab também funciona!
                 </p>
 
                 <button type="button" class="botao-ouvir"
@@ -303,8 +303,7 @@
 
                         <button #botaoTema type="button" class="btnTop-celular"
                             (click)="selecionarTema(jogosCitologia[0]?.id)"
-                            [attr.aria-expanded]="temaPertenceALista(jogosCitologia)"
-                            aria-label="Escolher jogo de Biologia Celular">
+                            [attr.aria-expanded]="temaPertenceALista(jogosCitologia)">
                             Jogo Biologia Celular
                         </button>
 
@@ -318,7 +317,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
-                            (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil">
+                            (click)="iniciarJogo(temaSelecionado!, 'facil')">
                             <span>Fácil</span>
                             <small>8 cartas</small>
                         </button>
@@ -326,7 +325,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
-                            (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio">
+                            (click)="iniciarJogo(temaSelecionado!, 'medio')">
                             <span>Médio</span>
                             <small>12 cartas</small>
                         </button>
@@ -334,7 +333,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
-                            (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil">
+                            (click)="iniciarJogo(temaSelecionado!, 'dificil')">
                             <span>Difícil</span>
                             <small>16 cartas</small>
                         </button>
@@ -365,8 +364,7 @@
 
                         <button #botaoTema type="button" class="btnTop-genetica"
                             (click)="selecionarTema(jogosGenetica[0]?.id)"
-                            [attr.aria-expanded]="temaPertenceALista(jogosGenetica)"
-                            aria-label="Escolher jogo de Genética">
+                            [attr.aria-expanded]="temaPertenceALista(jogosGenetica)">
                             Jogo Genética
                         </button>
 
@@ -380,7 +378,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
-                            (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil-genetica">
+                            (click)="iniciarJogo(temaSelecionado!, 'facil')">
                             <span>Fácil</span>
                             <small>8 cartas</small>
                         </button>
@@ -388,7 +386,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
-                            (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio-genetica">
+                            (click)="iniciarJogo(temaSelecionado!, 'medio')">
                             <span>Médio</span>
                             <small>12 cartas</small>
                         </button>
@@ -396,7 +394,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
-                            (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil-genetica">
+                            (click)="iniciarJogo(temaSelecionado!, 'dificil')">
                             <span>Difícil</span>
                             <small>16 cartas</small>
                         </button>
@@ -428,8 +426,7 @@
 
                         <button #botaoTema type="button" class="btnTop-ecologia"
                             (click)="selecionarTema(jogosEcologia[0]?.id)"
-                            [attr.aria-expanded]="temaPertenceALista(jogosEcologia)"
-                            aria-label="Escolher jogo de Ecologia">
+                            [attr.aria-expanded]="temaPertenceALista(jogosEcologia)">
                             Jogo Ecologia
                         </button>
 
@@ -443,7 +440,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-facil"
-                            (click)="iniciarJogo(temaSelecionado!, 'facil')" aria-describedby="dica-facil-ecologia">
+                            (click)="iniciarJogo(temaSelecionado!, 'facil')">
                             <span>Fácil</span>
                             <small>8 cartas</small>
                         </button>
@@ -451,7 +448,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-medio"
-                            (click)="iniciarJogo(temaSelecionado!, 'medio')" aria-describedby="dica-medio-ecologia">
+                            (click)="iniciarJogo(temaSelecionado!, 'medio')">
                             <span>Médio</span>
                             <small>12 cartas</small>
                         </button>
@@ -459,7 +456,7 @@
 
                     <div class="item-dificuldade">
                         <button #botaoDificuldade type="button" class="botao-dificuldade dificuldade-dificil"
-                            (click)="iniciarJogo(temaSelecionado!, 'dificil')" aria-describedby="dica-dificil-ecologia">
+                            (click)="iniciarJogo(temaSelecionado!, 'dificil')">
                             <span>Difícil</span>
                             <small>16 cartas</small>
                         </button>

@@ -50,12 +50,18 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('document:keydown')
   ativarModoTeclado() {
-    this.navegacaoPorTeclado = true;
+    if (!this.navegacaoPorTeclado) {
+      this.navegacaoPorTeclado = true;
+      this.cdr.detectChanges();
+    }
   }
 
   @HostListener('document:pointerdown')
   ativarModoMouse() {
-    this.navegacaoPorTeclado = false;
+    if (this.navegacaoPorTeclado) {
+      this.navegacaoPorTeclado = false;
+      this.cdr.detectChanges();
+    }
   }
 
   constructor(
@@ -187,13 +193,26 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  // Se o foco chegar num diálogo escondido, revela ele
+  @HostListener('document:focusin', ['$event'])
+  revelarAoFocar(event: FocusEvent) {
+    const alvo = event.target as HTMLElement;
+
+    this.etapasHistoria?.forEach((etapa, indice) => {
+      if (etapa.nativeElement.contains(alvo) && !this.etapasVisiveis[indice]) {
+        this.etapasVisiveis[indice] = true;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
   // Verifica a qual tema pertence o painel de dificuldade
   temaPertenceALista(lista: any[]): boolean {
     return this.temaSelecionado !== null &&
       lista.some(jogo => jogo.id === this.temaSelecionado);
   }
 
-  // Leva a criança até a seção dos jogos
+  // Leva a criança até a seção dos jogos (só rola a página, não mexe no foco)
   escolherJogo() {
     document.getElementById('secao-jogos')?.scrollIntoView({
       behavior: 'smooth',
@@ -255,106 +274,191 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // =========================
+  // NAVEGAÇÃO POR TECLADO
+  // =========================
+
+  // Foca o elemento e garante que ele fique visível na tela
+  private focar(el: HTMLElement | null | undefined) {
+    if (!el) return;
+    el.focus({ preventScroll: true });
+    el.scrollIntoView({ block: 'center' });
+  }
+
+  // Botões que ficam um embaixo do outro na página, na ordem do documento
+  private obterBotoesVerticais(): HTMLElement[] {
+    return Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.botao-aventura, .botao-ouvir, .botao-escolher'
+      )
+    );
+  }
+
+  // Todos os botões navegáveis por seta, na ordem em que aparecem na página
+  private obterBotoesNavegaveis(): HTMLElement[] {
+    return Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.botao-aventura, .botao-ouvir, .botao-escolher, ' +
+        '.btnTop-celular, .btnTop-genetica, .btnTop-ecologia'
+      )
+    );
+  }
+
+  // Quando nenhum botão está focado, ↓ foca o primeiro botão a partir do
+  // topo da tela e ↑ foca o último botão até o fim da tela.
+  // Se não houver botão nessa direção, a seta rola a página normalmente.
+  private focarPrimeiroBotaoNaDirecao(event: KeyboardEvent, temas: HTMLElement[]): void {
+    const botoes = this.obterBotoesNavegaveis();
+    let alvo: HTMLElement | undefined;
+
+    if (event.key === 'ArrowDown') {
+      alvo = botoes.find(b => b.getBoundingClientRect().top >= 0);
+    } else {
+      alvo = [...botoes].reverse().find(
+        b => b.getBoundingClientRect().bottom <= window.innerHeight
+      );
+    }
+
+    if (!alvo) return;
+
+    event.preventDefault();
+
+    const indiceTema = temas.indexOf(alvo);
+    if (indiceTema !== -1) {
+      this.indiceSelecionado = indiceTema;
+    }
+
+    this.focar(alvo);
+  }
+
   @HostListener('document:keydown', ['$event'])
   navegacao(event: KeyboardEvent) {
+    if (event.ctrlKey || event.altKey || event.metaKey) return;
 
-    const temas = this.botoes.toArray();
-    const dificuldades = this.botoesDificuldade.toArray();
-    const elementoAtivo = document.activeElement;
+    const ativo = document.activeElement as HTMLElement | null;
+    const temas: HTMLElement[] = this.botoes.toArray().map(b => b.nativeElement);
 
-    // Navegação entre os temas
-    const indiceTema = temas.findIndex(
-      botao => botao.nativeElement === elementoAtivo
-    );
+    // Nenhum elemento focado: as setas ↑/↓ passam a focar os botões,
+    // sem precisar apertar Tab antes
+    const semFoco =
+      !ativo || ativo === document.body || ativo === document.documentElement;
+
+    if (semFoco) {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        this.focarPrimeiroBotaoNaDirecao(event, temas);
+      }
+      return;
+    }
+
+    // ===== 1) Botões de tema =====
+    const indiceTema = temas.indexOf(ativo as HTMLButtonElement);
 
     if (indiceTema !== -1) {
-
       if (event.key === 'ArrowRight') {
         event.preventDefault();
-
         this.indiceSelecionado = (indiceTema + 1) % temas.length;
-        temas[this.indiceSelecionado].nativeElement.focus();
+        this.focar(temas[this.indiceSelecionado]);
         return;
       }
 
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-
-        this.indiceSelecionado =
-          (indiceTema - 1 + temas.length) % temas.length;
-
-        temas[this.indiceSelecionado].nativeElement.focus();
+        this.indiceSelecionado = (indiceTema - 1 + temas.length) % temas.length;
+        this.focar(temas[this.indiceSelecionado]);
         return;
       }
-
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        temas[indiceTema].nativeElement.click();
-        return;
-      }
-    }
-
-    // Navegação entre as dificuldades
-    const indiceDificuldade = dificuldades.findIndex(
-      botao => botao.nativeElement === elementoAtivo
-    );
-
-    if (indiceDificuldade !== -1) {
 
       if (event.key === 'ArrowDown') {
+        // Se o painel de dificuldade deste tema estiver aberto, desce até ele
+        const primeira = ativo
+          .closest('.tema-coluna')
+          ?.querySelector<HTMLElement>('.botao-dificuldade');
+
+        if (primeira) {
+          event.preventDefault();
+          this.focar(primeira);
+        }
+        return;
+      }
+
+      if (event.key === 'ArrowUp') {
         event.preventDefault();
+        this.focar(document.querySelector<HTMLElement>('.botao-escolher'));
+        return;
+      }
 
-        const novoIndice =
-          (indiceDificuldade + 1) % dificuldades.length;
+      return; // Enter e Espaço já funcionam nativamente no <button>
+    }
 
-        dificuldades[novoIndice].nativeElement.focus();
+    // ===== 2) Botões de dificuldade =====
+    const dificuldades = this.botoesDificuldade.toArray().map(b => b.nativeElement);
+    const indiceDificuldade = dificuldades.indexOf(ativo as HTMLButtonElement);
+
+    if (indiceDificuldade !== -1) {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        this.focar(dificuldades[(indiceDificuldade + 1) % dificuldades.length]);
         return;
       }
 
       if (event.key === 'ArrowUp') {
         event.preventDefault();
 
-        const novoIndice =
-          (indiceDificuldade - 1 + dificuldades.length) %
-          dificuldades.length;
+        // Na primeira dificuldade (Fácil), ↑ volta para o botão do tema
+        // e mantém o painel aberto
+        if (indiceDificuldade === 0) {
+          const temaDoPainel = ativo
+            .closest('.tema-coluna')
+            ?.querySelector<HTMLElement>(
+              '.btnTop-celular, .btnTop-genetica, .btnTop-ecologia'
+            );
 
-        dificuldades[novoIndice].nativeElement.focus();
-        return;
-      }
-
-      if (event.key === 'Enter') {
-        event.preventDefault();
-
-        if (this.temaSelecionado === null) {
+          if (temaDoPainel) {
+            const indice = temas.indexOf(temaDoPainel);
+            if (indice !== -1) {
+              this.indiceSelecionado = indice;
+            }
+            this.focar(temaDoPainel);
+          }
           return;
         }
 
-        if (indiceDificuldade === 0) {
-          this.iniciarJogo(this.temaSelecionado, 'facil');
-        } else if (indiceDificuldade === 1) {
-          this.iniciarJogo(this.temaSelecionado, 'medio');
-        } else if (indiceDificuldade === 2) {
-          this.iniciarJogo(this.temaSelecionado, 'dificil');
-        }
-
+        this.focar(dificuldades[indiceDificuldade - 1]);
         return;
       }
 
       if (event.key === 'Escape') {
         event.preventDefault();
-
         this.temaSelecionado = null;
-
-        setTimeout(() => {
-          const tema = this.botoes.toArray()[this.indiceSelecionado];
-
-          if (tema) {
-            tema.nativeElement.focus();
-          }
-        }, 0);
-
+        this.cdr.detectChanges();
+        this.focar(temas[this.indiceSelecionado]);
         return;
       }
+
+      return;
+    }
+
+    // ===== 3) Botões da apresentação / história =====
+    const lista = this.obterBotoesVerticais();
+    const i = lista.indexOf(ativo);
+    if (i === -1) return;
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+
+      if (i < lista.length - 1) {
+        this.focar(lista[i + 1]);
+      } else {
+        // Último botão ("Escolher jogo") → vai para o primeiro tema
+        this.indiceSelecionado = 0;
+        this.focar(temas[0]);
+      }
+      return;
+    }
+
+    if (event.key === 'ArrowUp' && i > 0) {
+      event.preventDefault();
+      this.focar(lista[i - 1]);
     }
   }
 }
