@@ -375,3 +375,97 @@
         transition: none;
     }
 }
+/* =========================================================
+   (botões Voltar + Começar jogo lado a lado)
+========================================================= */
+
+/* Linha com os dois botões */
+.acoes-instrucoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    margin: 32px 0 0;
+}
+
+/* Os botões passam a ser organizados pela linha acima */
+.acoes-instrucoes .botao-comecar,
+.acoes-instrucoes .botao-voltar {
+    margin: 0;
+}
+
+/* Botão Voltar: secundário (contorno na cor do tema) */
+.botao-voltar {
+    display: block;
+
+    width: fit-content;
+    max-width: 100%;
+    min-height: 56px;
+
+    padding: 14px 30px;
+    box-sizing: border-box;
+
+    background: transparent;
+    color: var(--cor-tema);
+
+    border: 2px solid var(--cor-tema);
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.botao-voltar:hover {
+    background: var(--cor-tema);
+    color: #111116;
+    transform: translateY(-3px);
+}
+
+.botao-voltar:active {
+    transform: translateY(1px);
+}
+
+.botao-voltar:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 5px;
+
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 768px) {
+    .acoes-instrucoes {
+        margin-top: 26px;
+    }
+}
+
+/* Celulares pequenos: botões um embaixo do outro */
+@media (max-width: 400px) {
+    .acoes-instrucoes {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .acoes-instrucoes .botao-comecar,
+    .acoes-instrucoes .botao-voltar {
+        width: 100%;
+        padding: 13px 16px;
+        font-size: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .botao-voltar {
+        transition: none;
+    }
+}

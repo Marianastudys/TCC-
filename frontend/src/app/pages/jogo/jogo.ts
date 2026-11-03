@@ -445,6 +445,12 @@ sairJogo(): void {
   this.router.navigate(['/home']);
 }
 
+// Botão "Voltar" das instruções: volta para a escolha de temas na Home
+voltarParaTemas(): void {
+  speechSynthesis.cancel();
+  this.router.navigate(['/home'], { fragment: 'secao-jogos' });
+}
+
   falarTexto(texto: string) {
 
     speechSynthesis.cancel();

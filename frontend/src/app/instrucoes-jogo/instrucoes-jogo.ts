@@ -42,6 +42,9 @@ export class InstrucoesJogo implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('botaoComecar')
   botaoComecar!: ElementRef<HTMLButtonElement>;
 
+  @ViewChild('botaoVoltar')
+  botaoVoltar!: ElementRef<HTMLButtonElement>;
+
   @ViewChild('botaoFechar')
   botaoFechar!: ElementRef<HTMLButtonElement>;
 
@@ -56,6 +59,7 @@ export class InstrucoesJogo implements OnInit, AfterViewInit, OnDestroy {
 
     const card = this.cardInstrucoes?.nativeElement;
     const botao = this.botaoComecar?.nativeElement;
+    const botaoVoltar = this.botaoVoltar?.nativeElement;
     const fechar = this.botaoFechar?.nativeElement;
 
     if (!card || !botao || !card.isConnected) {
@@ -64,7 +68,7 @@ export class InstrucoesJogo implements OnInit, AfterViewInit, OnDestroy {
 
     const ativo = document.activeElement;
 
-    // Esc fecha as instruções e volta para a página inicial
+    // Esc volta para a escolha de temas
     // (funciona com o foco em qualquer lugar dentro do card).
     if (event.key === 'Escape' && ativo && card.contains(ativo)) {
       event.preventDefault();
@@ -73,7 +77,8 @@ export class InstrucoesJogo implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Foco no botão X: ↓ volta para o texto das instruções.
-    // Enter e Espaço já funcionam nativamente no <button>.
+    // Enter e Espaço já funcionam nativamente no <button>
+    // (o X começa o jogo, igual ao botão "Começar jogo").
     if (fechar && ativo === fechar) {
       if (event.key === 'ArrowDown') {
         event.preventDefault();
@@ -82,9 +87,41 @@ export class InstrucoesJogo implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    // Foco no botão Voltar:
+    // → vai para "Começar jogo", ↑ volta para o texto, Enter volta aos temas.
+    if (botaoVoltar && ativo === botaoVoltar) {
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        botao.focus();
+        return;
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        card.focus();
+        return;
+      }
+
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        event.stopPropagation();
+        this.voltarInicio();
+      }
+
+      return;
+    }
+
     // Controla as demais teclas somente enquanto o foco
     // estiver no card ou no botão Começar jogo.
     if (ativo !== card && ativo !== botao) {
+      return;
+    }
+
+    // ← no botão "Começar jogo" vai para o botão Voltar.
+    if (event.key === 'ArrowLeft' && ativo === botao && botaoVoltar) {
+      event.preventDefault();
+      botaoVoltar.focus();
       return;
     }
 
@@ -166,10 +203,12 @@ export class InstrucoesJogo implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // Usado pelo botão "Começar jogo" e pelo X
   comecarJogo(): void {
     this.iniciar.emit();
   }
 
+  // Usado pelo botão "Voltar" e pela tecla Esc: volta para a escolha de temas
   voltarInicio(): void {
     this.voltar.emit();
   }

@@ -1,4 +1,3 @@
-
 <div class="fundo-instrucoes">
 
 <div
@@ -12,13 +11,14 @@
   aria-modal="true"
   aria-labelledby="tituloInstrucoes">
 
+  <!-- O X fecha as instruções e começa o jogo -->
   <button
   type="button"
   #botaoFechar
   class="botao-fechar-instrucoes"
-  aria-label="Voltar para a página inicial"
-  title="Voltar para a página inicial"
-  (click)="voltarInicio()">
+  aria-label="Fechar instruções e começar o jogo"
+  title="Fechar instruções e começar o jogo"
+  (click)="comecarJogo()">
   <span aria-hidden="true">×</span>
 </button>
 
@@ -118,15 +118,30 @@
 
     }
 
-    <button
-      #botaoComecar
-      type="button"
-      class="botao-comecar"
-      (click)="comecarJogo()">
+    <!-- Botões: Voltar (escolha de temas) e Começar jogo -->
+    <div class="acoes-instrucoes">
 
-      Começar jogo
+      <button
+        #botaoVoltar
+        type="button"
+        class="botao-voltar"
+        (click)="voltarInicio()">
 
-    </button>
+        Voltar
+
+      </button>
+
+      <button
+        #botaoComecar
+        type="button"
+        class="botao-comecar"
+        (click)="comecarJogo()">
+
+        Começar jogo
+
+      </button>
+
+    </div>
 </div>
 
   </div>

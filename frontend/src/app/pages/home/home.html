@@ -2,43 +2,56 @@
 
 <main class="pagina-home" [class.modo-teclado]="navegacaoPorTeclado">
 
-    <!-- APRESENTAÇÃO -->
+   <!-- APRESENTAÇÃO -->
     <section class="apresentacao">
 
         <span class="brilho brilho-um">✦</span>
         <span class="brilho brilho-dois">✧</span>
         <span class="brilho brilho-tres">✦</span>
 
-        <span class="etiqueta">APRENDA JOGANDO</span>
+        <!-- PRIMEIRA TELA: termina no botão -->
+        <div class="apresentacao-topo">
 
-        <h1>
-            BIO <span>GAME</span>
-        </h1>
-        <p>
-            Prepare-se para uma aventura cheia de descobertas,
-            desafios e conhecimento!
-        </p>
+            <span class="etiqueta">APRENDA JOGANDO</span>
 
-        <div class="card-apresentacao">
+            <h1>
+                BIO <span>GAME</span>
+            </h1>
             <p>
-                Este jogo é voltado para o ensino de conteúdos de Biologia
-                do Ensino Fundamental.
-                Seu objetivo é estimular a memória, a concentração e o
-                raciocínio por meio da associação de cartas relacionadas
-                a temas da disciplina.
-
-                Além disso, o jogo foi desenvolvido com recursos de
-                acessibilidade para pessoas com baixa visão, como opções
-                de contraste, ampliação do texto e leitura por voz,
-                buscando proporcionar uma experiência de aprendizagem
-                mais inclusiva.
+                Prepare-se para uma aventura cheia de descobertas,
+                desafios e conhecimento!
             </p>
+
+            <div class="card-apresentacao">
+                <p>
+                    Este jogo é voltado para o ensino de conteúdos de Biologia
+                    do Ensino Fundamental.
+                    Seu objetivo é estimular a memória, a concentração e o
+                    raciocínio por meio da associação de cartas relacionadas
+                    a temas da disciplina.
+
+                    Além disso, o jogo foi desenvolvido com recursos de
+                    acessibilidade para pessoas com baixa visão, como opções
+                    de contraste, ampliação do texto e leitura por voz,
+                    buscando proporcionar uma experiência de aprendizagem
+                    mais inclusiva.
+                </p>
+            </div>
+
+            <div class="acoes-apresentacao">
+                <button type="button" class="botao-aventura" (click)="escolherJogo()">
+                    Vamos começar! <span aria-hidden="true">➜</span>
+                </button>
+
+                <button type="button" class="botao-instrucoes"
+                    (click)="secaoHistoria.scrollIntoView({ behavior: 'smooth', block: 'start' }); secaoHistoria.focus({ preventScroll: true })">
+                    Ver instruções <span aria-hidden="true">↓</span>
+                </button>
+            </div>
+
         </div>
 
-        <button type="button" class="botao-aventura" (click)="escolherJogo()">
-            Vamos começar! <span aria-hidden="true">➜</span>
-        </button>
-
+        <!-- Fica abaixo da primeira tela (só aparece ao rolar) -->
         <div class="mascote-principal" aria-label="Lumi, a raposinha">
             <img src="/imagens/personagem.png" alt="Raposa mascote" class="mascote-imagem">
             <span class="estrela-mascote" aria-hidden="true">⭐</span>
@@ -50,8 +63,9 @@
 
     </section>
 
-    <!-- HISTÓRIA DOS PERSONAGENS -->
-    <section class="historia">
+    <!-- HISTÓRIA DOS PERSONAGENS
+         Só mudou a abertura da section: ganhou #secaoHistoria e tabindex="-1" -->
+    <section #secaoHistoria class="historia" tabindex="-1">
 
         <div class="titulo-secao">
             <span class="etiqueta">CONHEÇA SEUS GUIAS</span>

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar';
 import { SomService } from '../../services/som.service';
@@ -67,6 +67,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
     private som: SomService
@@ -83,7 +84,17 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
     // Aguarda a página terminar de carregar
     setTimeout(() => {
-      window.scrollTo(0, 0);
+
+      if (this.route.snapshot.fragment === 'secao-jogos') {
+        // Veio do botão "Voltar" das instruções: vai direto para a escolha
+        // de temas e coloca o foco no primeiro botão de tema
+        document.getElementById('secao-jogos')?.scrollIntoView({ block: 'start' });
+        this.botoes?.first?.nativeElement.focus({ preventScroll: true });
+        this.indiceSelecionado = 0;
+      } else {
+        window.scrollTo(0, 0);
+      }
+
       this.revelarEtapas();
     }, 100);
   }
@@ -216,12 +227,21 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       lista.some(jogo => jogo.id === this.temaSelecionado);
   }
 
-  // Leva a criança até a seção dos jogos (só rola a página, não mexe no foco)
+  // Leva a criança até a seção dos jogos e coloca o foco no primeiro
+  // botão de tema (Biologia Celular), para seguir com o teclado
   escolherJogo() {
     document.getElementById('secao-jogos')?.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     });
+
+    const primeiroTema = this.botoes?.first?.nativeElement;
+
+    if (primeiroTema) {
+      this.indiceSelecionado = 0;
+      // preventScroll evita que o foco interrompa a rolagem suave
+      primeiroTema.focus({ preventScroll: true });
+    }
   }
 
   selecionarTema(idJogo: number) {
@@ -289,7 +309,9 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     el.scrollIntoView({ block: 'center' });
   }
 
-  // Botões que ficam um embaixo do outro na página, na ordem do documento
+  // Botões que ficam um embaixo do outro na página, na ordem do documento.
+  // "Ver instruções" não entra aqui porque fica na mesma linha de
+  // "Vamos começar!" (a navegação entre os dois é feita com ← e →).
   private obterBotoesVerticais(): HTMLElement[] {
     return Array.from(
       document.querySelectorAll<HTMLElement>(
@@ -344,8 +366,13 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
     // Nenhum elemento focado: as setas ↑/↓ passam a focar os botões,
     // sem precisar apertar Tab antes
+    // A seção "Conheça seus guias" recebe foco ao clicar em "Ver instruções"
+    // (para leitores de tela), mas não é um botão: conta como "sem foco".
     const semFoco =
-      !ativo || ativo === document.body || ativo === document.documentElement;
+      !ativo ||
+      ativo === document.body ||
+      ativo === document.documentElement ||
+      ativo.classList.contains('historia');
 
     if (semFoco) {
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -442,7 +469,35 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    // ===== 3) Botões da apresentação / história =====
+    // ===== 3) Botões lado a lado da apresentação =====
+    // ← e → alternam entre "Vamos começar!" e "Ver instruções".
+    // Os dois já estão visíveis, então o foco muda sem rolar a página.
+    // Pega todos os botões da seção de apresentação (não depende do nome
+    // da classe de cada botão) e anda entre eles na ordem em que aparecem.
+    const botoesApresentacao = Array.from(
+      document.querySelectorAll<HTMLElement>('.apresentacao button')
+    );
+    const posicaoApresentacao = botoesApresentacao.indexOf(ativo);
+
+    if (posicaoApresentacao !== -1) {
+      if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        const passo = event.key === 'ArrowRight' ? 1 : -1;
+        const total = botoesApresentacao.length;
+        const proximo = botoesApresentacao[(posicaoApresentacao + passo + total) % total];
+        proximo.focus({ preventScroll: true });
+        return;
+      }
+
+      // ↓ em qualquer botão da apresentação vai para o primeiro botão "Ouvir"
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        this.focar(document.querySelector<HTMLElement>('.botao-ouvir'));
+        return;
+      }
+    }
+
+    // ===== 4) Botões da apresentação / história =====
     const lista = this.obterBotoesVerticais();
     const i = lista.indexOf(ativo);
     if (i === -1) return;
