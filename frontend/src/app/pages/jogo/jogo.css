@@ -153,7 +153,7 @@
     background-color: var(--fundo-carta, #222242);
     color: var(--texto-carta, #ffffff);
 
-    border: 3px solid var(--amarelo);
+    border: 3px solid var(--texto-carta, var(--amarelo));
     border-radius: 18px;
     box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
 
@@ -177,7 +177,7 @@
 .carta:not(.virada):not(.acertada) .conteudo-carta {
     font-size: calc(40px * var(--escala-cartas, 1));
     font-weight: 900;
-    color: var(--amarelo);
+    color: inherit;
 }
 
 .carta:hover {
@@ -201,7 +201,7 @@
 .carta.virada {
     background-color: var(--fundo-carta, #222242);
     color: var(--texto-carta, #ffffff);
-    border-color: var(--turquesa);
+    border-color: var(--texto-carta, var(--turquesa));
     animation: virarCarta 0.4s;
 }
 
@@ -410,22 +410,18 @@
     color: var(--amarelo-escuro);
 }
 
-/* Cartas */
+/* Cartas: fundo, texto e borda sempre vêm como um conjunto */
 :host-context(html[data-bs-theme="light"]) .carta {
     background-color: var(--fundo-carta, #fff8d6);
     color: var(--texto-carta, #15152b);
-    border-color: var(--tinta);
-    box-shadow: 0 6px 0 var(--tinta);
-}
-
-:host-context(html[data-bs-theme="light"]) .carta:not(.virada):not(.acertada) .conteudo-carta {
-    color: var(--amarelo-escuro);
+    border-color: var(--texto-carta, var(--tinta));
+    box-shadow: 0 6px 0 var(--texto-carta, var(--tinta));
 }
 
 :host-context(html[data-bs-theme="light"]) .carta:hover {
     background-color: var(--fundo-carta-interacao, #ffefa8);
     color: var(--texto-carta, #15152b);
-    box-shadow: 0 10px 0 var(--tinta);
+    box-shadow: 0 10px 0 var(--texto-carta, var(--tinta));
 }
 
 :host-context(html[data-bs-theme="light"]) .carta:focus,
@@ -438,12 +434,13 @@
 :host-context(html[data-bs-theme="light"]) .carta.virada {
     background-color: var(--fundo-carta, #e3fbf8);
     color: var(--texto-carta, #15152b);
-    border-color: var(--turquesa-escuro);
-    box-shadow: 0 6px 0 var(--turquesa-escuro);
+    border-color: var(--texto-carta, var(--turquesa-escuro));
+    box-shadow: 0 6px 0 var(--texto-carta, var(--turquesa-escuro));
 }
 
 :host-context(html[data-bs-theme="light"]) .carta.acertada {
     background-color: var(--fundo-carta, #eefbe3);
+    color: var(--texto-carta, #15152b);
     border-color: var(--verde-escuro);
     box-shadow:
         0 0 0 3px var(--verde-escuro),
@@ -453,7 +450,7 @@
 :host-context(html[data-bs-theme="light"]) .carta.acertada::after {
     background-color: var(--verde-escuro);
     color: #ffffff;
-    border-color: var(--tinta);
+    border-color: #ffffff;
 }
 
 /* Fim de jogo */
@@ -588,36 +585,4 @@
     .carta:focus-visible {
         transform: none;
     }
-}
-
-/* =========================
-   SAIBA MAIS COMO JANELA CENTRALIZADA
-   (evita estourar o fim da página e cobrir as cartas)
-========================= */
-
-app-saiba-mais {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    overflow-y: auto;
-
-    background-color: rgba(9, 9, 24, 0.85);
-}
-
-/* Cartão interno: sai do posicionamento absoluto e centraliza */
-:host ::ng-deep app-saiba-mais > * {
-    position: static !important;
-    inset: auto !important;
-    transform: none !important;
-
-    width: 100% !important;
-    max-width: 560px !important;
-    max-height: 90vh;
-    margin: auto !important;
-    overflow-y: auto;
 }
