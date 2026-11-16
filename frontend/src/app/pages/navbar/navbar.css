@@ -1,3 +1,4 @@
+
 .navbar-custom {
   background: #15152b;
   border-bottom: 3px solid #ff9b9f;
@@ -21,21 +22,25 @@
   border-radius: 12px;
 }
 
-.navbar-brand strong {
-  color: #ffdf4d;
+.marca-icone {
+  display: block;
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  transition: transform 0.25s ease, filter 0.25s ease;
 }
 
-.marca-icone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  color: #15152b;
-  background: #ff9b9f;
-  border: 2px solid #ffffff;
-  border-radius: 12px;
-  font-size: 1.4rem;
+.navbar-brand:hover .marca-icone {
+  transform: scale(1.2) translateY(-3px);
+  filter: drop-shadow(0 0 8px #75e6da);
+}
+
+.navbar-brand:focus-visible .marca-icone {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 8px #75e6da);
+  outline: 2px solid #75e6da;
+  outline-offset: 4px;
+  border-radius: 5px;
 }
 
 .navbar-brand:hover strong,
@@ -189,8 +194,8 @@
   }
 
   .marca-icone {
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
   }
 
   .navbar-acoes {
@@ -206,6 +211,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .navbar-brand .marca-icone,
   .botao-entrar,
   .botao-sair,
   .usuario-logado,

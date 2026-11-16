@@ -83,14 +83,14 @@
 
 .apresentacao h1 {
     margin: 14px 0 8px;
-    color: #ffffff;
-    font-size: clamp(2.2rem, 9vh, 4.5rem);
     line-height: 1.1;
-    font-weight: 900;
 }
 
-.apresentacao h1 span {
-    color: var(--amarelo);
+.titulo-logo img {
+    width: 350px;
+    max-width: 90%;
+    height: auto;
+    object-fit: contain;
 }
 
 .apresentacao-topo>p {
