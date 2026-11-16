@@ -1,3 +1,4 @@
+
 <div
   class="card-saiba-mais"
   role="dialog"
@@ -15,7 +16,19 @@
     <span>Saiba mais sobre: {{ titulo }}</span>
   </h2>
 
-  <p id="textoSaibaMais" class="texto-saiba-mais">{{ texto }}</p>
+  <p id="textoSaibaMais" class="texto-saiba-mais">
+    {{ texto }}
+
+    @if (link) {
+      <a
+        [href]="link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        site sobre o assunto
+      </a>
+    }
+  </p>
 
   <button
     #botaoContinuar

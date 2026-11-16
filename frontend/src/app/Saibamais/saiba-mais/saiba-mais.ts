@@ -20,6 +20,7 @@ export class SaibaMais implements AfterViewInit {
 
   @Input() titulo = '';
   @Input() texto = '';
+  @Input() link = '';
 
   @Output() continuar = new EventEmitter<void>();
 

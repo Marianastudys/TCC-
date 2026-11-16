@@ -61,6 +61,7 @@ export class Jogo implements OnInit {
   tituloSaibaMais = '';
   textoSaibaMais = '';
   cartaSaibaMais: any = null;
+  linkSaibaMais = '';
   
   indiceCartaSaibaMais = 0;
 
@@ -146,6 +147,8 @@ iniciarJogo(): void {
         titulo: carta.titulo,
 
         saibaMais: carta.saiba_mais,
+
+        linkSaibaMais: carta.link_saiba_mais,
 
         virada: false,
 
@@ -245,7 +248,7 @@ virarCarta(carta: any) {
 
       this.tituloSaibaMais = this.primeiraCarta.titulo;
       this.textoSaibaMais = this.primeiraCarta.saibaMais;
-
+      this.linkSaibaMais = this.primeiraCarta.linkSaibaMais;
       this.mostrarSaibaMais = true;
 
       this.score += 100;

@@ -1,3 +1,4 @@
+
 var express = require('express');
 
 var router = express.Router();
@@ -31,10 +32,10 @@ router.get('/jogo/:id', function(req, res) {
     console.log('Quantidade de pares:', quantidadePares);
 
     const sql = `
-    SELECT cartas.*, pares_lim.saiba_mais, pares_lim.titulo
+    SELECT cartas.*, pares_lim.saiba_mais, pares_lim.titulo, pares_lim.link_saiba_mais
     FROM cartas
     INNER JOIN (
-        SELECT id, saiba_mais, titulo
+        SELECT id, saiba_mais, titulo, link_saiba_mais
         FROM pares
         WHERE id_jogo = ?
         ORDER BY RAND()
