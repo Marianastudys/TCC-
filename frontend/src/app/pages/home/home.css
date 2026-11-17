@@ -42,7 +42,7 @@
     position: relative;
     isolation: isolate;
     min-height: auto;
-    padding: 24px 20px 24px;
+    padding: 15px 15px 15px;
     text-align: center;
     overflow: hidden;
 
@@ -1308,10 +1308,12 @@
 
 .icone-tema {
     display: block;
-    width: 70px;
-    height: 70px;
+    width: 95%;
+    max-width: 360px;
+    height: auto;
     object-fit: contain;
-    margin-bottom: 18px;
+    margin: 0 auto 18px;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
 }
 
 .personagem img {
@@ -1480,9 +1482,21 @@
     outline-color: var(--tinta);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
     .botao-instrucoes {
         width: 100%;
         max-width: 320px;
+    }
+
+    .card-biologia .card-body > div,
+    .card-genetica .card-body > div,
+    .card-ecologia .card-body > div {
+        width: 100%;
+    }
+
+    .icone-tema {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
