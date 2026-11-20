@@ -1,21 +1,13 @@
 import {
-
   Component,
-
   OnInit,
-
+  OnDestroy,
   ChangeDetectorRef,
-
   ViewChildren,
-
   QueryList,
-
   ElementRef,
-
   ViewChild,
-
   HostListener
-
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -24,6 +16,7 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar';
 import { SaibaMais } from '../../Saibamais/saiba-mais/saiba-mais';
 import { InstrucoesJogo } from '../../instrucoes-jogo/instrucoes-jogo';
+
 @Component({
   selector: 'app-jogo',
   standalone: true,
@@ -31,8 +24,7 @@ import { InstrucoesJogo } from '../../instrucoes-jogo/instrucoes-jogo';
   templateUrl: './jogo.html',
   styleUrls: ['./jogo.css']
 })
-
-export class Jogo implements OnInit {
+export class Jogo implements OnInit, OnDestroy {
 
   mostrarInstrucoes = true;
   idJogo: number = 0;
@@ -42,10 +34,7 @@ export class Jogo implements OnInit {
   indicesErrados: number[] = [];
 
   primeiraCarta: any = null;
-
   segundaCarta: any = null;
-
-  
 
   acertos = 0;
   erros = 0;
@@ -62,143 +51,137 @@ export class Jogo implements OnInit {
   textoSaibaMais = '';
   cartaSaibaMais: any = null;
   linkSaibaMais = '';
-  
+
   indiceCartaSaibaMais = 0;
+
+  // Timer que atrasa em 1 segundo a exibição do card "Saiba mais"
+  timerSaibaMais: any = null;
+  readonly atrasoSaibaMais = 1000;
 
   somCarta = new Audio('sounds/flip.mp3');
   somAcerto = new Audio('sounds/correct.mp3');
-
   somErro = new Audio('sounds/error.mp3');
 
   @ViewChildren('cartaBotao')
-
   cartasBotoes!: QueryList<ElementRef>;
 
+  @ViewChild('botaoReiniciar')
+  botaoReiniciar!: ElementRef<HTMLButtonElement>;
+
+  @ViewChild('botaoSair')
+  botaoSair!: ElementRef<HTMLButtonElement>;
+
   constructor(
-
     private route: ActivatedRoute,
-
     private http: HttpClient,
-
     private cdr: ChangeDetectorRef,
-
     private router: Router
-
   ) { }
 
   ngOnInit() {
 
-  this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(params => {
 
-    this.idJogo = Number(params.get('id'));
+      this.idJogo = Number(params.get('id'));
 
-    this.route.queryParamMap.subscribe(queryParams => {
+      this.route.queryParamMap.subscribe(queryParams => {
 
-      this.dificuldade =
-        queryParams.get('dificuldade') || 'facil';
+        this.dificuldade =
+          queryParams.get('dificuldade') || 'facil';
 
-      console.log('ID DO JOGO:', this.idJogo);
-      console.log('DIFICULDADE:', this.dificuldade);
+        console.log('ID DO JOGO:', this.idJogo);
+        console.log('DIFICULDADE:', this.dificuldade);
 
-      this.acertos = 0;
-      this.erros = 0;
-      this.score = 0;
+        clearTimeout(this.timerSaibaMais);
 
-      this.primeiraCarta = null;
-      this.segundaCarta = null;
+        this.acertos = 0;
+        this.erros = 0;
+        this.score = 0;
 
-      this.bloquearJogo = false;
-      this.jogoFinalizado = false;
+        this.primeiraCarta = null;
+        this.segundaCarta = null;
 
-      this.cartas = [];
+        this.bloquearJogo = false;
+        this.jogoFinalizado = false;
 
-
-    });
-
-  });
-
-}
-
-iniciarJogo(): void {
-  this.mostrarInstrucoes = false;
-
-  this.buscarCartas(
-    this.idJogo,
-    this.dificuldade
-  );
-}
-
-  buscarCartas(idJogo: number, dificuldade: string) {
-
-  this.http.get<any[]>(
-    `http://localhost:3000/cartas/jogo/${idJogo}?dificuldade=${dificuldade}`
-  )
-
-    .subscribe((resultado) => {
-
-      console.log('CARTAS:', resultado);
-
-      this.cartas = resultado.map(carta => ({
-
-        id: carta.par_id,
-
-        conteudo: carta.conteudo,
-
-        titulo: carta.titulo,
-
-        saibaMais: carta.saiba_mais,
-
-        linkSaibaMais: carta.link_saiba_mais,
-
-        virada: false,
-
-        acertada: false
-
-      }));
-
-      this.embaralharCartas();
-
-      this.cdr.detectChanges();
-
-      setTimeout(() => {
-
-        const primeiraCarta =
-          this.cartasBotoes.first;
-
-        if (primeiraCarta) {
-          primeiraCarta.nativeElement.focus();
-        }
+        this.cartas = [];
 
       });
 
     });
 
-}
+  }
 
+  ngOnDestroy(): void {
+    clearTimeout(this.timerSaibaMais);
+  }
+
+  iniciarJogo(): void {
+    this.mostrarInstrucoes = false;
+
+    this.buscarCartas(
+      this.idJogo,
+      this.dificuldade
+    );
+  }
+
+  buscarCartas(idJogo: number, dificuldade: string) {
+
+    this.http.get<any[]>(
+      `http://localhost:3000/cartas/jogo/${idJogo}?dificuldade=${dificuldade}`
+    )
+
+      .subscribe((resultado) => {
+
+        console.log('CARTAS:', resultado);
+
+        this.cartas = resultado.map(carta => ({
+          id: carta.par_id,
+          conteudo: carta.conteudo,
+          titulo: carta.titulo,
+          saibaMais: carta.saiba_mais,
+          linkSaibaMais: carta.link_saiba_mais,
+          virada: false,
+          acertada: false
+        }));
+
+        this.embaralharCartas();
+
+        this.cdr.detectChanges();
+
+        setTimeout(() => {
+
+          const primeiraCarta =
+            this.cartasBotoes.first;
+
+          if (primeiraCarta) {
+            primeiraCarta.nativeElement.focus();
+          }
+
+        });
+
+      });
+
+  }
 
   embaralharCartas() {
-
     this.cartas.sort(() => Math.random() - 0.5);
-
   }
 
-virarCarta(carta: any) {
-  if (
-    carta.virada ||
+  virarCarta(carta: any) {
 
-    this.bloquearJogo ||
-
-    this.jogoFinalizado ||
-
-    this.mostrarSaibaMais
-  ) {
-    return;
-  }
+    if (
+      carta.virada ||
+      this.bloquearJogo ||
+      this.jogoFinalizado ||
+      this.mostrarSaibaMais
+    ) {
+      return;
+    }
 
     carta.virada = true;
 
     this.somCarta.currentTime = 0;
-
     this.somCarta.play();
 
     this.falarTexto(carta.conteudo);
@@ -216,13 +199,10 @@ virarCarta(carta: any) {
       this.bloquearJogo = true;
 
       const tempoLeitura =
-
         carta.conteudo.length * 90;
 
       setTimeout(() => {
-
         this.verificarPar();
-
       }, tempoLeitura);
 
     }
@@ -231,34 +211,33 @@ virarCarta(carta: any) {
 
   verificarPar() {
 
-    if (
-
-      this.primeiraCarta.id ===
-
-      this.segundaCarta.id
-
-    ) {
+    if (this.primeiraCarta.id === this.segundaCarta.id) {
 
       this.acertos++;
 
-      this.cartaSaibaMais = this.primeiraCarta;
+      // Guarda a carta e o índice agora, porque resetarJogada()
+      // zera primeiraCarta logo em seguida.
+      const cartaAcertada = this.primeiraCarta;
+      const indiceAcertada = this.cartas.indexOf(cartaAcertada);
 
-      this.indiceCartaSaibaMais =
-      this.cartas.indexOf(this.primeiraCarta);
-
-      this.tituloSaibaMais = this.primeiraCarta.titulo;
-      this.textoSaibaMais = this.primeiraCarta.saibaMais;
-      this.linkSaibaMais = this.primeiraCarta.linkSaibaMais;
-      this.mostrarSaibaMais = true;
+      // O card "Saiba mais" aparece só 5 segundos após o acerto
+      clearTimeout(this.timerSaibaMais);
+      this.timerSaibaMais = setTimeout(() => {
+        this.cartaSaibaMais = cartaAcertada;
+        this.indiceCartaSaibaMais = indiceAcertada;
+        this.tituloSaibaMais = cartaAcertada.titulo;
+        this.textoSaibaMais = cartaAcertada.saibaMais;
+        this.linkSaibaMais = cartaAcertada.linkSaibaMais;
+        this.mostrarSaibaMais = true;
+        this.cdr.detectChanges();
+      }, this.atrasoSaibaMais);
 
       this.score += 100;
 
       this.somAcerto.currentTime = 0;
-
       this.somAcerto.play();
 
       this.primeiraCarta.acertada = true;
-
       this.segundaCarta.acertada = true;
 
       this.cdr.detectChanges();
@@ -266,29 +245,24 @@ virarCarta(carta: any) {
       this.somAcerto.onended = () => {
         this.falarTexto(`Par correto. Você ganhou 100 pontos e 
           agora tem ${this.score} pontos.`);
-};
+      };
 
-      if (
-      this.acertos ===
-      this.cartas.length / 2
-) {
+      if (this.acertos === this.cartas.length / 2) {
 
-      this.jogoFinalizado = true;
+        this.jogoFinalizado = true;
 
-  // Salva a partida no banco
-      this.salvarPartida(this.idJogo);
+        // Salva a partida no banco
+        this.salvarPartida(this.idJogo);
 
-      this.cdr.detectChanges();
+        this.cdr.detectChanges();
 
-      this.somAcerto.onended = () => {
+        this.somAcerto.onended = () => {
+          this.falarTexto(
+            `Parabéns! Você concluiu o jogo com um total de ${this.score} pontos.`
+          );
+        };
 
-      this.falarTexto(
-        `Parabéns! Você concluiu o jogo com um total de ${this.score} pontos.`
-    );
-
-  };
-
-}
+      }
 
       this.resetarJogada();
 
@@ -300,15 +274,11 @@ virarCarta(carta: any) {
       this.score = Math.max(0, this.score - 20);
 
       this.somErro.currentTime = 0;
-
       this.somErro.play();
 
       this.indicesErrados = [
-
         this.cartas.indexOf(this.primeiraCarta),
-
         this.cartas.indexOf(this.segundaCarta)
-
       ];
 
       this.cdr.detectChanges();
@@ -316,12 +286,11 @@ virarCarta(carta: any) {
       this.somErro.onended = () => {
         this.falarTexto(`Par incorreto. Você perdeu 20 pontos e 
           agora tem ${this.score} pontos.`);
-};
+      };
 
       setTimeout(() => {
 
         this.primeiraCarta.virada = false;
-
         this.segundaCarta.virada = false;
 
         this.indicesErrados = [];
@@ -335,124 +304,87 @@ virarCarta(carta: any) {
   }
 
   resetarJogada() {
+    this.primeiraCarta = null;
+    this.segundaCarta = null;
+    this.bloquearJogo = false;
+  }
+
+  salvarPartida(idJogo: number) {
+
+    const usuarioSalvo =
+      localStorage.getItem('usuarioLogado');
+
+    if (!usuarioSalvo) {
+      console.error('Nenhum usuário está logado.');
+      return;
+    }
+
+    const usuario = JSON.parse(usuarioSalvo);
+
+    const dadosPartida = {
+      id_usuario: usuario.id,
+      id_jogo: idJogo,
+      dificuldade: this.dificuldade,
+      acertos: this.acertos,
+      erros: this.erros,
+      score: this.score
+    };
+
+    console.log('SALVANDO PARTIDA:', dadosPartida);
+
+    this.http.post(
+      'http://localhost:3000/usuario/partidas',
+      dadosPartida
+    )
+      .subscribe({
+        next: (resposta) => {
+          console.log('Partida salva:', resposta);
+        },
+        error: (erro) => {
+          console.error('Erro ao salvar partida:', erro);
+        }
+      });
+
+  }
+
+  reiniciarJogo() {
+
+    clearTimeout(this.timerSaibaMais);
+
+    this.jogoFinalizado = false;
+
+    this.acertos = 0;
+    this.erros = 0;
+    this.score = 0;
 
     this.primeiraCarta = null;
-
     this.segundaCarta = null;
 
     this.bloquearJogo = false;
 
-  }
+    this.indicesErrados = [];
 
-salvarPartida(idJogo: number) {
+    this.cartas.forEach(carta => {
+      carta.virada = false;
+      carta.acertada = false;
+    });
 
-  const usuarioSalvo =
-    localStorage.getItem('usuarioLogado');
-
-
-  if (!usuarioSalvo) {
-
-    console.error(
-      'Nenhum usuário está logado.'
-    );
-
-    return;
+    this.embaralharCartas();
 
   }
 
+  sairJogo(): void {
+    clearTimeout(this.timerSaibaMais);
+    speechSynthesis.cancel();
+    this.router.navigate(['/home']);
+  }
 
-  const usuario =
-    JSON.parse(usuarioSalvo);
-
-
-const dadosPartida = {
-
-  id_usuario: usuario.id,
-
-  id_jogo: idJogo,
-
-  dificuldade: this.dificuldade,
-
-  acertos: this.acertos,
-
-  erros: this.erros,
-
-  score: this.score
-
-};
-
-
-  console.log(
-    'SALVANDO PARTIDA:',
-    dadosPartida
-  );
-
-
-  this.http.post(
-    'http://localhost:3000/usuario/partidas',
-    dadosPartida
-  )
-
-  .subscribe({
-
-    next: (resposta) => {
-
-      console.log(
-        'Partida salva:',
-        resposta
-      );
-
-    },
-
-    error: (erro) => {
-
-      console.error(
-        'Erro ao salvar partida:',
-        erro
-      );
-
-    }
-
-  });
-
-}
-
-  reiniciarJogo() {
-
-  this.jogoFinalizado = false;
-
-  this.acertos = 0;
-  this.erros = 0;
-  this.score = 0;
-
-  this.primeiraCarta = null;
-  this.segundaCarta = null;
-
-  this.bloquearJogo = false;
-
-  this.indicesErrados = [];
-
-  this.cartas.forEach(carta => {
-
-    carta.virada = false;
-    carta.acertada = false;
-
-  });
-
-  this.embaralharCartas();
-
-}
-
-sairJogo(): void {
-  speechSynthesis.cancel();
-  this.router.navigate(['/home']);
-}
-
-// Botão "Voltar" das instruções: volta para a escolha de temas na Home
-voltarParaTemas(): void {
-  speechSynthesis.cancel();
-  this.router.navigate(['/home'], { fragment: 'secao-jogos' });
-}
+  // Botão "Voltar" das instruções: volta para a escolha de temas na Home
+  voltarParaTemas(): void {
+    clearTimeout(this.timerSaibaMais);
+    speechSynthesis.cancel();
+    this.router.navigate(['/home'], { fragment: 'secao-jogos' });
+  }
 
   falarTexto(texto: string) {
 
@@ -461,172 +393,134 @@ voltarParaTemas(): void {
     const audio = new SpeechSynthesisUtterance(texto);
 
     audio.lang = 'pt-BR';
-
     audio.rate = 0.9;
-
     audio.volume = 1;
 
     speechSynthesis.speak(audio);
 
   }
 
-moverFoco(event: KeyboardEvent, indice: number) {
+  moverFoco(event: KeyboardEvent, indice: number) {
 
-if (this.mostrarSaibaMais) {
-  event.preventDefault();
-  event.stopPropagation();
-  return;
-}
-
-  let novoIndice = indice;
-
-  const total = this.cartas.length;
-
-  const colunas = window.innerWidth <= 480
-
-    ? 1
-
-    : window.innerWidth <= 768
-
-    ? 2
-
-    : 4;
-
-  if (event.key === 'ArrowRight') {
-
-    novoIndice++;
-
-  }
-
-  else if (event.key === 'ArrowLeft') {
-
-    novoIndice--;
-
-  }
-
-  else if (event.key === 'ArrowDown') {
-
-    novoIndice += colunas;
-
-  }
-
-  else if (event.key === 'ArrowUp') {
-
-    novoIndice -= colunas;
-
-  }
-
-  else {
-
-    return;
-
-  }
-
-  event.preventDefault();
-
-  if (
-
-    novoIndice < 0 ||
-
-    novoIndice >= total
-
-  ) {
-
-    return;
-
-  }
-
-  const elemento =
-
-    this.cartasBotoes.toArray()[novoIndice];
-
-  if (elemento) {
-
-    elemento.nativeElement.focus();
-
-  }
-
-}
-
-alternarTema() {
-  const html = document.documentElement;
-  const temaAtual = html.getAttribute('data-bs-theme');
-
-  html.setAttribute(
-    'data-bs-theme',
-    temaAtual === 'dark' ? 'light' : 'dark'
-  );
-}
-
-@ViewChild('botaoReiniciar')
-botaoReiniciar!: ElementRef<HTMLButtonElement>;
-
-@ViewChild('botaoSair')
-botaoSair!: ElementRef<HTMLButtonElement>;
-
-@HostListener('document:keydown', ['$event'])
-navegarFim(event: KeyboardEvent) {
-
-  if (this.mostrarSaibaMais) {
-  if (event.key === 'Enter' || event.code === 'NumpadEnter') {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    this.fecharSaibaMais();
-  }
-
-  return;
-}
-
-  if (!this.jogoFinalizado) {
-    return;
-  }
-
-  const ativo = document.activeElement;
-
-  if (
-    event.key === 'ArrowRight' &&
-    ativo === this.botaoReiniciar?.nativeElement
-  ) {
-    event.preventDefault();
-    this.botaoSair?.nativeElement.focus();
-  }
-
-  else if (
-    event.key === 'ArrowLeft' &&
-    ativo === this.botaoSair?.nativeElement
-  ) {
-    event.preventDefault();
-    this.botaoReiniciar?.nativeElement.focus();
-  }
-
-  else if (event.key === 'ArrowUp') {
-    event.preventDefault();
-    this.cartasBotoes.last?.nativeElement.focus();
-  }
-}
-
-fecharSaibaMais(): void {
-  this.mostrarSaibaMais = false;
-  this.cartaSaibaMais = null;
-
-  this.cdr.detectChanges();
-
-  requestAnimationFrame(() => {
-    if (this.jogoFinalizado) {
-      this.botaoReiniciar?.nativeElement.focus();
+    if (this.mostrarSaibaMais) {
+      event.preventDefault();
+      event.stopPropagation();
       return;
     }
 
-    const botao = this.cartasBotoes.toArray()[
-      this.indiceCartaSaibaMais
-    ];
+    let novoIndice = indice;
 
-    if (botao) {
-      botao.nativeElement.focus();
-      this.indiceAtual = this.indiceCartaSaibaMais;
+    const total = this.cartas.length;
+
+    const colunas = window.innerWidth <= 480
+      ? 1
+      : window.innerWidth <= 768
+        ? 2
+        : 4;
+
+    if (event.key === 'ArrowRight') {
+      novoIndice++;
     }
-  });
-}
+    else if (event.key === 'ArrowLeft') {
+      novoIndice--;
+    }
+    else if (event.key === 'ArrowDown') {
+      novoIndice += colunas;
+    }
+    else if (event.key === 'ArrowUp') {
+      novoIndice -= colunas;
+    }
+    else {
+      return;
+    }
 
+    event.preventDefault();
+
+    if (novoIndice < 0 || novoIndice >= total) {
+      return;
+    }
+
+    const elemento =
+      this.cartasBotoes.toArray()[novoIndice];
+
+    if (elemento) {
+      elemento.nativeElement.focus();
+    }
+
+  }
+
+  alternarTema() {
+    const html = document.documentElement;
+    const temaAtual = html.getAttribute('data-bs-theme');
+
+    html.setAttribute(
+      'data-bs-theme',
+      temaAtual === 'dark' ? 'light' : 'dark'
+    );
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  navegarFim(event: KeyboardEvent) {
+
+    if (this.mostrarSaibaMais) {
+      if (event.key === 'Enter' || event.code === 'NumpadEnter') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        this.fecharSaibaMais();
+      }
+
+      return;
+    }
+
+    if (!this.jogoFinalizado) {
+      return;
+    }
+
+    const ativo = document.activeElement;
+
+    if (
+      event.key === 'ArrowRight' &&
+      ativo === this.botaoReiniciar?.nativeElement
+    ) {
+      event.preventDefault();
+      this.botaoSair?.nativeElement.focus();
+    }
+
+    else if (
+      event.key === 'ArrowLeft' &&
+      ativo === this.botaoSair?.nativeElement
+    ) {
+      event.preventDefault();
+      this.botaoReiniciar?.nativeElement.focus();
+    }
+
+    else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.cartasBotoes.last?.nativeElement.focus();
+    }
+  }
+
+  fecharSaibaMais(): void {
+    this.mostrarSaibaMais = false;
+    this.cartaSaibaMais = null;
+
+    this.cdr.detectChanges();
+
+    requestAnimationFrame(() => {
+      if (this.jogoFinalizado) {
+        this.botaoReiniciar?.nativeElement.focus();
+        return;
+      }
+
+      const botao = this.cartasBotoes.toArray()[
+        this.indiceCartaSaibaMais
+      ];
+
+      if (botao) {
+        botao.nativeElement.focus();
+        this.indiceAtual = this.indiceCartaSaibaMais;
+      }
+    });
+  }
 
 }

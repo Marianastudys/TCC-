@@ -45,7 +45,7 @@
     flex-direction: column;
 
     width: 100%;
-    max-width: 760px;
+    max-width: 800px;
     max-height: 85vh;
     min-height: 0;
 
@@ -83,14 +83,14 @@
     min-height: 0;
     max-height: 85vh;
 
-    padding: 68px 46px 42px;
+    padding: 58px 40px 26px;
     box-sizing: border-box;
 
     overflow-x: hidden;
     overflow-y: auto;
 
     overscroll-behavior: contain;
-    scrollbar-gutter: stable;
+    scrollbar-gutter: auto;
 
     scrollbar-width: thin;
     scrollbar-color: var(--cor-tema) #191a22;
@@ -160,22 +160,26 @@
     font-weight: 800;
     line-height: 1.25;
 
-    margin: 0 0 30px;
-    padding-bottom: 20px;
+    margin: 0 0 18px;
+    padding-bottom: 14px;
 
     border-bottom: 1px solid var(--cor-brilho);
 }
-
 /* Textos */
 .card-instrucoes p {
     color: #f0f0f4;
 
     font-size: 18px;
-    line-height: 1.8;
+    line-height: 1.55;
 
-    margin: 0 0 20px;
+    margin: 0 0 12px;
 
     overflow-wrap: break-word;
+}
+
+/* Espaçamento do último parágrafo */
+.card-instrucoes p:last-of-type {
+    margin-bottom: 0;
 }
 
 /* Espaçamento do último parágrafo */
@@ -387,7 +391,7 @@
     justify-content: center;
     gap: 16px;
 
-    margin: 32px 0 0;
+    margin: 20px 0 0;
 }
 
 /* Os botões passam a ser organizados pela linha acima */
@@ -444,24 +448,39 @@
 }
 
 @media (max-width: 768px) {
-    .acoes-instrucoes {
-        margin-top: 26px;
-    }
+    .conteudo-instrucoes {
+    max-height: 90vh;
+    padding: 62px 24px 26px;
+}
+
+.card-instrucoes h1 {
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+}
+
+.card-instrucoes p {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.acoes-instrucoes {
+    margin-top: 20px;
+}
 }
 
 /* Celulares pequenos: botões um embaixo do outro */
 @media (max-width: 400px) {
-    .acoes-instrucoes {
-        flex-direction: column-reverse;
-        gap: 12px;
-    }
+.conteudo-instrucoes {
+    max-height: 92vh;
+    padding: 58px 18px 22px;
+}
 
-    .acoes-instrucoes .botao-comecar,
-    .acoes-instrucoes .botao-voltar {
-        width: 100%;
-        padding: 13px 16px;
-        font-size: 17px;
-    }
+.card-instrucoes p {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-bottom: 12px;
+}
 }
 
 @media (prefers-reduced-motion: reduce) {
