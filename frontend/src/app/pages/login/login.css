@@ -354,3 +354,15 @@
         animation-duration: 0.01ms !important;
     }
 }
+
+/* =========================================
+   LOGO
+========================================= */
+
+.login-card img {
+    display: block;
+    width: 100%;
+    max-width: 130px;   /* ajuste esse valor ao gosto */
+    height: auto;       /* mantém a proporção original */
+    margin: 0 auto 20px;
+}
